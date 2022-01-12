@@ -12,4 +12,8 @@ class Company extends Model
     public function logo(){
         return $this->morphMany(Image::class, 'imageable');
     }
+
+    public function workJobs(){
+        return $this->hasMany(WorkJob::class);
+    }
 }
