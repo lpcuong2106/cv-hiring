@@ -6,20 +6,47 @@ scalar DateTime
     @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query {
-    users: [User!]! @paginate(defaultCount: 10)
+    users: [User!]!
     user(id: ID @eq): User @find
     roles: [Role!]!
+    me: User @auth(guard: "api")
+}
+type Mutation {
+    login(email: String!, password: String!): AuthPayload
+}
+
+type AuthPayload {
+    token: String
+    user: User
+}
+
+interface Modal {
+    id: ID!
 }
 
 type Role {
     id: ID!
     name: String!
+    users: [User]! @hasMany
 }
 
-type User {
+enum GenderEnum {
+    male @enum(value: 0)
+    femail @enum(value: 1)
+}
+# @paginate(defaultCount: 10)
+
+type User implements Modal {
     id: ID!
-    name: String!
+    lastname: String!
+    firstname: String!
+    username: String!
+    address: String
     email: String!
+    phone: String!
+    birthday: DateTime!
     created_at: DateTime!
+    gender: GenderEnum
     updated_at: DateTime!
+    role: Role! @belongsTo
 }

@@ -30,8 +30,8 @@ class CreateUsersTable extends Migration
             $table->bigInteger('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
 
-            $table->bigInteger('province_id')->unsigned();
-            $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
+            // $table->bigInteger('province_id')->unsigned();
+            // $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
 
             $table->rememberToken();
             $table->timestamps();

@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Role;
+use App\Models\User;
 
-class Roles
+class Users
 {
     /**
      * @param  null  $_
@@ -12,7 +12,8 @@ class Roles
      */
     public function __invoke($_, array $args)
     {
-        // $roles = Role::all();
-        // return $roles;
+        // TODO implement the resolver
+        $users = User::all();
+        return $users;
     }
 }

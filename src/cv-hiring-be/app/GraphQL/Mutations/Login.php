@@ -1,10 +1,8 @@
 <?php
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Mutations;
 
-use App\Models\Role;
-
-class Roles
+class Login
 {
     /**
      * @param  null  $_
@@ -12,7 +10,6 @@ class Roles
      */
     public function __invoke($_, array $args)
     {
-        // $roles = Role::all();
-        // return $roles;
+        // TODO implement the resolver
     }
 }

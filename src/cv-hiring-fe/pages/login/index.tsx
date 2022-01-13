@@ -15,9 +15,14 @@ const validationSchema = Yup.object().shape({
 });
 const QUERY = gql`
   query fetchData {
-    roles {
+    user(id: 1) {
       id
-      name
+      lastname
+      firstname
+      role {
+        id
+        name
+      }
     }
   }
 `;
