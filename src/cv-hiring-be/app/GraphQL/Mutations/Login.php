@@ -2,6 +2,11 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\User;
+use Barryvdh\Debugbar\Facades\Debugbar;
+use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\JWTAuth;
+
 class Login
 {
     /**
@@ -10,6 +15,16 @@ class Login
      */
     public function __invoke($_, array $args)
     {
-        // TODO implement the resolver
+    
+        if (! $token = auth()->attempt($args)) {
+            // dd($args);
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+       
+        return [
+            'token' => $token,
+            'user'  => Auth::user()
+        ];
+
     }
 }

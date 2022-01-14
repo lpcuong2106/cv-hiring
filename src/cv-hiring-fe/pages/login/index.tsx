@@ -1,9 +1,12 @@
-import { ErrorMessage, useFormik } from "formik";
+import { useFormik } from "formik";
 import Link from "next/link";
 import React from "react";
 import style from "./style.module.scss";
 import * as Yup from "yup";
-import { gql, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "./QueryData";
+import { Button, message } from "antd";
+import Router from "next/router";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -13,23 +16,9 @@ const validationSchema = Yup.object().shape({
     .min(8, "Vui lòng nhập ít nhất 8 kí tự")
     .required("Password là bắt buộc"),
 });
-const QUERY = gql`
-  query fetchData {
-    user(id: 1) {
-      id
-      lastname
-      firstname
-      role {
-        id
-        name
-      }
-    }
-  }
-`;
 
 const Login = () => {
-  const { data, loading, error } = useQuery(QUERY);
-  console.log(data, loading, error);
+  const [login, { data, loading, error }] = useMutation(LOGIN_USER);
 
   const form = useFormik({
     initialValues: {
@@ -37,13 +26,21 @@ const Login = () => {
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const { email, password } = values;
+      const { data } = await login({ variables: { email, password } });
+
+      if (data && data.login?.token) {
+        localStorage.setItem("token", data.login?.token);
+        message.success("login success");
+        Router.push("/");
+        return;
+      }
+      message.error("login failed");
     },
   });
 
   if (error) {
-    console.error(error);
     return null;
   }
   return (
@@ -91,9 +88,14 @@ const Login = () => {
               ) : null}
             </div>
             <div className="container-login100-form-btn">
-              <button className="login100-form-btn" type="submit">
+              <Button
+                type="primary"
+                className="login100-form-btn"
+                loading={loading}
+                htmlType="submit"
+              >
                 Đăng nhập
-              </button>
+              </Button>
             </div>
 
             <div className="text-center p-t-136">
