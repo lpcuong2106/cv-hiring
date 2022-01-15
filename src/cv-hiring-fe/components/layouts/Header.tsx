@@ -1,12 +1,25 @@
 import React from "react";
-import { Button, Col, Row } from "antd";
+import { Button, Col, message, Row } from "antd";
 import { Menu } from "antd";
 
 import Link from "next/link";
 import styles from "./style.module.scss";
 import { Container } from "react-bootstrap";
+import { useAuth } from "../AuthProvider";
+import { Router, useRouter } from "next/router";
 
 function HeaderNav() {
+  const auth = useAuth();
+  console.log(auth);
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    auth.setIsLogged(false);
+    message.success("Đăng suất thành công!");
+    router.replace("/login");
+  };
+
   return (
     <Container>
       <header>
@@ -40,16 +53,27 @@ function HeaderNav() {
               defaultSelectedKeys={["4"]}
               className={styles.menuU}
             >
-              <Menu.Item key="1">
-                <Link href={"/login"}>
-                  <Button>Đăng nhập</Button>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Link href={"/register"}>
-                  <Button>Đăng ký</Button>
-                </Link>
-              </Menu.Item>
+              {!auth.isLogged ? (
+                <>
+                  <Menu.Item key="1">
+                    <Link href={"/login"}>
+                      <Button>Đăng nhập</Button>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="2">
+                    <Link href={"/register-type"}>
+                      <Button>Đăng ký</Button>
+                    </Link>
+                  </Menu.Item>
+                </>
+              ) : (
+                <Menu.Item key="1">
+                  <Link href={"/login"}>
+                    <Button>Quan trị</Button>
+                  </Link>
+                  <Button onClick={handleLogout}>Đăng xuất</Button>
+                </Menu.Item>
+              )}
             </Menu>
           </Col>
         </Row>

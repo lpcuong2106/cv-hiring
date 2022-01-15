@@ -1,0 +1,15 @@
+.cardBlockRegister {
+  margin: auto;
+  margin-top: 80px;
+  margin-bottom: 80px;
+  :global(.ant-card-head-title) {
+    text-align: center;
+  }
+}
+.checkImage {
+  margin-left: 15px;
+}
+.btnRegister {
+  display: inherit;
+  margin: auto;
+}

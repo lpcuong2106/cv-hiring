@@ -1,7 +1,6 @@
 import { Form, Input } from "antd";
 import React from "react";
 import style from "./style.module.scss";
-import { LockOutlined } from "@ant-design/icons";
 
 interface Props {
   form: any;

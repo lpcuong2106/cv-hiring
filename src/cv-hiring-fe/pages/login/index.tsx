@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./style.module.scss";
 import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
@@ -8,7 +8,7 @@ import { LOGIN_USER } from "./QueryData";
 import { Button, message } from "antd";
 import Router from "next/router";
 import Head from "next/head";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { useAuth } from "../../components/AuthProvider";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -20,7 +20,8 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
-  const [login, { data, loading, error }] = useMutation(LOGIN_USER);
+  const [login, { loading, error }] = useMutation(LOGIN_USER);
+  const auth = useAuth();
 
   const form = useFormik({
     initialValues: {
@@ -34,11 +35,12 @@ const Login = () => {
 
       if (data && data.login?.token) {
         localStorage.setItem("token", data.login?.token);
-        message.success("login success");
+        auth.setIsLogged(true);
+        message.success("Đăng nhập thành công!");
         Router.push("/");
         return;
       }
-      message.error("login failed");
+      message.error("Đăng nhập thất bại!");
     },
   });
 

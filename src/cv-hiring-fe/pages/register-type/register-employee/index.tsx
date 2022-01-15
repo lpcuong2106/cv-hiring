@@ -4,12 +4,13 @@ import React from "react";
 import style from "./style.module.scss";
 import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
-import { Button, Form, Input, message } from "antd";
+import { Button, message } from "antd";
 import Router from "next/router";
 import { REGISTER_USER } from "./RegisterData";
 import Head from "next/head";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { FormItemInput } from "../../components/FormItem";
+import { FormItemInput } from "../../../components/FormItem";
+import { useAuth } from "../../../components/AuthProvider";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -26,6 +27,7 @@ const validationSchema = Yup.object().shape({
 
 const Register = () => {
   const [registerUser, { data, loading, error }] = useMutation(REGISTER_USER);
+  const auth = useAuth();
 
   const form = useFormik({
     initialValues: {
@@ -42,11 +44,12 @@ const Register = () => {
 
       if (data?.registerUser?.token) {
         localStorage.setItem("token", data.login?.token);
-        message.success("login success");
+        auth.setIsLogged(true);
+        message.success("Đăng ký thành công!");
         Router.push("/");
         return;
       }
-      message.error("login failed");
+      message.error("Đăng ký thất bại!");
     },
   });
 
@@ -61,7 +64,7 @@ const Register = () => {
       <div className="container-login100">
         <div className="wrap-login100">
           <div className="login100-pic js-tilt" data-tilt="">
-            <img src="./login.png" alt="IMG" />
+            <img src="/login.png" alt="IMG" />
           </div>
           <form
             className="login100-form validate-form"
