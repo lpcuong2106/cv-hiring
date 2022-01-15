@@ -21,7 +21,6 @@ class UserSeeder extends Seeder
             'firstname'=> 'le',
             'email' => 'noname21062000@gmail.com',
             'gender'    =>  1,
-            'username'  => 'noname21062000',
             'address'   => '14/11 dong',
             'phone'     => '0349265776',
             'birthday'  => now(),

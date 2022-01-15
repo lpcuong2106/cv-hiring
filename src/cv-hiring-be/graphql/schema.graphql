@@ -11,8 +11,10 @@ type Query {
     roles: [Role!]!
     me: User @auth(guard: "api")
 }
+
 type Mutation {
     login(email: String!, password: String!): AuthPayload
+    registerUser(email: String!, password: String!): AuthPayload
 }
 
 type AuthPayload {
@@ -38,14 +40,13 @@ enum GenderEnum {
 
 type User implements Modal {
     id: ID!
-    lastname: String!
-    firstname: String!
-    username: String!
+    lastname: String
+    firstname: String
     address: String
     email: String!
-    phone: String!
-    birthday: DateTime!
-    created_at: DateTime!
+    phone: String
+    birthday: DateTime
+    created_at: DateTime
     gender: GenderEnum
     updated_at: DateTime!
     role: Role! @belongsTo

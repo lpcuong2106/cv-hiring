@@ -1,0 +1,16 @@
+.titleLogin {
+  font-size: 24px;
+  color: #333;
+  line-height: 1.2;
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-weight: bold;
+  padding-bottom: 54px;
+}
+.wrapLogin {
+  :global(.ant-form-item) {
+    display: block !important;
+    margin: 0;
+  }
+}

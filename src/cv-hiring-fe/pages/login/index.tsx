@@ -7,6 +7,8 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "./QueryData";
 import { Button, message } from "antd";
 import Router from "next/router";
+import Head from "next/head";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -45,6 +47,9 @@ const Login = () => {
   }
   return (
     <div className="limiter">
+      <Head>
+        <title>Đăng nhập</title>
+      </Head>
       <div className="container-login100">
         <div className="wrap-login100">
           <div className="login100-pic js-tilt" data-tilt="">
@@ -55,10 +60,7 @@ const Login = () => {
             onSubmit={form.handleSubmit}
           >
             <span className={style.titleLogin}>Đăng nhập</span>
-            <div
-              className="wrap-input100 validate-input"
-              data-validate="Valid email is required: ex@abc.xyz"
-            >
+            <div className="wrap-input100 validate-input">
               <input
                 className="input100"
                 type="text"
@@ -71,15 +73,12 @@ const Login = () => {
                 <div className={style.errorMessage}>{form.errors.email}</div>
               ) : null}
             </div>
-            <div
-              className="wrap-input100 validate-input"
-              data-validate="Password is required"
-            >
+            <div className="wrap-input100 validate-input">
               <input
                 className="input100"
                 type="password"
                 name="password"
-                placeholder="Password"
+                placeholder="Mật khẩu"
                 onChange={form.handleChange}
                 value={form.values.password}
               />

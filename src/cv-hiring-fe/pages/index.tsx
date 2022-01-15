@@ -9,13 +9,7 @@ const Home: NextPage = () => {
       <div className={styles.container}>
         <Head>
           <title>Kết nối lao động việt | TimViec</title>
-          <meta
-            name="description"
-            content="TimViec - Nơi kết nối lao động việt nam với nhà tuyển dụng"
-          />
-          <link rel="icon" href="/favicon.ico" />
         </Head>
-
         <main className={styles.main}>
           <h1 className={styles.title}>
             Welcome to <a href="https://nextjs.org">Next.js!</a>

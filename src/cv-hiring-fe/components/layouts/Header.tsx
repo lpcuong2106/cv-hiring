@@ -46,7 +46,9 @@ function HeaderNav() {
                 </Link>
               </Menu.Item>
               <Menu.Item key="2">
-                <Button>Đăng ký</Button>
+                <Link href={"/register"}>
+                  <Button>Đăng ký</Button>
+                </Link>
               </Menu.Item>
             </Menu>
           </Col>

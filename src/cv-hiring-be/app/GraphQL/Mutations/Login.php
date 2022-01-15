@@ -17,8 +17,10 @@ class Login
     {
     
         if (! $token = auth()->attempt($args)) {
-            // dd($args);
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return [
+                'token' => null,
+                'user'  => null
+            ];
         }
        
         return [
