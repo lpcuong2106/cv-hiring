@@ -9,6 +9,8 @@ import { Button, message } from "antd";
 import Router from "next/router";
 import Head from "next/head";
 import { useAuth } from "../../components/AuthProvider";
+import { FormItemInput } from "../../components/FormItem";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -48,7 +50,7 @@ const Login = () => {
     return null;
   }
   return (
-    <div className="limiter">
+    <div className={style.wrapLogin}>
       <Head>
         <title>Đăng nhập</title>
       </Head>
@@ -57,36 +59,33 @@ const Login = () => {
           <div className="login100-pic js-tilt" data-tilt="">
             <img src="./login.png" alt="IMG" />
           </div>
-          <form
-            className="login100-form validate-form"
-            onSubmit={form.handleSubmit}
-          >
+          <form onSubmit={form.handleSubmit}>
             <span className={style.titleLogin}>Đăng nhập</span>
             <div className="wrap-input100 validate-input">
-              <input
-                className="input100"
-                type="text"
+              <FormItemInput
+                form={form}
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                lable="Email"
                 name="email"
-                placeholder="Email"
-                onChange={form.handleChange}
+                isError={(form.errors.email && form.touched.email) as boolean}
+                type="email"
+                error={form.errors.email}
                 value={form.values.email}
               />
-              {form.errors.email && form.touched.email ? (
-                <div className={style.errorMessage}>{form.errors.email}</div>
-              ) : null}
             </div>
             <div className="wrap-input100 validate-input">
-              <input
-                className="input100"
-                type="password"
+              <FormItemInput
+                form={form}
+                lable="Mật khẩu"
+                prefix={<LockOutlined className="site-form-item-icon" />}
                 name="password"
-                placeholder="Mật khẩu"
-                onChange={form.handleChange}
+                isError={
+                  (form.errors.password && form.touched.password) as boolean
+                }
                 value={form.values.password}
+                type="password"
+                error={form.errors.password}
               />
-              {form.errors.password && form.touched.password ? (
-                <div className={style.errorMessage}>{form.errors.password}</div>
-              ) : null}
             </div>
             <div className="container-login100-form-btn">
               <Button
@@ -100,7 +99,7 @@ const Login = () => {
             </div>
 
             <div className="text-center p-t-136">
-              <Link href={"/register"}>Tạo tài khoản mới</Link>
+              <Link href={"/register-type"}>Tạo tài khoản mới</Link>
             </div>
           </form>
         </div>

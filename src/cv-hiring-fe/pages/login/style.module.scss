@@ -8,8 +8,10 @@
   font-weight: bold;
   padding-bottom: 54px;
 }
-.errorMessage {
-  color: red;
-  font-size: 14px;
-  padding: 10px 10px;
+
+.wrapLogin {
+  :global(.ant-form-item) {
+    display: block !important;
+    margin: 0;
+  }
 }

@@ -1,0 +1,84 @@
+.headerBoxList {
+  display: flex;
+  overflow: hidden;
+  font-weight: 700;
+  font-size: 18px;
+  border-left: 5px solid red;
+  line-height: 29px;
+  margin-bottom: 10px;
+  padding: 0 0 0 10px;
+  position: relative;
+  .title {
+    display: inline-flex;
+    color: #1890ff;
+    background: white;
+    z-index: 999;
+    padding-right: 10px;
+  }
+  .line {
+    background-color: #d7d7d7;
+    bottom: 0;
+    height: 1px;
+    margin-bottom: auto;
+    margin-left: 10px;
+    margin-top: auto;
+    position: absolute;
+    top: 0;
+    *top: 19px;
+    width: 100%;
+  }
+}
+.listCarrier {
+  li {
+    list-style-type: square;
+    list-style-position: inside;
+    padding: 0 0 5px;
+    color: #2d82c4;
+    .text {
+      color: black;
+    }
+  }
+}
+.slide {
+  .slideItem {
+    height: 350px;
+    width: 100%;
+    line-height: 160px;
+    user-select: none;
+    > span {
+      width: 100% !important;
+      height: 100% !important;
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+}
+.blockSearchWrap {
+  position: relative;
+  .blockSearch {
+    position: absolute;
+    top: 32%;
+    color: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .searchBox {
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 4px;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+.topCompanyTitle {
+  margin-left: 10px;
+}
+.topCompany {
+  .companyBox {
+    text-align: center;
+    p {
+      font-weight: bold;
+    }
+  }
+}

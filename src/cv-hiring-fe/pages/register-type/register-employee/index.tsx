@@ -32,6 +32,7 @@ const Register = () => {
   const form = useFormik({
     initialValues: {
       email: "",
+      fullname: "",
       password: "",
       rePassword: "",
     },
@@ -63,7 +64,7 @@ const Register = () => {
       </Head>
       <div className="container-login100">
         <div className="wrap-login100">
-          <div className="login100-pic js-tilt" data-tilt="">
+          <div>
             <img src="/login.png" alt="IMG" />
           </div>
           <form
@@ -71,7 +72,21 @@ const Register = () => {
             onSubmit={form.handleSubmit}
           >
             <span className={style.titleLogin}>Đăng ký tài khoản</span>
-            <div className="wrap-input100 validate-input">
+            <div>
+              <FormItemInput
+                form={form}
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                lable="Họ và tên"
+                name="fullname"
+                isError={
+                  (form.errors.fullname && form.touched.fullname) as boolean
+                }
+                type="text"
+                error={form.errors.fullname}
+                value={form.values.fullname}
+              />
+            </div>
+            <div>
               <FormItemInput
                 form={form}
                 prefix={<UserOutlined className="site-form-item-icon" />}
@@ -101,7 +116,7 @@ const Register = () => {
               <FormItemInput
                 form={form}
                 prefix={<LockOutlined className="site-form-item-icon" />}
-                lable="Nhập lại mật khẩu"
+                lable="Xác nhận mật khẩu"
                 name="rePassword"
                 isError={
                   (form.errors.rePassword && form.touched.rePassword) as boolean

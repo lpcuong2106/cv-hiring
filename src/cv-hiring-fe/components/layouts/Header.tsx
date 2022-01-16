@@ -41,8 +41,8 @@ function HeaderNav() {
               defaultSelectedKeys={["1"]}
               className={styles.menu}
             >
-              <Menu.Item key="1">Tìm việc làm</Menu.Item>
-              <Menu.Item key="2">Danh sách công ty</Menu.Item>
+              <Menu.Item key="1">Việc làm</Menu.Item>
+              <Menu.Item key="2">Công ty</Menu.Item>
               <Menu.Item key="3">Công cụ</Menu.Item>
             </Menu>
           </Col>
