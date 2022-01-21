@@ -1,0 +1,29 @@
+type AuthPayload {
+    token: String
+    user: User
+}
+
+type Role {
+    id: ID!
+    name: String!
+    users: [User]! @hasMany
+}
+
+enum GenderEnum {
+    male @enum(value: 0)
+    femail @enum(value: 1)
+}
+
+type User implements Modal {
+    id: ID!
+    lastname: String
+    firstname: String
+    address: String
+    email: String!
+    phone: String
+    birthday: DateTime
+    created_at: DateTime
+    gender: GenderEnum
+    updated_at: DateTime!
+    role: Role! @belongsTo
+}

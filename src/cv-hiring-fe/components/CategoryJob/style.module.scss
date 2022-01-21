@@ -1,39 +1,3 @@
-.slide {
-  .slideItem {
-    height: 350px;
-    width: 100%;
-    line-height: 160px;
-    user-select: none;
-    > span {
-      width: 100% !important;
-      height: 100% !important;
-      img {
-        object-fit: cover;
-      }
-    }
-  }
-}
-.blockSearchWrap {
-  position: relative;
-  .blockSearch {
-    position: absolute;
-    top: 32%;
-    color: white;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    .searchBox {
-      padding: 30px 20px;
-      text-align: center;
-      border-radius: 4px;
-      background-color: rgba(0, 0, 0, 0.4);
-    }
-  }
-}
-.topCompanyTitle {
-  margin-left: 10px;
-}
-// remove sau
 .headerBoxList {
   display: flex;
   overflow: hidden;
@@ -72,6 +36,9 @@
     color: #2d82c4;
     .text {
       color: black;
+    }
+    span {
+      cursor: pointer;
     }
   }
 }

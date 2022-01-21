@@ -12,9 +12,28 @@ import Image from "next/image";
 import Banner from "./banner.png";
 import Search from "antd/lib/input/Search";
 import classNames from "classnames";
+import { TopCompanyItem } from "../components/TopCompanyItem";
+import { useQuery } from "@apollo/client";
+import { FETCH_HOME_PAGE } from "../GraphQL/Query/FetchData";
+import { LoadingApp } from "../components/LoadingApp";
+import { CategoryJobList } from "../components/CategoryJob";
+import { Company, Province, WorkCategory } from "../data";
 
 const { Option } = Select;
+
+interface HomeQuery {
+  provinces: Province[];
+  workCategories: WorkCategory[];
+  topCompany: Company[];
+}
+
 const Home: NextPage = () => {
+  const { data, loading } = useQuery<HomeQuery>(FETCH_HOME_PAGE);
+  // console.log(data);
+  if (loading) {
+    return <LoadingApp />;
+  }
+
   return (
     <Layout>
       <div>
@@ -64,7 +83,7 @@ const Home: NextPage = () => {
             </Row>
           </Container>
           <Container>
-            <Row>
+            <Row style={{ marginTop: "50px" }}>
               <Col md={12}>
                 <Carousel className={style.slide}>
                   <div className={style.slideItem}>
@@ -88,143 +107,25 @@ const Home: NextPage = () => {
                   <span className={style.title}>Top công ty hàng đầu</span>
                   <span className={style.line}></span>
                 </div>
-
-                <Row className={style.topCompany}>
-                  <Col md={8}>
-                    <Link href="/viec-lam-kinh-doanh-c23">
-                      <div className={style.companyBox}>
-                        <img
-                          src="https://cdn.mywork.com.vn/images/employer_avatar/2022/01/13/images/164204274064.jpeg"
-                          style={{ width: "63px", objectFit: "contain" }}
-                        />
-                        <p>8 vị trí đang tuyển</p>
-                      </div>
-                    </Link>
-                  </Col>
-                  <Col md={8}>
-                    <Link href="/viec-lam-kinh-doanh-c23">
-                      <div className={style.companyBox}>
-                        <img
-                          src="https://cdn.mywork.com.vn/images/employer_avatar/2022/01/13/images/164204274064.jpeg"
-                          style={{ width: "63px", objectFit: "contain" }}
-                        />
-                        <p>8 vị trí đang tuyển</p>
-                      </div>
-                    </Link>
-                  </Col>
-                  <Col md={8}>
-                    <Link href="/viec-lam-kinh-doanh-c23">
-                      <div className={style.companyBox}>
-                        <img
-                          src="https://cdn.mywork.com.vn/images/employer_avatar/2022/01/13/images/164204274064.jpeg"
-                          style={{ width: "63px", objectFit: "contain" }}
-                        />
-                        <p>8 vị trí đang tuyển</p>
-                      </div>
-                    </Link>
-                  </Col>
-                  <Col md={8}>
-                    <Link href="/viec-lam-kinh-doanh-c23">
-                      <div className={style.companyBox}>
-                        <img
-                          src="https://cdn.mywork.com.vn/images/employer_avatar/2022/01/13/images/164204274064.jpeg"
-                          style={{ width: "63px", objectFit: "contain" }}
-                        />
-                        <p>8 vị trí đang tuyển</p>
-                      </div>
-                    </Link>
-                  </Col>
-                  <Col md={8}>
-                    <Link href="/viec-lam-kinh-doanh-c23">
-                      <div className={style.companyBox}>
-                        <img
-                          src="https://cdn.mywork.com.vn/images/employer_avatar/2022/01/13/images/164204274064.jpeg"
-                          style={{ width: "63px", objectFit: "contain" }}
-                        />
-                        <p>8 vị trí đang tuyển</p>
-                      </div>
-                    </Link>
-                  </Col>
-                  <Col md={8}>
-                    <Link href="/viec-lam-kinh-doanh-c23">
-                      <div className={style.companyBox}>
-                        <img
-                          src="https://cdn.mywork.com.vn/images/employer_avatar/2022/01/13/images/164204274064.jpeg"
-                          style={{ width: "63px", objectFit: "contain" }}
-                        />
-                        <p>8 vị trí đang tuyển</p>
-                      </div>
-                    </Link>
-                  </Col>
-                </Row>
+                <TopCompanyItem companyTop={data?.topCompany ?? []} />
               </Col>
               <Col md={24}>
-                <div className={style.headerBoxList}>
-                  <span className={style.title}>Việc làm theo ngành nghề</span>
-                  <span className={style.line}></span>
-                </div>
-                <ul className={style.listCarrier}>
-                  <Row>
-                    <Col md={8}>
-                      <li>
-                        <Link href="/viec-lam-kinh-doanh-c23">
-                          <span className={style.text}>Kinh doanh</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/viec-lam-kinh-doanh-c23">
-                          <span className={style.text}>Kinh doanh</span>
-                        </Link>
-                      </li>
-                    </Col>
-                    <Col md={8}>
-                      <li>
-                        <Link href="/viec-lam-kinh-doanh-c23">
-                          <span className={style.text}>Kinh doanh</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/viec-lam-kinh-doanh-c23">
-                          <span className={style.text}>Kinh doanh</span>
-                        </Link>
-                      </li>
-                    </Col>
-                  </Row>
-                </ul>
+                {data?.workCategories && (
+                  <CategoryJobList
+                    type="categoryJob"
+                    label="Việc làm theo ngành nghề"
+                    data={data?.workCategories}
+                  />
+                )}
               </Col>
               <Col md={24}>
-                <div className={style.headerBoxList}>
-                  <span className={style.title}>Việc làm theo tỉnh thành</span>
-                  <span className={style.line}></span>
-                </div>
-                <ul className={style.listCarrier}>
-                  <Row>
-                    <Col md={8}>
-                      <li>
-                        <Link href="/viec-lam-kinh-doanh-c23">
-                          <span className={style.text}>Kinh doanh</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/viec-lam-kinh-doanh-c23">
-                          <span className={style.text}>Kinh doanh</span>
-                        </Link>
-                      </li>
-                    </Col>
-                    <Col md={8}>
-                      <li>
-                        <Link href="/viec-lam-kinh-doanh-c23">
-                          <span className={style.text}>Kinh doanh</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/viec-lam-kinh-doanh-c23">
-                          <span className={style.text}>Kinh doanh</span>
-                        </Link>
-                      </li>
-                    </Col>
-                  </Row>
-                </ul>
+                {data?.provinces && (
+                  <CategoryJobList
+                    type="province"
+                    label="Việc làm theo tỉnh thành"
+                    data={data?.provinces}
+                  />
+                )}
               </Col>
               <Col md={24}>
                 <Carousel className={style.slide}>

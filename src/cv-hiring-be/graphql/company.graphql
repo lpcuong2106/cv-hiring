@@ -1,0 +1,14 @@
+type Company {
+    id: ID!
+    slug: String
+    name: String
+    description: String
+    amount_employee: String
+    website: String
+    fanpage: String
+    address: String
+    gg_map: String
+    logo: String
+    banner: String
+    amount_job_hiring: Int
+}

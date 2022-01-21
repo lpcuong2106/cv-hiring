@@ -1,9 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { Spin } from "antd";
 import Router, { useRouter } from "next/router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { FETCH_USER_LOGIN } from "../../GraphQL/Query/FetchData";
-import styles from "./style.module.scss";
+import { LoadingApp } from "../LoadingApp";
 
 const AuthContext = createContext<{
   isLogged: boolean;
@@ -33,16 +32,8 @@ export const AuthProvider = ({ children }: AuxProps) => {
     }
   }, [data]);
 
-  // useEffect(() => {
-  //   console.log(router.pathname);
-  //   const publicRoute
-  // }, [router.pathname]);
   if (loading || error) {
-    return (
-      <div className={styles.wrapLoading}>
-        <Spin size="large" />
-      </div>
-    );
+    return <LoadingApp />;
   }
 
   return (

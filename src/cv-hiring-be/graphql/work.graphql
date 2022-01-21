@@ -1,0 +1,4 @@
+type WorkCategory {
+    id: String
+    name: String
+}

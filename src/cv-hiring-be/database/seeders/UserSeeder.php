@@ -15,13 +15,13 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::factory()->count(5)->create();
-
+ 
         User::create([
             'lastname' => 'cuong',
             'firstname'=> 'le',
             'email' => 'noname21062000@gmail.com',
             'gender'    =>  1,
-            'address'   => '14/11 dong',
+            'address'   => '15/11 dong',
             'phone'     => '0349265776',
             'birthday'  => now(),
             'email_verified_at' => now(),

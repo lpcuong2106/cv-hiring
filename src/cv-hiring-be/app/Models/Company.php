@@ -9,6 +9,10 @@ class Company extends Model
 {
     use HasFactory;
 
+    protected $appends = [
+        'amount_job_hiring'  
+    ];
+
     public function logo(){
         return $this->morphMany(Image::class, 'imageable');
     }
@@ -16,4 +20,9 @@ class Company extends Model
     public function workJobs(){
         return $this->hasMany(WorkJob::class);
     }
+
+    public function getAmountJobHiringAttribute(){
+        return 1;
+    }
+
 }
