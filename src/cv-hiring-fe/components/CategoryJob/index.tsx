@@ -25,7 +25,9 @@ export const CategoryJobList = ({ data, label, type }: Props) => {
             <Col md={8} key={parseInt(item.id.toString())}>
               <li>
                 <Link href={url + item.id}>
-                  <span className={style.text}>{item.name}</span>
+                  <a>
+                    <span className={style.text}>{item.name}</span>
+                  </a>
                 </Link>
               </li>
             </Col>

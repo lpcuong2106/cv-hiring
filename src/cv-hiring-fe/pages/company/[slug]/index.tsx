@@ -13,15 +13,20 @@ import { useQuery } from "@apollo/client";
 import { FETCH_COMPANY_DETAIL } from "../../../GraphQL/Query/Comapany";
 import { LoadingApp } from "../../../components/LoadingApp";
 import { Company } from "../../../data";
+import { useRouter } from "next/router";
 const { TabPane } = Tabs;
 
 interface DataQuery {
   companyDetail: Company;
 }
+
 const Company: NextPage = () => {
+  const router = useRouter();
+  const { slug } = router.query;
+
   const { data, loading } = useQuery<DataQuery>(FETCH_COMPANY_DETAIL, {
     variables: {
-      id: "1",
+      slug,
     },
   });
   const company = data?.companyDetail;

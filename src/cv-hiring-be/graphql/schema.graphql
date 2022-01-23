@@ -14,7 +14,7 @@ type Query {
     workCategories: [WorkCategory!]! @all
     me: User @auth(guard: "api")
     topCompany(amount: Int!): [Company!]!
-    companyDetail(id: ID! @eq): Company @find
+    companyDetail(slug: String! @eq): Company @find
 }
 
 type Mutation {

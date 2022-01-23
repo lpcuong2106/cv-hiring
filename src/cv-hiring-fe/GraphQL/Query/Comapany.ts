@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const FETCH_COMPANY_DETAIL = gql`
-  query CompanyQuery($id: ID!) {
-    companyDetail(id: $id) {
+  query CompanyQuery($slug: String!) {
+    companyDetail(slug: $slug) {
       id
       name
       slug

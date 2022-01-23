@@ -14,13 +14,15 @@ export const TopCompanyItem = ({ companyTop }: Props) => {
       {companyTop.map((company) => (
         <Col md={8}>
           <Link href={"/company/" + company.slug}>
-            <div className={style.companyBox}>
-              <img
-                src={company.logo}
-                style={{ width: "63px", objectFit: "contain" }}
-              />
-              <p>{company.amount_job_hiring} vị trí đang tuyển</p>
-            </div>
+            <a>
+              <div className={style.companyBox}>
+                <img
+                  src={company.logo}
+                  style={{ width: "63px", objectFit: "contain" }}
+                />
+                <p>{company.amount_job_hiring} vị trí đang tuyển</p>
+              </div>
+            </a>
           </Link>
         </Col>
       ))}

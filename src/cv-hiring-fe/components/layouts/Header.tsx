@@ -26,12 +26,16 @@ function HeaderNav() {
         <Row gutter={[16, 16]}>
           <Col span={4}>
             <Link href={"/"}>
-              <img
-                src={"https://www.topcv.vn/v3/images/topcv-logo-4.png?v=1.0.1"}
-                alt="TopCV tuyen dung tai TopCV"
-                title="TopCV tuyển dụng tại TopCV"
-                width={100}
-              />
+              <a>
+                <img
+                  src={
+                    "https://www.topcv.vn/v3/images/topcv-logo-4.png?v=1.0.1"
+                  }
+                  alt="TopCV tuyen dung tai TopCV"
+                  title="TopCV tuyển dụng tại TopCV"
+                  width={100}
+                />
+              </a>
             </Link>
           </Col>
           <Col span={14}>
