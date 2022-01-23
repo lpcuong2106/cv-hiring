@@ -14,7 +14,6 @@ class WorkCategorySeeder extends Seeder
      */
     public function run()
     {
-        //
         WorkCategory::factory()->count(20)->create();
     }
 }

@@ -1,0 +1,60 @@
+.wrapCompanyDetail {
+  background: linear-gradient(180deg, #d1e5fa, #f4f8fc);
+  .banner {
+    text-align: center;
+    img {
+      border-radius: 0 0 8px 8px;
+    }
+  }
+  .logo {
+    position: absolute;
+    right: 12%;
+    top: 30%;
+    width: 960px;
+    height: 208px;
+    background: #fff;
+    box-shadow: 0 8px 15px 4px rgb(0 92 144 / 5%);
+    border-radius: 24px;
+    .introControl {
+      position: absolute;
+    }
+  }
+}
+.companyBox {
+  margin-top: 118px;
+  background: #fff;
+  box-shadow: 0 8px 15px 4px rgb(0 92 144 / 5%);
+  border-radius: 4px;
+  padding: 20px 15px;
+}
+
+.nameCompany {
+  display: flex;
+  .introCompany {
+    overflow: hidden;
+    margin-bottom: 0;
+    word-break: break-word;
+    h1 {
+      font-size: 32px;
+      margin: 14px 0;
+    }
+  }
+  .logoImage {
+    width: 180px;
+    height: 180px;
+    margin: 14px;
+  }
+}
+.boxListMenu {
+  ul {
+    display: flex;
+    padding: 0;
+    li {
+      font-size: 0.875rem;
+      margin-right: 10px;
+    }
+  }
+}
+.locationText {
+  margin-left: 10px;
+}

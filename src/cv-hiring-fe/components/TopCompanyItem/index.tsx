@@ -13,7 +13,7 @@ export const TopCompanyItem = ({ companyTop }: Props) => {
     <Row className={style.topCompany}>
       {companyTop.map((company) => (
         <Col md={8}>
-          <Link href={company.slug}>
+          <Link href={"/company/" + company.slug}>
             <div className={style.companyBox}>
               <img
                 src={company.logo}

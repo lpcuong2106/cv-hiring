@@ -22,7 +22,9 @@ class Company extends Model
     }
 
     public function getAmountJobHiringAttribute(){
-        return 1;
+        $workHiring = WorkJob::where('is_open', 1)
+            ->orWhere('expired_date', '<=', now())->count(); 
+        return $workHiring;
     }
 
 }
