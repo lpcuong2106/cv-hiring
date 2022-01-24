@@ -1,0 +1,59 @@
+.boxContent {
+  margin-top: 30px;
+  background: #fff;
+  box-shadow: 0 8px 15px 4px rgb(0 92 144 / 5%);
+  border-radius: 4px;
+  padding: 20px 15px;
+  .info {
+    display: flex;
+    svg {
+      margin-right: 10px;
+    }
+    span {
+      margin-right: 10px;
+    }
+  }
+}
+.btnAction {
+  button {
+    margin-right: 20px;
+    margin-top: 20px;
+  }
+}
+.detailJob {
+  h6 {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+}
+.sameJob {
+  padding: 10px 10px;
+  &:hover {
+    background: #f3fcff;
+  }
+  border-bottom: 1px solid #757575;
+  .logo {
+    width: 63px;
+    height: 100%;
+  }
+  .sameJobItem {
+    display: flex;
+  }
+  .info {
+    overflow: hidden;
+    .title {
+      font-size: 13px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      color: black;
+      margin: 0;
+    }
+    .description {
+      color: #757575;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+}

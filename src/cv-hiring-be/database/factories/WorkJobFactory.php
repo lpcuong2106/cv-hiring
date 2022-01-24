@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Date;
 
 class WorkJobFactory extends Factory
 {
@@ -15,7 +16,7 @@ class WorkJobFactory extends Factory
     {
         return [
             'name'          => $this->faker->name(),
-            'company_id'    => 1,
+            'company_id'    => rand(1,10),
             'slug'          => $this->faker->slug(),
             'description'   => $this->faker->name(),
             'benefit'       => $this->faker->name(),
@@ -25,9 +26,9 @@ class WorkJobFactory extends Factory
             'amount_hiring'         => $this->faker->numerify('###'),
             'amount_apply'          => $this->faker->numerify('###'),
             'amount_accept'         => $this->faker->numerify('###'),
-            'address_work'          => $this->faker->numerify('###'),
+            'address_work'          => $this->faker->address(),
             'salary'                => $this->faker->numerify('###'),
-            'type'                  => $this->faker->numerify('###'),
+            'type'                  => 'partime',
             'is_open'               => rand(0,1),
             'expired_date'          => now(),
             'province_id'           => rand(1,63),

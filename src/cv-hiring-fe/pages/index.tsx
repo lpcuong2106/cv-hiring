@@ -29,7 +29,7 @@ interface HomeQuery {
 
 const Home: NextPage = () => {
   const { data, loading } = useQuery<HomeQuery>(FETCH_HOME_PAGE);
-  // console.log(data);
+
   if (loading) {
     return <LoadingApp />;
   }
@@ -64,15 +64,20 @@ const Home: NextPage = () => {
                           placeholder="Chọn ngành nghề"
                           // onChange={handleChange}
                         >
-                          <Option value="jack">Chọn ngành nghề</Option>
-                          <Option value="lucy">Kế toán</Option>
+                          <Option value="">Chọn ngành nghề</Option>
+                          {data?.workCategories.map((category) => (
+                            <Option value={category.id}>{category.name}</Option>
+                          ))}
                         </Select>
                         <Select
                           style={{ width: 200 }}
                           placeholder="Chọn tỉnh thành"
                           // onChange={handleChange}
                         >
-                          <Option value="jack">An Giang</Option>
+                          <Option value="">Chọn tỉnh thành</Option>
+                          {data?.provinces.map((province) => (
+                            <Option value={province.id}>{province.name}</Option>
+                          ))}
                         </Select>
                         <Button type="primary">Tìm kiếm</Button>
                       </div>
