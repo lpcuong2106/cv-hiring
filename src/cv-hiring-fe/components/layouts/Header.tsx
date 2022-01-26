@@ -45,7 +45,11 @@ function HeaderNav() {
               defaultSelectedKeys={["1"]}
               className={styles.menu}
             >
-              <Menu.Item key="1">Việc làm</Menu.Item>
+              <Menu.Item key="1">
+                <Link href={"/viec-lam"}>
+                  <a>Việc làm</a>
+                </Link>
+              </Menu.Item>
               <Menu.Item key="2">Công ty</Menu.Item>
               <Menu.Item key="3">Công cụ</Menu.Item>
             </Menu>

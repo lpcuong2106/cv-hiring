@@ -1,4 +1,31 @@
 type WorkCategory {
-    id: String
+    id: ID!
     name: String
+}
+
+type WorkJob {
+    id: ID!
+    name: String
+    slug: String
+    description: String
+    benefit: String
+    requirement: String
+    requirement_exp: String
+    requirement_gender: String
+    amount_hiring: Int
+    amount_apply: Int
+    address_work: String
+    salary: String
+    type: String
+    is_open: Int
+    expired_date: String
+    province: Province!
+    company: Company! @belongsTo
+    work_category: WorkCategory! @belongsTo
+}
+
+input WorkJobSearchInput {
+    name: String @where(operator: "like")
+    is_open: Int @eq
+    # where: _ @whereConditions(columnsEnum: "ProvinceColumn")
 }

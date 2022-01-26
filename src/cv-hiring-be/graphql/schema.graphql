@@ -15,6 +15,13 @@ type Query {
     me: User @auth(guard: "api")
     topCompany(amount: Int!): [Company!]!
     companyDetail(slug: String! @eq): Company @find
+    getWorkJobBySlug(slug: String! @eq): WorkJob @find
+    getAllWorkJob(
+        first: Int!
+        page: Int
+        input: WorkJobSearchInput @spread
+    ): [WorkJob!]! @paginate(defaultCount: 10)
+    # getAllWorkJob(first: Int!, page: Int): [WorkJob!]!
 }
 
 type Mutation {

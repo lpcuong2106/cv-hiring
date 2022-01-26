@@ -8,8 +8,27 @@ import { TimeSlot } from "@styled-icons/entypo/TimeSlot";
 import { Clock } from "@styled-icons/bootstrap/Clock";
 import { Eye } from "@styled-icons/bootstrap/Eye";
 import { JobInfoRequirement } from "../../../components/JobInfoRequirement";
+import { useQuery } from "@apollo/client";
+import { FETCH_WORKJOB_QUERY } from "../../../GraphQL/Query/WorkJob";
+import { LoadingApp } from "../../../components/LoadingApp";
+import { PaginatorInfo, WorkJob } from "../../../data";
+
+interface DataQuery {
+  getWorkJobBySlug: {
+    paginatorInfo: PaginatorInfo;
+    data: WorkJob[];
+  };
+}
 
 const WorkJob: NextPage = () => {
+  const { data, loading, error } = useQuery<DataQuery>(FETCH_WORKJOB_QUERY, {
+    variables: { slug: "1" },
+  });
+
+  if (loading) {
+    return <LoadingApp />;
+  }
+  console.log(data);
   return (
     <Layout>
       <div>
