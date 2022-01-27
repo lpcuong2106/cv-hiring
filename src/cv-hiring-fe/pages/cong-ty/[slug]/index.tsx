@@ -14,6 +14,7 @@ import { FETCH_COMPANY_DETAIL } from "../../../GraphQL/Query/Comapany";
 import { LoadingApp } from "../../../components/LoadingApp";
 import { Company } from "../../../data";
 import { useRouter } from "next/router";
+import BreadcrumbCus from "../../../components/BreadcrumbCus";
 const { TabPane } = Tabs;
 
 interface DataQuery {
@@ -41,8 +42,10 @@ const Company: NextPage = () => {
         <Head>
           <title>Kết nối lao động việt | TimViec</title>
         </Head>
+
         <main className={style.wrapCompanyDetail}>
           <Container>
+            <BreadcrumbCus />
             <Row>
               <Col md={24}>
                 <div className={style.banner}>

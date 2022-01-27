@@ -12,7 +12,9 @@ interface Props {
   deadlineDate: string;
   salary: string;
   provinceName: string;
+  slug: string;
   updatedAt: string;
+  companySlug: string;
 }
 
 function JobItem({
@@ -23,6 +25,8 @@ function JobItem({
   salary,
   provinceName,
   updatedAt,
+  companySlug,
+  slug,
 }: Props) {
   return (
     <div className={style.jobItem}>
@@ -32,12 +36,12 @@ function JobItem({
       <div className={style.jobInfo}>
         <div className={style.info}>
           <p className={style.title}>
-            <Link href="/viec-lam/fab">
+            <Link href={`/viec-lam/${slug}`}>
               <a>{title}</a>
             </Link>
           </p>
           <p className={style.company}>
-            <Link href="/viec-lam/fab">
+            <Link href={`/cong-ty/${companySlug}`}>
               <a>{companyName}</a>
             </Link>
           </p>
@@ -54,7 +58,13 @@ function JobItem({
           </Tag>
         </div>
         <div className={style.action}>
-          <p className={style.alignRight}>Hạn nộp: {deadlineDate}</p>
+          <p className={style.alignRight}>
+            Hạn nộp:{" "}
+            {format(
+              parse(deadlineDate, "yyyy-MM-dd HH:m:s", new Date()),
+              "dd-MM-yyyy"
+            )}
+          </p>
           <button>
             <Heart width={20} />
           </button>

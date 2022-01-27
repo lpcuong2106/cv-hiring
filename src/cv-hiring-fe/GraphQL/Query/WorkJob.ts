@@ -6,6 +6,25 @@ export const FETCH_WORKJOB_QUERY = gql`
       id
       name
       slug
+      is_open
+      salary
+      expired_date
+      updated_at
+      created_at
+      work_category {
+        name
+      }
+      company {
+        logo
+        name
+        slug
+        address
+        description
+        amount_employee
+      }
+      province {
+        name
+      }
     }
   }
 `;
@@ -35,6 +54,7 @@ export const FETCH_ALL_JOB_SEARCH = gql`
         company {
           logo
           name
+          slug
         }
         province {
           name

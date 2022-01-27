@@ -20,6 +20,7 @@ import { PaginatorInfo, WorkJob } from "../../data";
 import { FETCH_ALL_JOB_SEARCH } from "../../GraphQL/Query/WorkJob";
 import { LoadingApp } from "../../components/LoadingApp";
 import { useState } from "react";
+import BreadcrumbCus from "../../components/BreadcrumbCus";
 
 const { Option } = Select;
 
@@ -48,6 +49,11 @@ const WorkJobs: NextPage = () => {
   const listJob = data?.getAllWorkJob;
 
   const changePagination = (page: number, _: number) => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     setPage(page);
   };
 
@@ -60,16 +66,7 @@ const WorkJobs: NextPage = () => {
         <main className={style.wrapper}>
           <Container>
             <Row>
-              <Breadcrumb>
-                <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
-                <Breadcrumb.Item>
-                  <a href="">Application Center</a>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                  <a href="">Application List</a>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>An Application</Breadcrumb.Item>
-              </Breadcrumb>
+              <BreadcrumbCus />
               <Col md={24}>
                 <Card>
                   <div className={style.headerCard}>
@@ -122,6 +119,8 @@ const WorkJobs: NextPage = () => {
                     <Col sm={18}>
                       {listJob?.data.map((job) => (
                         <JobItem
+                          companySlug={job.company.slug}
+                          slug={job.slug}
                           provinceName={job.province.name}
                           salary={job.salary}
                           deadlineDate={job.expired_date}
