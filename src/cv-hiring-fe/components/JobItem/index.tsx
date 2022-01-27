@@ -4,7 +4,7 @@ import React from "react";
 import style from "./style.module.scss";
 import { Heart } from "@styled-icons/bootstrap/Heart";
 import { formatDistance, format, parse } from "date-fns";
-
+import vi from "date-fns/locale/vi";
 interface Props {
   logoUrl: string;
   title: string;
@@ -53,6 +53,7 @@ function JobItem({
               new Date(),
               {
                 addSuffix: true,
+                locale: vi,
               }
             )}
           </Tag>

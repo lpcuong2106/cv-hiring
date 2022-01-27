@@ -42,6 +42,7 @@ const CompanyBox = ({ content, lable, icon }: CompanyBoxProps) => {
     </div>
   );
 };
+
 const WorkJob: NextPage = () => {
   const router = useRouter();
   const [isShowApply, setIsShowApply] = useState(false);
@@ -50,6 +51,7 @@ const WorkJob: NextPage = () => {
     variables: { slug },
   });
   const workJob = data?.getWorkJobBySlug;
+
   if (loading) {
     return <LoadingApp />;
   }
@@ -75,7 +77,7 @@ const WorkJob: NextPage = () => {
                       <img src={workJob?.company.logo} />
                     </div>
                     <div>
-                      <h3>{workJob?.name}</h3>
+                      <h3 className={style.workJobTitle}>{workJob?.name}</h3>
                       <div className={style.companyTitle}>
                         <Link href={"/cong-ty/" + workJob?.company.slug}>
                           <a>{workJob?.company.name}</a>
@@ -86,14 +88,15 @@ const WorkJob: NextPage = () => {
                           <TimeSlot width={16} />
                           <span>
                             Hạn nộp hồ sơ:{" "}
-                            {format(
-                              parse(
-                                workJob?.expired_date ?? new Date().toString(),
-                                "yyyy-MM-dd HH:m:s",
-                                new Date()
-                              ),
-                              "dd-MM-yyyy"
-                            )}{" "}
+                            {workJob?.expired_date &&
+                              format(
+                                parse(
+                                  workJob.expired_date,
+                                  "yyyy-MM-dd HH:m:s",
+                                  new Date()
+                                ),
+                                "dd-MM-yyyy"
+                              )}{" "}
                           </span>
                         </div>
                         <div>
@@ -135,15 +138,14 @@ const WorkJob: NextPage = () => {
                   </div>
 
                   <div className={style.detailJob}>
-                    <h6>Thông tin</h6>
-                    <Row>
+                    <Row style={{ marginTop: "24px" }}>
                       <JobInfoRequirement
                         label="Mức lương"
                         value={workJob?.salary ?? ""}
                       />
                       <JobInfoRequirement
                         label="Yêu cầu độ tuổi"
-                        value="Không yêu cầu độ tuổi"
+                        value={workJob?.requirement_age ?? ""}
                       />
                       <JobInfoRequirement
                         label="Khu vực tuyển"
@@ -184,7 +186,7 @@ const WorkJob: NextPage = () => {
                   <TabPane tab="Công ty" key="2">
                     <div className={style.boxContent}>
                       <div className={style.detailJob}>
-                        <h6>Thông tin {workJob?.company.name}</h6>
+                        <h6>Thông tin công ty {workJob?.company.name}</h6>
                         <div className="box-info">
                           <CompanyBox
                             content={workJob?.company.description ?? ""}

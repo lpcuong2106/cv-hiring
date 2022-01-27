@@ -9,6 +9,12 @@ export const FETCH_WORKJOB_QUERY = gql`
       is_open
       salary
       expired_date
+      description
+      amount_hiring
+      requirement_gender
+      requirement_exp
+      requirement_age
+      type
       updated_at
       created_at
       work_category {

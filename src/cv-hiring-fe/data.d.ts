@@ -29,6 +29,7 @@ export type WorkJob = {
   requirement: string;
   requirement_exp: string;
   requirement_gender: string;
+  requirement_age: string;
   amount_hiring: number;
   amount_apply: number;
   address_work: string;

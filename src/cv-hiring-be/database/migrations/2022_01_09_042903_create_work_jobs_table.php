@@ -19,11 +19,12 @@ class CreateWorkJobsTable extends Migration
             $table->string('slug')->unique();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->string('benefit');
             $table->text('requirement');
             $table->string('requirement_exp');
             $table->string('requirement_gender');
+            $table->string('requirement_age');
             $table->unsignedInteger('amount_hiring');
             $table->unsignedInteger('amount_apply');
             $table->unsignedInteger('amount_accept');

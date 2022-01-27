@@ -15,6 +15,7 @@ import { LoadingApp } from "../../../components/LoadingApp";
 import { Company } from "../../../data";
 import { useRouter } from "next/router";
 import BreadcrumbCus from "../../../components/BreadcrumbCus";
+import { FacebookShareButton, FacebookShareCount } from "react-share";
 const { TabPane } = Tabs;
 
 interface DataQuery {
@@ -85,6 +86,7 @@ const Company: NextPage = () => {
                             {company?.address + " "}
                             <a
                               href={`https://www.google.com/maps?q=${company?.address}`}
+                              target={"_blank"}
                             >
                               Xem bản đồ
                             </a>
@@ -94,10 +96,24 @@ const Company: NextPage = () => {
                             <EyeShow width={16} />
                             Theo dõi
                           </Button>
-                          <Button type="primary">
-                            <Share width={16} />
-                            Chia sẻ
-                          </Button>
+
+                          <FacebookShareButton
+                            url={window.location.href}
+                            quote="hihi"
+                            hashtag="ihih"
+                          >
+                            <Button type="primary">
+                              <Share width={16} />
+                              Chia sẻ
+                              <FacebookShareCount url={router.asPath}>
+                                {(shareCount) => (
+                                  <span className="myShareCountWrapper">
+                                    {shareCount}
+                                  </span>
+                                )}
+                              </FacebookShareCount>
+                            </Button>
+                          </FacebookShareButton>
                         </div>
                       </div>
                     </div>

@@ -12,6 +12,7 @@ type WorkJob {
     requirement: String
     requirement_exp: String
     requirement_gender: String
+    requirement_age: String
     amount_hiring: Int
     amount_apply: Int
     address_work: String

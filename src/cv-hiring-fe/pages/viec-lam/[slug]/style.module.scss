@@ -14,11 +14,11 @@
   }
 }
 .btnAction {
+  margin-left: auto;
   button {
     display: block;
     width: 100%;
     margin-bottom: 10px;
-    margin-left: auto;
   }
 }
 .detailJob {
@@ -58,7 +58,11 @@
     }
   }
 }
+.workJobTitle {
+  margin-bottom: 2px;
+}
 .companyTitle {
+  margin-bottom: 10px;
   a {
     color: #333;
     font-size: 18px;
