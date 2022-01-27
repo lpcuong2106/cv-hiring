@@ -36,6 +36,7 @@ export type WorkJob = {
   type: string;
   is_open: number;
   expired_date: string;
+  updated_at: string;
   province: Province;
   company: Company;
   work_category: WorkCategory;

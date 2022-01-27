@@ -2,8 +2,6 @@
   display: flex;
   background: #fff 0 0 no-repeat padding-box;
   border: 1px solid #f4f4f4;
-  border-radius: 5px;
-  margin: auto auto 16px;
   padding: 16px;
 
   background-color: #fff;
@@ -12,13 +10,12 @@
   margin: 6px 0;
   padding: 12px 12px 10px;
   transition: box-shadow 0.2s;
-  justify-content: space-around;
   &:hover {
     background: #f6f6f6;
   }
   .avatar {
     img {
-      width: 80px;
+      width: 170px;
       height: 100%;
       object-fit: cover;
     }
@@ -28,7 +25,7 @@
     .title {
       a {
         color: #212f3f;
-        font-size: 14px;
+        font-size: 16px;
         margin-bottom: 6px;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -39,7 +36,7 @@
     .company {
       a {
         color: #898989;
-        font-size: 12px;
+        font-size: 14px;
         text-decoration: none;
         text-transform: uppercase;
         margin-bottom: 8px;
@@ -78,4 +75,10 @@
       color: #1890ff;
     }
   }
+}
+.jobInfo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }

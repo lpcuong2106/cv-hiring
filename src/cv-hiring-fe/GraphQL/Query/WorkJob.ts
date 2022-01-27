@@ -28,6 +28,7 @@ export const FETCH_ALL_JOB_SEARCH = gql`
         is_open
         salary
         expired_date
+        updated_at
         work_category {
           name
         }

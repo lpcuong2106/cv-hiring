@@ -17,10 +17,7 @@ import style from "./style.module.scss";
 import Search from "antd/lib/input/Search";
 import { useQuery } from "@apollo/client";
 import { PaginatorInfo, WorkJob } from "../../data";
-import {
-  FETCH_ALL_JOB_SEARCH,
-  FETCH_WORKJOB_QUERY,
-} from "../../GraphQL/Query/WorkJob";
+import { FETCH_ALL_JOB_SEARCH } from "../../GraphQL/Query/WorkJob";
 import { LoadingApp } from "../../components/LoadingApp";
 import { useState } from "react";
 
@@ -35,10 +32,10 @@ interface DataQuery {
 
 function itemRender(current: any, type: any, originalElement: any) {
   if (type === "prev") {
-    return <a>Previous</a>;
+    return <a>Xem trước</a>;
   }
   if (type === "next") {
-    return <a>Next</a>;
+    return <a>Xem sau</a>;
   }
   return originalElement;
 }
@@ -131,6 +128,7 @@ const WorkJobs: NextPage = () => {
                           companyName={job.company.name}
                           title={job.name}
                           logoUrl={job.company.logo}
+                          updatedAt={job.updated_at}
                         />
                       ))}
                       {loading && <LoadingApp />}

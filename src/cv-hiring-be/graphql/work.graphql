@@ -22,6 +22,8 @@ type WorkJob {
     province: Province!
     company: Company! @belongsTo
     work_category: WorkCategory! @belongsTo
+    created_at: Date
+    updated_at: Date
 }
 
 input WorkJobSearchInput {
