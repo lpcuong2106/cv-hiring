@@ -19,6 +19,22 @@ export const FETCH_HOME_PAGE = gql`
       id
       name
     }
+    newWorkJob(amount: 16) {
+      id
+      name
+      slug
+      salary
+      type
+      expired_date
+      province {
+        name
+      }
+      company {
+        slug
+        name
+      }
+      updated_at
+    }
     topCompany(amount: 6) {
       id
       name

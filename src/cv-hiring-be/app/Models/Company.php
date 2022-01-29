@@ -10,21 +10,23 @@ class Company extends Model
     use HasFactory;
 
     protected $appends = [
-        'amount_job_hiring'  
+        'amount_job_hiring'
     ];
 
-    public function logo(){
+    public function logo()
+    {
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function work_jobs(){
+    public function work_jobs()
+    {
         return $this->hasMany(WorkJob::class);
     }
 
-    public function getAmountJobHiringAttribute(){
-        $workHiring = WorkJob::where('is_open', 1)
-            ->orWhere('expired_date', '<=', now())->count(); 
+    public function getAmountJobHiringAttribute()
+    {
+        $workHiring = $this->work_jobs->where('is_open', 1)
+            ->count();
         return $workHiring;
     }
-
 }

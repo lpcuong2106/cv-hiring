@@ -17,7 +17,9 @@ import { useQuery } from "@apollo/client";
 import { FETCH_HOME_PAGE } from "../GraphQL/Query/FetchData";
 import { LoadingApp } from "../components/LoadingApp";
 import { CategoryJobList } from "../components/CategoryJob";
-import { Company, Province, WorkCategory } from "../data";
+import { Company, Province, WorkCategory, WorkJob } from "../data";
+import JobItem from "../components/JobItem";
+import NewWorkJobItem from "../components/NewWorkJobItem";
 
 const { Option } = Select;
 
@@ -25,6 +27,7 @@ interface HomeQuery {
   provinces: Province[];
   workCategories: WorkCategory[];
   topCompany: Company[];
+  newWorkJob: WorkJob[];
 }
 
 const Home: NextPage = () => {
@@ -113,6 +116,31 @@ const Home: NextPage = () => {
                   <span className={style.line}></span>
                 </div>
                 <TopCompanyItem companyTop={data?.topCompany ?? []} />
+              </Col>
+              <Col md={24}>
+                <div style={{ marginTop: "20px" }}>
+                  <div className={style.headerBoxList}>
+                    <span className={style.title}>Việc làm mới nhất</span>
+                    <span className={style.line}></span>
+                  </div>
+                  <Row>
+                    {data?.newWorkJob.map((job) => (
+                      <Col md={6}>
+                        <NewWorkJobItem
+                          companySlug={job.company.slug}
+                          slug={job.slug}
+                          provinceName={job.province.name}
+                          salary={job.salary}
+                          deadlineDate={job.expired_date}
+                          companyName={job.company.name}
+                          title={job.name}
+                          logoUrl={job.company.logo}
+                          updatedAt={job.updated_at}
+                        />
+                      </Col>
+                    ))}
+                  </Row>
+                </div>
               </Col>
               <Col md={24}>
                 {data?.workCategories && (

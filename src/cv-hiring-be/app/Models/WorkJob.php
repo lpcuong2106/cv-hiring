@@ -10,15 +10,29 @@ class WorkJob extends Model
 {
     use HasFactory;
 
-    public function company(){
+    protected $fillable = [
+        'is_open'
+    ];
+
+    public function company()
+    {
         return $this->belongsTo(Company::class, 'company_id', 'id');
     }
 
-    public function province(){
+    public function province()
+    {
         return $this->belongsTo(Province::class, 'province_id', 'id');
     }
 
-    public function work_category(){
+    public function work_category()
+    {
         return $this->belongsTo(WorkCategory::class, 'work_category_id', 'id');
+    }
+
+
+    public function scopeJobHiring($query)
+    {
+        return $query->where('is_open', '=', 1)
+            ->where('expired_date', '<=', now());
     }
 }

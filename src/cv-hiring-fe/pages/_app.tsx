@@ -8,7 +8,6 @@ import {
   ApolloLink,
   ApolloClient,
   ApolloProvider,
-  HttpLink,
   InMemoryCache,
 } from "@apollo/client";
 import createUploadLink from "apollo-upload-client/public/createUploadLink.js";

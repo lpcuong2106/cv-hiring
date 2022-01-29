@@ -132,7 +132,18 @@ const WorkJob: NextPage = () => {
                         </div>
                         <div>
                           <Clock width={16} />
-                          <span>Đăng ngày: {workJob?.created_at}</span>
+                          <span>
+                            Đăng ngày:{" "}
+                            {workJob?.created_at &&
+                              format(
+                                parse(
+                                  workJob.created_at,
+                                  "yyyy-MM-dd",
+                                  new Date()
+                                ),
+                                "dd-MM-yyyy"
+                              )}
+                          </span>
                         </div>
                       </div>
                     </div>

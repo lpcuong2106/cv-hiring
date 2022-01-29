@@ -12,15 +12,19 @@ import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import { FETCH_COMPANY_DETAIL } from "../../../GraphQL/Query/Comapany";
 import { LoadingApp } from "../../../components/LoadingApp";
-import { Company } from "../../../data";
+import { Company, WorkJob } from "../../../data";
 import { useRouter } from "next/router";
 import BreadcrumbCus from "../../../components/BreadcrumbCus";
 import { FacebookShareButton, FacebookShareCount } from "react-share";
 import JobItem from "../../../components/JobItem";
+import { FETCH_WORK_JOB_HIRING_COMPANY } from "../../../GraphQL/Query/WorkJob";
 const { TabPane } = Tabs;
 
 interface DataQuery {
   companyDetail: Company;
+}
+interface DataWorkJobQuery {
+  workJobHiringOfCompany: WorkJob[];
 }
 
 const Company: NextPage = () => {
@@ -34,7 +38,14 @@ const Company: NextPage = () => {
   });
   const company = data?.companyDetail;
 
-  if (loading) {
+  const { data: workJobs, loading: loadingWorkJob } =
+    useQuery<DataWorkJobQuery>(FETCH_WORK_JOB_HIRING_COMPANY, {
+      variables: {
+        companyId: company?.id,
+      },
+      skip: !company?.id,
+    });
+  if (loading || !company) {
     return <LoadingApp />;
   }
 
@@ -131,7 +142,7 @@ const Company: NextPage = () => {
                       </div>
                     </TabPane>
                     <TabPane tab="Việc làm" key="2">
-                      {company?.work_jobs.map((job) => (
+                      {workJobs?.workJobHiringOfCompany?.map((job) => (
                         <JobItem
                           companySlug={company?.slug}
                           slug={job.slug}

@@ -1,0 +1,27 @@
+.jobItem {
+  box-shadow: #00000000 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(10, 0, 56, 0.05) 0px 10px 8px 0px;
+  border: 1px solid #e3eefb;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin: 6px;
+  &:hover {
+    border-color: #2c95ff80 !important;
+  }
+  .title {
+    margin-bottom: 0;
+    a {
+      font-weight: 500;
+      color: #1d1b21;
+    }
+  }
+  .company {
+    a {
+      font-weight: 400;
+      color: #b6b6b8;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

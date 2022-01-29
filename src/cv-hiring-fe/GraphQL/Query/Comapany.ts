@@ -15,17 +15,6 @@ export const FETCH_COMPANY_DETAIL = gql`
       fanpage
       address
       gg_map
-      work_jobs {
-        id
-        name
-        slug
-        salary
-        expired_date
-        updated_at
-        province {
-          name
-        }
-      }
     }
   }
 `;

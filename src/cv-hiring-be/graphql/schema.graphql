@@ -15,7 +15,9 @@ type Query {
     workCategories: [WorkCategory!]! @all
     me: User @auth(guard: "api")
     topCompany(amount: Int!): [Company!]!
+    newWorkJob(amount: Int!): [WorkJob!]!
     companyDetail(slug: String! @eq): Company @find
+    workJobHiringOfCompany(companyId: ID!): [WorkJob!]!
     getWorkJobBySlug(slug: String! @eq): WorkJob @find
     getAllWorkJob(
         first: Int!

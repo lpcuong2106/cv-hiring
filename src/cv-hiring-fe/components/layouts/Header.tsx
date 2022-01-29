@@ -16,7 +16,8 @@ function HeaderNav() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     auth.setIsLogged(false);
-    message.success("Đăng suất thành công!");
+    auth.user = null;
+    message.success("Đăng xuất thành công!");
     router.replace("/login");
   };
 
@@ -50,7 +51,6 @@ function HeaderNav() {
                   <a>Việc làm</a>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="2">Công ty</Menu.Item>
               <Menu.Item key="3">Công cụ</Menu.Item>
             </Menu>
           </Col>

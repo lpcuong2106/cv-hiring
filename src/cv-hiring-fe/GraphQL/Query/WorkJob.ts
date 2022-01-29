@@ -81,3 +81,20 @@ export const FETCH_ALL_JOB_SEARCH = gql`
     }
   }
 `;
+export const FETCH_WORK_JOB_HIRING_COMPANY = gql`
+  query workJobHiringOfCompany($companyId: ID!) {
+    workJobHiringOfCompany(companyId: $companyId) {
+      id
+      name
+      slug
+      updated_at
+      expired_date
+      work_category {
+        name
+      }
+      province {
+        name
+      }
+    }
+  }
+`;
