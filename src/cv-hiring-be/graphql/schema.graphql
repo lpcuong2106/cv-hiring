@@ -22,6 +22,8 @@ type Query {
         page: Int
         input: WorkJobSearchInput @spread
     ): [WorkJob!]! @paginate(defaultCount: 10)
+    userAppliedWorkJob(user_id: ID! @eq, work_job_id: ID! @eq): UserAppliedJob
+        @find(model: "App\\Models\\WorkApply")
     # getAllWorkJob(first: Int!, page: Int): [WorkJob!]!
 }
 

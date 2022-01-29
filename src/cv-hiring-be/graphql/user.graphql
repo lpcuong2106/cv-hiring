@@ -27,3 +27,12 @@ type User implements Modal {
     updated_at: DateTime!
     role: Role! @belongsTo
 }
+
+type UserAppliedJob {
+    id: ID!
+    user_id: ID
+    work_job_id: ID
+    cv_url: String!
+    status: String
+    letter: String
+}

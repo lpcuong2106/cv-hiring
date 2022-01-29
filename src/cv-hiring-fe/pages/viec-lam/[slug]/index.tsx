@@ -1,4 +1,4 @@
-import { Col, Row, Card, Button, Modal, Tabs } from "antd";
+import { Col, Row, Card, Button, Modal, Tabs, Tooltip } from "antd";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Container } from "react-bootstrap";
@@ -9,17 +9,21 @@ import { Clock } from "@styled-icons/bootstrap/Clock";
 import { Eye } from "@styled-icons/bootstrap/Eye";
 import { JobInfoRequirement } from "../../../components/JobInfoRequirement";
 import { useQuery } from "@apollo/client";
-import { FETCH_WORKJOB_QUERY } from "../../../GraphQL/Query/WorkJob";
+import {
+  FETCH_USER_IS_APPLIED_WORKJOB,
+  FETCH_WORKJOB_QUERY,
+} from "../../../GraphQL/Query/WorkJob";
 import { LoadingApp } from "../../../components/LoadingApp";
-import { WorkJob } from "../../../data";
+import { WorkApply, WorkJob } from "../../../data";
 import BreadcrumbCus from "../../../components/BreadcrumbCus";
 import { useRouter } from "next/router";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import { FacebookShareButton, FacebookShareCount } from "react-share";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ApplyCVModal from "../../../components/ApplyCVModal";
 import Link from "next/link";
+import { AuthContext } from "../../../components/AuthProvider";
 
 interface DataQuery {
   getWorkJobBySlug: WorkJob;
@@ -29,6 +33,10 @@ interface CompanyBoxProps {
   content: string;
   lable: string;
   icon: string;
+}
+
+interface DataAppliedQuery {
+  userAppliedWorkJob: WorkApply;
 }
 
 const CompanyBox = ({ content, lable, icon }: CompanyBoxProps) => {
@@ -45,11 +53,25 @@ const CompanyBox = ({ content, lable, icon }: CompanyBoxProps) => {
 
 const WorkJob: NextPage = () => {
   const router = useRouter();
+  const context = useContext(AuthContext);
+
   const [isShowApply, setIsShowApply] = useState(false);
   const { slug } = router.query;
   const { data, loading } = useQuery<DataQuery>(FETCH_WORKJOB_QUERY, {
     variables: { slug },
   });
+  const {
+    data: userAppliedWorkJob,
+    loading: userApplyLoading,
+    refetch,
+  } = useQuery<DataAppliedQuery>(FETCH_USER_IS_APPLIED_WORKJOB, {
+    variables: {
+      user_id: context?.user?.id,
+      work_job_id: data?.getWorkJobBySlug.id,
+    },
+    skip: !data?.getWorkJobBySlug.id && !context?.user?.id,
+  });
+
   const workJob = data?.getWorkJobBySlug;
 
   if (loading) {
@@ -66,6 +88,7 @@ const WorkJob: NextPage = () => {
           <Container>
             <BreadcrumbCus />
             <ApplyCVModal
+              refetchApply={refetch}
               jobId={workJob?.id ?? 1}
               companyName={workJob?.company.name ?? ""}
               jobName={workJob?.name ?? ""}
@@ -114,13 +137,26 @@ const WorkJob: NextPage = () => {
                       </div>
                     </div>
                     <div className={style.btnAction}>
-                      <Button
-                        type="primary"
-                        size="large"
-                        onClick={() => setIsShowApply(true)}
-                      >
-                        Nộp hồ sơ ngay
-                      </Button>
+                      {userApplyLoading ? (
+                        <LoadingApp />
+                      ) : userAppliedWorkJob?.userAppliedWorkJob?.id ? (
+                        <Tooltip
+                          placement="topRight"
+                          title="Click vào để xem trạng thái xử lý"
+                        >
+                          <Button type="dashed" size="large">
+                            Bạn đã nộp vào vị trí này rồi
+                          </Button>
+                        </Tooltip>
+                      ) : (
+                        <Button
+                          type="primary"
+                          size="large"
+                          onClick={() => setIsShowApply(true)}
+                        >
+                          Nộp hồ sơ ngay
+                        </Button>
+                      )}
 
                       <FacebookShareButton
                         url={window.location.href}

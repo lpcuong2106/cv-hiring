@@ -2,7 +2,7 @@ import { Button, message, Modal, Upload } from "antd";
 import { useFormik } from "formik";
 import { UploadOutlined } from "@ant-design/icons";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import * as Yup from "yup";
 import style from "./style.module.scss";
 import { UploadChangeParam } from "antd/lib/upload";
@@ -10,6 +10,7 @@ import { UploadFile } from "antd/lib/upload/interface";
 import TextArea from "antd/lib/input/TextArea";
 import { useMutation } from "@apollo/client";
 import { APPLY_CV } from "../../GraphQL/Mutation/ApplyCV";
+import { AuthContext } from "../AuthProvider";
 
 interface Props {
   isShowApply: boolean;
@@ -18,6 +19,7 @@ interface Props {
   jobName: string;
   companyName: string;
   jobId: number;
+  refetchApply: (variables: any) => Promise<any>;
 }
 interface FormApply {
   fileCV: null | UploadFile<any>;
@@ -38,9 +40,12 @@ function ApplyCVModal({
   jobName,
   companyName,
   jobId,
+  refetchApply,
 }: Props) {
   const [fileList, setFileList] = useState<UploadFile<any>[]>([]);
   const [applyCV, { loading, error }] = useMutation(APPLY_CV);
+  const context = useContext(AuthContext);
+
   const form = useFormik<FormApply>({
     initialValues: {
       fileCV: null,
@@ -66,6 +71,10 @@ function ApplyCVModal({
         setIsShowApply(false);
         form.resetForm();
         setFileList([]);
+        refetchApply({
+          user_id: context?.user?.id,
+          work_job_id: jobId,
+        });
         message.success("Nộp CV thành công!");
       }
       if (errors) {

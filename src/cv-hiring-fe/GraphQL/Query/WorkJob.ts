@@ -1,5 +1,17 @@
 import { gql } from "@apollo/client";
 
+export const FETCH_USER_IS_APPLIED_WORKJOB = gql`
+  query UserAppliedWorkJob($user_id: ID!, $work_job_id: ID!) {
+    userAppliedWorkJob(user_id: $user_id, work_job_id: $work_job_id) {
+      id
+      user_id
+      work_job_id
+      cv_url
+      status
+      letter
+    }
+  }
+`;
 export const FETCH_WORKJOB_QUERY = gql`
   query WorkJobQuery($slug: String!) {
     getWorkJobBySlug(slug: $slug) {

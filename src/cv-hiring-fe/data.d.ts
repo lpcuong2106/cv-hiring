@@ -54,3 +54,11 @@ type PaginatorInfo = {
   perPage: number;
   total: number;
 };
+type WorkApply = {
+  id: int;
+  user_id: int;
+  work_job_id: int;
+  cv_url: !string;
+  status: string;
+  letter: string;
+};
