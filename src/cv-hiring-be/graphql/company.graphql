@@ -11,4 +11,5 @@ type Company {
     logo: String
     banner: String
     amount_job_hiring: Int
+    work_jobs: [WorkJob!]! @hasMany
 }

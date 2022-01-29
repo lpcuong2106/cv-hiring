@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const CategoryJobList = ({ data, label, type }: Props) => {
-  const url = type == "province" ? "/province/" : "/category/";
+  const url = type == "province" ? "/tinh-thanh/" : "/category/";
 
   return (
     <div>

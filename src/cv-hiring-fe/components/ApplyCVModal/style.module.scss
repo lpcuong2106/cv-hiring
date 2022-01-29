@@ -1,0 +1,36 @@
+.formSubmit {
+  .formController {
+    margin-top: 20px;
+    .label {
+      font-size: 0.875rem;
+      font-weight: bold;
+      color: #333;
+      margin-right: 20px;
+      > span {
+        color: red;
+      }
+    }
+  }
+  .messageError {
+    padding-top: 4px;
+    color: red;
+  }
+}
+.companyInfo {
+  display: flex;
+  img {
+    box-shadow: 0 1px 5px #d0d0d0;
+    border-radius: 5px;
+    width: 72px;
+    margin-right: 20px;
+  }
+  .info {
+    font-size: 14px;
+    p {
+      margin: 0;
+    }
+    .companyName {
+      text-transform: uppercase;
+    }
+  }
+}

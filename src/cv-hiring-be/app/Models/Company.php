@@ -17,7 +17,7 @@ class Company extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function workJobs(){
+    public function work_jobs(){
         return $this->hasMany(WorkJob::class);
     }
 

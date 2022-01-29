@@ -16,6 +16,7 @@ import { Company } from "../../../data";
 import { useRouter } from "next/router";
 import BreadcrumbCus from "../../../components/BreadcrumbCus";
 import { FacebookShareButton, FacebookShareCount } from "react-share";
+import JobItem from "../../../components/JobItem";
 const { TabPane } = Tabs;
 
 interface DataQuery {
@@ -51,74 +52,74 @@ const Company: NextPage = () => {
               <Col md={24}>
                 <div className={style.banner}>
                   <img src={company?.banner} />
-                </div>
-
-                <div className={style.introControl}>
-                  <div className={style.logo}>
-                    <div className={style.nameCompany}>
-                      <img
-                        src={company?.logo}
-                        alt=""
-                        className={style.logoImage}
-                      />
-                      <div className={style.introCompany}>
-                        <h1>{company?.name}</h1>
-                        <div className={style.boxListMenu}>
-                          <ul>
-                            <li>
-                              <Location width={16} />
-                              <Link href="/">
-                                <a className={style.locationText}>Hà Nội</a>
-                              </Link>
-                            </li>
-                            <li>
-                              <FirefoxBrowser width={16} />
+                  <div className={style.introControl}>
+                    <div className={style.logo}>
+                      <div className={style.nameCompany}>
+                        <img
+                          src={company?.logo}
+                          alt=""
+                          className={style.logoImage}
+                        />
+                        <div className={style.introCompany}>
+                          <h1>{company?.name}</h1>
+                          <div className={style.boxListMenu}>
+                            <ul>
+                              <li>
+                                <Location width={16} />
+                                <Link href="/">
+                                  <a className={style.locationText}>Hà Nội</a>
+                                </Link>
+                              </li>
+                              <li>
+                                <FirefoxBrowser width={16} />
+                                <a
+                                  className={style.locationText}
+                                  href={company?.website}
+                                  target="_blank"
+                                >
+                                  {company?.website}
+                                </a>
+                              </li>
+                            </ul>
+                            <p>
+                              {company?.address + " "}
                               <a
-                                className={style.locationText}
-                                href={company?.website}
-                                target="_blank"
+                                href={`https://www.google.com/maps?q=${company?.address}`}
+                                target={"_blank"}
                               >
-                                {company?.website}
+                                Xem bản đồ
                               </a>
-                            </li>
-                          </ul>
-                          <p>
-                            {company?.address + " "}
-                            <a
-                              href={`https://www.google.com/maps?q=${company?.address}`}
-                              target={"_blank"}
-                            >
-                              Xem bản đồ
-                            </a>
-                          </p>
+                            </p>
 
-                          <Button type="primary" style={{ marginRight: 20 }}>
-                            <EyeShow width={16} />
-                            Theo dõi
-                          </Button>
-
-                          <FacebookShareButton
-                            url={window.location.href}
-                            quote="hihi"
-                            hashtag="ihih"
-                          >
-                            <Button type="primary">
-                              <Share width={16} />
-                              Chia sẻ
-                              <FacebookShareCount url={router.asPath}>
-                                {(shareCount) => (
-                                  <span className="myShareCountWrapper">
-                                    {shareCount}
-                                  </span>
-                                )}
-                              </FacebookShareCount>
+                            <Button type="primary" style={{ marginRight: 20 }}>
+                              <EyeShow width={16} />
+                              Theo dõi
                             </Button>
-                          </FacebookShareButton>
+
+                            <FacebookShareButton
+                              url={window.location.href}
+                              quote="hihi"
+                              hashtag="ihih"
+                            >
+                              <Button type="primary">
+                                <Share width={16} />
+                                Chia sẻ
+                                <FacebookShareCount url={router.asPath}>
+                                  {(shareCount) => (
+                                    <span className="myShareCountWrapper">
+                                      {shareCount}
+                                    </span>
+                                  )}
+                                </FacebookShareCount>
+                              </Button>
+                            </FacebookShareButton>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <div className={style.companyBox}>
                   <Tabs defaultActiveKey="1">
                     <TabPane tab="Thông tin" key="1">
@@ -130,7 +131,19 @@ const Company: NextPage = () => {
                       </div>
                     </TabPane>
                     <TabPane tab="Việc làm" key="2">
-                      Content of Tab Pane 2
+                      {company?.work_jobs.map((job) => (
+                        <JobItem
+                          companySlug={company?.slug}
+                          slug={job.slug}
+                          provinceName={job.province.name}
+                          salary={job.salary}
+                          deadlineDate={job.expired_date}
+                          companyName={company?.name}
+                          title={job.name}
+                          logoUrl={company?.logo}
+                          updatedAt={job.updated_at}
+                        />
+                      ))}
                     </TabPane>
                     <TabPane tab="Đánh giá" key="3">
                       Content of Tab Pane 3

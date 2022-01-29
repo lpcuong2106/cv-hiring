@@ -11,7 +11,9 @@ import {
   HttpLink,
   InMemoryCache,
 } from "@apollo/client";
-const httpLink = new HttpLink({ uri: "http://127.0.0.1:8000/graphql" });
+import createUploadLink from "apollo-upload-client/public/createUploadLink.js";
+
+const httpLink = createUploadLink({ uri: "http://127.0.0.1:8000/graphql" });
 
 const authLink = new ApolloLink((operation, forward) => {
   // Retrieve the authorization token from local storage.
@@ -29,6 +31,7 @@ const authLink = new ApolloLink((operation, forward) => {
 });
 
 const client = new ApolloClient({
+  // @ts-ignore
   link: authLink.concat(httpLink), // Chain it with the HttpLink
   cache: new InMemoryCache(),
 });

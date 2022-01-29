@@ -45,8 +45,11 @@ export const AuthProvider = ({ children }: AuxProps) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
+  const protectedRoute = ["/login", "/register"];
+  const router = useRouter();
+
   useEffect(() => {
-    if (context.isLogged) {
+    if (context.isLogged && protectedRoute.includes(router.asPath)) {
       Router.replace("/");
     }
   }, [context.isLogged]);

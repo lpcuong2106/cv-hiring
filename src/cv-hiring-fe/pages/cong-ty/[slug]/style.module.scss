@@ -2,8 +2,14 @@
   background: linear-gradient(180deg, #d1e5fa, #f4f8fc);
   .banner {
     text-align: center;
+    position: relative;
     img {
       border-radius: 0 0 8px 8px;
+    }
+    .introControl {
+      position: absolute;
+      bottom: 130px;
+      right: 170px;
     }
   }
   .logo {
@@ -15,9 +21,6 @@
     background: #fff;
     box-shadow: 0 8px 15px 4px rgb(0 92 144 / 5%);
     border-radius: 24px;
-    .introControl {
-      position: absolute;
-    }
   }
 }
 .companyBox {

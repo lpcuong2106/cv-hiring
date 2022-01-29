@@ -19,6 +19,7 @@ export type Company = {
   logo: string;
   banner: string;
   amount_job_hiring: number;
+  work_jobs: WorkJob[];
 };
 export type WorkJob = {
   id: int;

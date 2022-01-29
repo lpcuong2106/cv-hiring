@@ -66,8 +66,12 @@ const WorkJob: NextPage = () => {
           <Container>
             <BreadcrumbCus />
             <ApplyCVModal
+              jobId={workJob?.id ?? 1}
+              companyName={workJob?.company.name ?? ""}
+              jobName={workJob?.name ?? ""}
               isShowApply={isShowApply}
               setIsShowApply={setIsShowApply}
+              companyLogo={workJob?.company.logo ?? ""}
             />
             <Row>
               <Col md={18}>
