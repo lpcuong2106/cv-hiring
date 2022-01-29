@@ -49,10 +49,9 @@ function ApplyCVModal({
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const { fileCV, content } = values;
-      console.log(fileCV);
+
       const buffer = await fileCV?.originFileObj;
-      // const file = new Blob([buffer]);
-      // console.log("uinput", file);
+
       const { data, errors } = await applyCV({
         variables: {
           fileCV: buffer,
@@ -63,21 +62,15 @@ function ApplyCVModal({
           hasUpload: true,
         },
       });
-
-      console.log(data, errors);
-
-      //   if (data && data.login?.token) {
-      //     localStorage.setItem("token", data.login?.token);
-      //     auth.setIsLogged(true);
-      //     message.success("Đăng nhập thành công!");
-      //     Router.push("/");
-      //     return;
-      //   }
-
-      setIsShowApply(false);
-      form.resetForm();
-      setFileList([]);
-      message.success("Nộp CV thất bại!");
+      if (data.applyCV?.id) {
+        setIsShowApply(false);
+        form.resetForm();
+        setFileList([]);
+        message.success("Nộp CV thành công!");
+      }
+      if (errors) {
+        message.error("Nộp CV thất bại!" + errors);
+      }
     },
   });
 

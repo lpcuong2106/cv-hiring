@@ -29,7 +29,6 @@ type Mutation {
     login(email: String!, password: String!): AuthPayload
     registerUser(email: String!, password: String!): AuthPayload
     applyCV(content: String!, fileCV: Upload!, jobId: ID!): UploadedCV
-        @auth(guard: "api")
 }
 
 type UploadedCV {
