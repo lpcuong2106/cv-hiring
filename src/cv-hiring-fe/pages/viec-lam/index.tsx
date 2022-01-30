@@ -22,6 +22,7 @@ import { LoadingApp } from "../../components/LoadingApp";
 import { useState } from "react";
 import BreadcrumbCus from "../../components/BreadcrumbCus";
 import NotFoundJob from "../../components/NotFoundJob";
+import SearchJobForm from "../../components/SearchJobForm";
 
 const { Option } = Select;
 
@@ -43,7 +44,7 @@ function itemRender(current: any, type: any, originalElement: any) {
 }
 const WorkJobs: NextPage = () => {
   const [page, setPage] = useState(1);
-  const { data, loading } = useQuery<DataQuery>(FETCH_ALL_JOB_SEARCH, {
+  const { data, loading, refetch } = useQuery<DataQuery>(FETCH_ALL_JOB_SEARCH, {
     variables: { page: page },
   });
 
@@ -81,37 +82,12 @@ const WorkJobs: NextPage = () => {
                     <Tag color="success">Môi trường chuyên nghiệp</Tag>
                   </div>
                   <div className={style.searchJob}>
-                    <Search
-                      placeholder="Nhập tên công việc, vị trí, kĩ năng"
-                      // onSearch={onSearch}
-
-                      style={{ width: 200 }}
-                    />
-                    <Select
-                      style={{ width: 200 }}
-                      placeholder="Chọn ngành nghề"
-                      // onChange={handleChange}
-                    >
-                      <Option value="">Chọn ngành nghề</Option>
-                      {/* {data?.workCategories.map((category) => (
-                        <Option value={category.id}>{category.name}</Option>
-                      ))} */}
-                    </Select>
-                    <Select
-                      style={{ width: 200 }}
-                      placeholder="Chọn tỉnh thành"
-                      // onChange={handleChange}
-                    >
-                      <Option value="">Chọn tỉnh thành</Option>
-                      {/* {data?.provinces.map((province) => (
-                        <Option value={province.id}>{province.name}</Option>
-                      ))} */}
-                    </Select>
-                    <Button type="primary">Tìm kiếm</Button>
+                    <SearchJobForm onSearch={refetch} />
                   </div>
 
                   <Row>
                     <Col sm={18}>
+                      {loading && <LoadingApp />}
                       {listJob?.data?.length ? (
                         <>
                           <p>
@@ -121,7 +97,7 @@ const WorkJobs: NextPage = () => {
                             </span>{" "}
                             việc làm phù hợp với yêu cầu của bạn.
                           </p>
-                          {loading && <LoadingApp />}
+
                           {listJob.data.map((job) => (
                             <JobItem
                               companySlug={job.company.slug}

@@ -47,8 +47,16 @@ export const FETCH_WORKJOB_QUERY = gql`
   }
 `;
 export const FETCH_ALL_JOB_SEARCH = gql`
-  query WorkJobQuery($page: Int!) {
-    getAllWorkJob(first: 10, page: $page) {
+  query WorkJobQuery(
+    $page: Int!
+    $name: String
+    $categoryId: ID
+    $provinceId: ID
+  ) {
+    getAllWorkJob(
+      page: $page
+      input: { name: $name, provinceId: $provinceId, categoryId: $categoryId }
+    ) {
       paginatorInfo {
         total
         perPage

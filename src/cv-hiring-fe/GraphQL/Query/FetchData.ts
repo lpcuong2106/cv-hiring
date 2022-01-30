@@ -9,13 +9,26 @@ export const FETCH_USER_LOGIN = gql`
   }
 `;
 
-export const FETCH_HOME_PAGE = gql`
-  query FetchHomePage {
+export const FETCH_ALL_PROVINCE_CATEGORY = gql`
+  query FetchAllProvinceAndCategory {
+    workCategories {
+      id
+      name
+    }
     provinces {
       id
       name
     }
+  }
+`;
+
+export const FETCH_HOME_PAGE = gql`
+  query FetchHomePage {
     workCategories {
+      id
+      name
+    }
+    provinces {
       id
       name
     }

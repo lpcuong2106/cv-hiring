@@ -13,8 +13,22 @@ class GetAllWorkJob
     public function __invoke($_, array $args)
     {
         $page = $args['page'];
+        $nameJob = isset($args['name']) ? $args['name'] : null;
+        $provinceId =  isset($args['provinceId']) ? $args['provinceId'] : null;
+        $categoryId =  isset($args['categoryId']) ? $args['categoryId'] : null;
 
-        $workJob = WorkJob::jobHiring()->paginate(10, ['*'], 'page', $page);
+        $workJob = WorkJob::jobHiring()
+            ->when($nameJob, function ($query, $nameJob) {
+                return $query->where('name', 'like', '%' . $nameJob . '%');
+            })
+            ->when($provinceId, function ($query, $provinceId) {
+                return $query->where('province_id', $provinceId);
+            })
+            ->when($categoryId, function ($query, $categoryId) {
+                return $query->where('work_category_id',  $categoryId);
+            })
+            ->paginate(10, ['*'], 'page', $page);
+
         $pagination = [
             'total' => $workJob->total(),
             'lastItem'  => $workJob->lastItem(),

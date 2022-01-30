@@ -21,17 +21,11 @@ type Query {
     companyDetail(slug: String! @eq): Company @find
     workJobHiringOfCompany(companyId: ID!): [WorkJob!]!
     getWorkJobBySlug(slug: String! @eq): WorkJob @find
-    # getAllWorkJob(
-    #     first: Int!
-    #     page: Int
-    #     input: WorkJobSearchInput @spread
-    # ): [WorkJob!]! @paginate(defaultCount: 10)
     userAppliedWorkJob(user_id: ID! @eq, work_job_id: ID! @eq): UserAppliedJob
         @find(model: "App\\Models\\WorkApply")
     workJobOfProvince(provinceId: ID!): WorkJobPaginator
     getAllWorkJob(
-        first: Int!
-        page: Int
+        page: Int!
         input: WorkJobSearchInput @spread
     ): WorkJobPaginator
 }
@@ -63,6 +57,7 @@ type Province implements Modal {
 interface Paginator {
     total: Int
 }
+
 #import user.graphql
 #import work.graphql
 #import company.graphql

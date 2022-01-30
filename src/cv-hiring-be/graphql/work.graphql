@@ -28,7 +28,7 @@ type WorkJob {
 }
 
 input WorkJobSearchInput {
-    name: String @where(operator: "like")
-    is_open: Int @eq
-    # where: _ @whereConditions(columnsEnum: "ProvinceColumn")
+    name: String
+    provinceId: ID
+    categoryId: ID
 }

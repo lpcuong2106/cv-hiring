@@ -20,6 +20,7 @@ import { CategoryJobList } from "../components/CategoryJob";
 import { Company, Province, WorkCategory, WorkJob } from "../data";
 import JobItem from "../components/JobItem";
 import NewWorkJobItem from "../components/NewWorkJobItem";
+import SearchJobForm from "../components/SearchJobForm";
 
 const { Option } = Select;
 
@@ -31,7 +32,7 @@ interface HomeQuery {
 }
 
 const Home: NextPage = () => {
-  const { data, loading } = useQuery<HomeQuery>(FETCH_HOME_PAGE);
+  const { data, loading, refetch } = useQuery<HomeQuery>(FETCH_HOME_PAGE);
 
   if (loading) {
     return <LoadingApp />;
@@ -55,35 +56,7 @@ const Home: NextPage = () => {
                         Tìm kiếm<b> 194 </b>việc làm mới trong
                         <b> 4,583 </b>việc đang tuyển dụng
                       </p>
-                      <div>
-                        <Search
-                          placeholder="Nhập tên công việc, vị trí, kĩ năng"
-                          // onSearch={onSearch}
-
-                          style={{ width: 200 }}
-                        />
-                        <Select
-                          style={{ width: 200 }}
-                          placeholder="Chọn ngành nghề"
-                          // onChange={handleChange}
-                        >
-                          <Option value="">Chọn ngành nghề</Option>
-                          {data?.workCategories.map((category) => (
-                            <Option value={category.id}>{category.name}</Option>
-                          ))}
-                        </Select>
-                        <Select
-                          style={{ width: 200 }}
-                          placeholder="Chọn tỉnh thành"
-                          // onChange={handleChange}
-                        >
-                          <Option value="">Chọn tỉnh thành</Option>
-                          {data?.provinces.map((province) => (
-                            <Option value={province.id}>{province.name}</Option>
-                          ))}
-                        </Select>
-                        <Button type="primary">Tìm kiếm</Button>
-                      </div>
+                      <SearchJobForm onSearch={refetch} />
                     </div>
                   </div>
                 </div>
