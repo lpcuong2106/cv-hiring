@@ -12,6 +12,8 @@ type Query {
     roles: [Role!]!
     provinces: [Province!]!
         @all(model: "HoangPhi\\VietnamMap\\Models\\Province")
+    provinceDetail(id: ID! @eq): Province
+        @find(model: "HoangPhi\\VietnamMap\\Models\\Province")
     workCategories: [WorkCategory!]! @all
     me: User @auth(guard: "api")
     topCompany(amount: Int!): [Company!]!
@@ -19,14 +21,24 @@ type Query {
     companyDetail(slug: String! @eq): Company @find
     workJobHiringOfCompany(companyId: ID!): [WorkJob!]!
     getWorkJobBySlug(slug: String! @eq): WorkJob @find
+    # getAllWorkJob(
+    #     first: Int!
+    #     page: Int
+    #     input: WorkJobSearchInput @spread
+    # ): [WorkJob!]! @paginate(defaultCount: 10)
+    userAppliedWorkJob(user_id: ID! @eq, work_job_id: ID! @eq): UserAppliedJob
+        @find(model: "App\\Models\\WorkApply")
+    workJobOfProvince(provinceId: ID!): WorkJobPaginator
     getAllWorkJob(
         first: Int!
         page: Int
         input: WorkJobSearchInput @spread
-    ): [WorkJob!]! @paginate(defaultCount: 10)
-    userAppliedWorkJob(user_id: ID! @eq, work_job_id: ID! @eq): UserAppliedJob
-        @find(model: "App\\Models\\WorkApply")
-    # getAllWorkJob(first: Int!, page: Int): [WorkJob!]!
+    ): WorkJobPaginator
+}
+
+type WorkJobPaginator {
+    paginatorInfo: PaginatorInfo!
+    data: [WorkJob!]!
 }
 
 type Mutation {
@@ -48,7 +60,9 @@ type Province implements Modal {
     id: ID!
     name: String
 }
-
+interface Paginator {
+    total: Int
+}
 #import user.graphql
 #import work.graphql
 #import company.graphql

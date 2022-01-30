@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use GraphQL\Type\Definition\ResolveInfo;
 use HoangPhi\VietnamMap\Models\Province;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class WorkJob extends Model
 {
@@ -34,5 +38,12 @@ class WorkJob extends Model
     {
         return $query->where('is_open', '=', 1)
             ->where('expired_date', '<=', now());
+    }
+
+    public function statistics($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Builder
+    {
+        $provinceId = $args['provinceId'];
+        $workJob = DB::table('work_jobs')->where('province_id', $provinceId);
+        return $workJob;
     }
 }

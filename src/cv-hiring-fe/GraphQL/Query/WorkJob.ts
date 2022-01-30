@@ -55,7 +55,6 @@ export const FETCH_ALL_JOB_SEARCH = gql`
         firstItem
         lastPage
         currentPage
-        hasMorePages
         lastItem
       }
       data {
@@ -94,6 +93,42 @@ export const FETCH_WORK_JOB_HIRING_COMPANY = gql`
       }
       province {
         name
+      }
+    }
+  }
+`;
+export const FETCH_WORK_JOB_PROVINCE = gql`
+  query workJobOfProvince($provinceId: ID!) {
+    provinceDetail(id: $provinceId) {
+      name
+    }
+    workJobOfProvince(provinceId: $provinceId) {
+      paginatorInfo {
+        total
+        perPage
+        firstItem
+        lastPage
+        currentPage
+        lastItem
+      }
+      data {
+        id
+        name
+        slug
+        updated_at
+        expired_date
+
+        salary
+        company {
+          slug
+          logo
+        }
+        work_category {
+          name
+        }
+        province {
+          name
+        }
       }
     }
   }

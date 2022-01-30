@@ -4,7 +4,7 @@ namespace App\GraphQL\Queries;
 
 use App\Models\WorkJob;
 
-class GetAllWorkJob
+class WorkJobOfProvince
 {
     /**
      * @param  null  $_
@@ -12,9 +12,8 @@ class GetAllWorkJob
      */
     public function __invoke($_, array $args)
     {
-        $page = $args['page'];
-
-        $workJob = WorkJob::jobHiring()->paginate(10, ['*'], 'page', $page);
+        $provinceId = $args['provinceId'];
+        $workJob = WorkJob::where('province_id', $provinceId)->jobHiring()->paginate();
         $pagination = [
             'total' => $workJob->total(),
             'lastItem'  => $workJob->lastItem(),

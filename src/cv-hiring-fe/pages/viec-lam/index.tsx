@@ -21,6 +21,7 @@ import { FETCH_ALL_JOB_SEARCH } from "../../GraphQL/Query/WorkJob";
 import { LoadingApp } from "../../components/LoadingApp";
 import { useState } from "react";
 import BreadcrumbCus from "../../components/BreadcrumbCus";
+import NotFoundJob from "../../components/NotFoundJob";
 
 const { Option } = Select;
 
@@ -108,38 +109,44 @@ const WorkJobs: NextPage = () => {
                     </Select>
                     <Button type="primary">Tìm kiếm</Button>
                   </div>
-                  <p>
-                    Tìm thấy{" "}
-                    <span className={style.amount}>
-                      {listJob?.paginatorInfo.total}
-                    </span>{" "}
-                    việc làm phù hợp với yêu cầu của bạn.
-                  </p>
+
                   <Row>
                     <Col sm={18}>
-                      {listJob?.data.map((job) => (
-                        <JobItem
-                          companySlug={job.company.slug}
-                          slug={job.slug}
-                          provinceName={job.province.name}
-                          salary={job.salary}
-                          deadlineDate={job.expired_date}
-                          companyName={job.company.name}
-                          title={job.name}
-                          logoUrl={job.company.logo}
-                          updatedAt={job.updated_at}
-                        />
-                      ))}
-                      {loading && <LoadingApp />}
-
-                      <Pagination
-                        total={listJob?.paginatorInfo.total}
-                        pageSize={10}
-                        current={listJob?.paginatorInfo.currentPage}
-                        itemRender={itemRender}
-                        className={style.pagination}
-                        onChange={changePagination}
-                      />
+                      {listJob?.data?.length ? (
+                        <>
+                          <p>
+                            Tìm thấy{" "}
+                            <span className={style.amount}>
+                              {listJob?.paginatorInfo.total}
+                            </span>{" "}
+                            việc làm phù hợp với yêu cầu của bạn.
+                          </p>
+                          {loading && <LoadingApp />}
+                          {listJob.data.map((job) => (
+                            <JobItem
+                              companySlug={job.company.slug}
+                              slug={job.slug}
+                              provinceName={job.province.name}
+                              salary={job.salary}
+                              deadlineDate={job.expired_date}
+                              companyName={job.company.name}
+                              title={job.name}
+                              logoUrl={job.company.logo}
+                              updatedAt={job.updated_at}
+                            />
+                          ))}
+                          <Pagination
+                            total={listJob?.paginatorInfo.total}
+                            pageSize={10}
+                            current={listJob?.paginatorInfo.currentPage}
+                            itemRender={itemRender}
+                            className={style.pagination}
+                            onChange={changePagination}
+                          />
+                        </>
+                      ) : (
+                        <NotFoundJob />
+                      )}
                     </Col>
                     <Col sm={6}>
                       <aside className={style.sidebarListJob}>
