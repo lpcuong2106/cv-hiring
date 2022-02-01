@@ -13,7 +13,7 @@ class WorkJobAppliedByUser
     public function __invoke($_, array $args)
     {
         $userId = isset($args['userId']) ? $args['userId'] : null;
-        $workJobAppied = WorkApply::where('user_id', $userId)->paginate();
+        $workJobAppied = WorkApply::withTrashed()->where('user_id', $userId)->orderBy('created_at', 'desc')->paginate();
         $pagination = [
             'total' => $workJobAppied->total(),
             'lastItem'  => $workJobAppied->lastItem(),

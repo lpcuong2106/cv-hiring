@@ -61,5 +61,7 @@ type WorkApply = {
   cv_url: !string;
   status: string;
   letter: string;
-  updated_at: Date;
+  updated_at: string;
+  created_at: string;
+  deleted_at: String;
 };

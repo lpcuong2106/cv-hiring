@@ -12,6 +12,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class WorkJob extends Model
 {
+
     use HasFactory;
 
     protected $fillable = [

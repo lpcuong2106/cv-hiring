@@ -5,6 +5,7 @@ export const FETCH_USER_LOGIN = gql`
     me {
       id
       email
+      avatar
     }
   }
 `;

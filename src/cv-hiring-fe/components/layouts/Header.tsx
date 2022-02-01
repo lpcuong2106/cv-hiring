@@ -21,7 +21,7 @@ function handleMenuClick(e: any) {
 
 function HeaderNav() {
   const auth = useAuth();
-  console.log(auth);
+
   const router = useRouter();
 
   const handleLogout = () => {
@@ -113,10 +113,7 @@ function HeaderNav() {
                   <Button shape="round" type="link">
                     <Avatar
                       src={
-                        <img
-                          src="https://joeschmoe.io/api/v1/random"
-                          style={{ width: 32 }}
-                        />
+                        <img src={auth?.user?.avatar} style={{ width: 32 }} />
                       }
                     />
                     <DownOutlined />

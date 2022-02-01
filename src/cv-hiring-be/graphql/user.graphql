@@ -24,6 +24,7 @@ type User implements Modal {
     birthday: DateTime
     created_at: DateTime
     gender: GenderEnum
+    avatar: String
     updated_at: DateTime!
     role: Role! @belongsTo
 }

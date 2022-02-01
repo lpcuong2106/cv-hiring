@@ -155,9 +155,11 @@ const WorkJob: NextPage = () => {
                           placement="topRight"
                           title="Click vào để xem trạng thái xử lý"
                         >
-                          <Button type="dashed" size="large">
-                            Bạn đã nộp vào vị trí này rồi
-                          </Button>
+                          <Link href="/viec-lam/ung-tuyen">
+                            <Button type="dashed" size="large">
+                              Bạn đã nộp vào vị trí này rồi
+                            </Button>
+                          </Link>
                         </Tooltip>
                       ) : (
                         <Button

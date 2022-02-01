@@ -37,11 +37,13 @@ const client = new ApolloClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ApolloProvider client={client}>
-      <AuthProvider>
-        <Component {...pageProps} />
-      </AuthProvider>
-    </ApolloProvider>
+    <div id="wrapp_app">
+      <ApolloProvider client={client}>
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
+      </ApolloProvider>
+    </div>
   );
 }
 

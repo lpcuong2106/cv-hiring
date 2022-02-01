@@ -1,20 +1,10 @@
-import {
-  Col,
-  Row,
-  Card,
-  Breadcrumb,
-  Pagination,
-  Tag,
-  Select,
-  Button,
-} from "antd";
+import { Col, Row, Card, Pagination, Tag, Select } from "antd";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Container } from "react-bootstrap";
 import Layout from "../../components/layouts";
 import JobItem from "../../components/JobItem";
 import style from "./style.module.scss";
-import Search from "antd/lib/input/Search";
 import { useQuery } from "@apollo/client";
 import { PaginatorInfo, WorkJob } from "../../data";
 import { FETCH_ALL_JOB_SEARCH } from "../../GraphQL/Query/WorkJob";
@@ -23,8 +13,6 @@ import { useState } from "react";
 import BreadcrumbCus from "../../components/BreadcrumbCus";
 import NotFoundJob from "../../components/NotFoundJob";
 import SearchJobForm from "../../components/SearchJobForm";
-
-const { Option } = Select;
 
 interface DataQuery {
   getAllWorkJob: {
