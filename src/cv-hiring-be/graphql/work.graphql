@@ -3,7 +3,7 @@ type WorkCategory {
     name: String
 }
 
-type WorkJob {
+type WorkJob implements Modal {
     id: ID!
     name: String
     slug: String
@@ -31,4 +31,9 @@ input WorkJobSearchInput {
     name: String
     provinceId: ID
     categoryId: ID
+}
+
+type WorkJobPaginator {
+    paginatorInfo: PaginatorInfo!
+    data: [WorkJob!]!
 }

@@ -1,12 +1,23 @@
 import React from "react";
-import { Button, Col, message, Row } from "antd";
+import { Avatar, Button, Col, Dropdown, message, Row } from "antd";
 import { Menu } from "antd";
 
 import Link from "next/link";
 import styles from "./style.module.scss";
 import { Container } from "react-bootstrap";
 import { useAuth } from "../AuthProvider";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
+import { DownOutlined } from "@ant-design/icons";
+
+function handleButtonClick(e: any) {
+  message.info("Click on left button.");
+  console.log("click left button", e);
+}
+
+function handleMenuClick(e: any) {
+  message.info("Click on menu item.");
+  console.log("click", e);
+}
 
 function HeaderNav() {
   const auth = useAuth();
@@ -20,6 +31,25 @@ function HeaderNav() {
     message.success("Đăng xuất thành công!");
     router.replace("/login");
   };
+  const menu = (
+    <Menu>
+      <Menu.Item key="1">
+        <Button onClick={handleLogout} type="link">
+          Cá nhân
+        </Button>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Link href={"/viec-lam/ung-tuyen"}>
+          <Button type="link">Ứng tuyển</Button>
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <Button onClick={handleLogout} type="link">
+          Đăng xuất
+        </Button>
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <Container>
@@ -75,12 +105,23 @@ function HeaderNav() {
                   </Menu.Item>
                 </>
               ) : (
-                <Menu.Item key="1">
-                  <Link href={"/login"}>
-                    <Button>Quan trị</Button>
-                  </Link>
-                  <Button onClick={handleLogout}>Đăng xuất</Button>
-                </Menu.Item>
+                <Dropdown
+                  overlay={menu}
+                  trigger={["click"]}
+                  placement="topCenter"
+                >
+                  <Button shape="round" type="link">
+                    <Avatar
+                      src={
+                        <img
+                          src="https://joeschmoe.io/api/v1/random"
+                          style={{ width: 32 }}
+                        />
+                      }
+                    />
+                    <DownOutlined />
+                  </Button>
+                </Dropdown>
               )}
             </Menu>
           </Col>

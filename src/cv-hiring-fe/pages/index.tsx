@@ -50,15 +50,6 @@ const Home: NextPage = () => {
               <Col md={24}>
                 <div className={style.blockSearchWrap}>
                   <Image src={Banner} />
-                  <div className={style.blockSearch}>
-                    <div className={style.searchBox}>
-                      <p>
-                        Tìm kiếm<b> 194 </b>việc làm mới trong
-                        <b> 4,583 </b>việc đang tuyển dụng
-                      </p>
-                      <SearchJobForm onSearch={refetch} />
-                    </div>
-                  </div>
                 </div>
               </Col>
             </Row>

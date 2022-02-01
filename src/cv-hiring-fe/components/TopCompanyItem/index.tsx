@@ -12,7 +12,7 @@ export const TopCompanyItem = ({ companyTop }: Props) => {
   return (
     <Row className={style.topCompany}>
       {companyTop.map((company) => (
-        <Col md={8}>
+        <Col md={8} key={company.id}>
           <Link href={"/cong-ty/" + company.slug}>
             <a>
               <div className={style.companyBox}>

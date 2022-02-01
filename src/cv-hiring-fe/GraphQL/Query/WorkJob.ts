@@ -141,3 +141,41 @@ export const FETCH_WORK_JOB_PROVINCE = gql`
     }
   }
 `;
+export const FETCH_USER_APPLIED_JOB = gql`
+  query fetch_user_appied_job($userId: ID!) {
+    workJobAppliedByUser(userId: $userId) {
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
+      }
+      data {
+        id
+        cv_url
+        letter
+        status
+        work_job {
+          id
+          name
+          slug
+          province {
+            name
+          }
+          company {
+            name
+            logo
+            slug
+          }
+          salary
+        }
+        created_at
+        updated_at
+      }
+    }
+  }
+`;

@@ -56,9 +56,10 @@ type PaginatorInfo = {
 };
 type WorkApply = {
   id: int;
-  user_id: int;
-  work_job_id: int;
+  user: User;
+  work_job: WorkJob;
   cv_url: !string;
   status: string;
   letter: string;
+  updated_at: Date;
 };

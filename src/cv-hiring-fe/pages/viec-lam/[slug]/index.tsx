@@ -67,9 +67,9 @@ const WorkJob: NextPage = () => {
   } = useQuery<DataAppliedQuery>(FETCH_USER_IS_APPLIED_WORKJOB, {
     variables: {
       user_id: context?.user?.id,
-      work_job_id: data?.getWorkJobBySlug.id,
+      work_job_id: data?.getWorkJobBySlug?.id,
     },
-    skip: !data?.getWorkJobBySlug.id && !context?.user?.id,
+    skip: !data?.getWorkJobBySlug?.id && !context?.user?.id,
   });
 
   const workJob = data?.getWorkJobBySlug;

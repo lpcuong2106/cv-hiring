@@ -1,0 +1,48 @@
+.infoJob {
+  display: flex;
+  align-items: flex-start;
+  .companyLogo {
+    margin-right: 20px;
+    img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+  }
+  .infoJob {
+    display: block;
+    .jobName {
+      color: #212f3f;
+      font-size: 16px;
+      width: 100%;
+      display: inline-block;
+      margin-bottom: 6px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      text-decoration: none;
+      vertical-align: top;
+      font-weight: 600;
+    }
+    p {
+      margin: 0;
+    }
+
+    .companyName {
+      color: #898989;
+      font-size: 14px;
+      width: 100%;
+      text-decoration: none;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: inline-block;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+.cancelApply {
+  svg {
+    margin-right: 5px;
+  }
+}

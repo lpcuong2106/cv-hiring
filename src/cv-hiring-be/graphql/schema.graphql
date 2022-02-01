@@ -1,3 +1,8 @@
+#import user.graphql
+#import work.graphql
+#import company.graphql
+#import workApply.graphql
+
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar Upload
@@ -14,36 +19,32 @@ type Query {
         @all(model: "HoangPhi\\VietnamMap\\Models\\Province")
     provinceDetail(id: ID! @eq): Province
         @find(model: "HoangPhi\\VietnamMap\\Models\\Province")
-    workCategories: [WorkCategory!]! @all
+
     me: User @auth(guard: "api")
     topCompany(amount: Int!): [Company!]!
-    newWorkJob(amount: Int!): [WorkJob!]!
+
     companyDetail(slug: String! @eq): Company @find
+
     workJobHiringOfCompany(companyId: ID!): [WorkJob!]!
+    workJobAppliedByUser(userId: ID!): WorkAppliedPaginator
+    workJobOfProvince(provinceId: ID!): WorkJobPaginator
+    newWorkJob(amount: Int!): [WorkJob!]!
     getWorkJobBySlug(slug: String! @eq): WorkJob @find
+
+    workCategories: [WorkCategory!]! @all
     userAppliedWorkJob(user_id: ID! @eq, work_job_id: ID! @eq): UserAppliedJob
         @find(model: "App\\Models\\WorkApply")
-    workJobOfProvince(provinceId: ID!): WorkJobPaginator
+
     getAllWorkJob(
         page: Int!
         input: WorkJobSearchInput @spread
     ): WorkJobPaginator
 }
 
-type WorkJobPaginator {
-    paginatorInfo: PaginatorInfo!
-    data: [WorkJob!]!
-}
-
 type Mutation {
     login(email: String!, password: String!): AuthPayload
     registerUser(email: String!, password: String!): AuthPayload
     applyCV(content: String!, fileCV: Upload!, jobId: ID!): UploadedCV
-}
-
-type UploadedCV {
-    id: ID!
-    path: String
 }
 
 interface Modal {
@@ -54,10 +55,3 @@ type Province implements Modal {
     id: ID!
     name: String
 }
-interface Paginator {
-    total: Int
-}
-
-#import user.graphql
-#import work.graphql
-#import company.graphql

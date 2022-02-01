@@ -1,0 +1,19 @@
+type UploadedCV {
+    id: ID!
+    path: String
+}
+type WorkAppliedPaginator {
+    paginatorInfo: PaginatorInfo!
+    data: [WorkApply!]!
+}
+
+type WorkApply implements Modal {
+    id: ID!
+    cv_url: String
+    letter: String
+    status: Int
+    user: User @belongsTo
+    work_job: WorkJob @belongsTo
+    created_at: Date
+    updated_at: Date
+}
