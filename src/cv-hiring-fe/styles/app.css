@@ -341,8 +341,6 @@ iframe {
     opacity: 1;
   }
 }
-#wrapp_app > div {
-  display: flex;
-  flex-direction: column;
+#wrapp_app > section {
   min-height: 100vh;
 }

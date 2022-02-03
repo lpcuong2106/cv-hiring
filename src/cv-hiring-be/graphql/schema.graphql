@@ -2,6 +2,7 @@
 #import work.graphql
 #import company.graphql
 #import workApply.graphql
+#import analyst.graphql
 
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
@@ -39,6 +40,9 @@ type Query {
         page: Int!
         input: WorkJobSearchInput @spread
     ): WorkJobPaginator
+
+    # admin page
+    analystWorkJob(companyId: ID): AnalystWorkJob @guard
 }
 
 type Mutation {

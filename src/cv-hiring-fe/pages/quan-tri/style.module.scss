@@ -1,0 +1,40 @@
+@mixin blockStatisMixin($color, $background) {
+  background: $background;
+  color: $color;
+  margin: 12px;
+  :global(.ant-statistic-title) {
+    color: $color;
+    font-weight: bold;
+  }
+}
+
+.statistic {
+  img {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+  }
+  p {
+    margin: 0;
+  }
+  .blockStatistic {
+    @include blockStatisMixin(#28a745, #e5f7ed);
+  }
+  .blockStatistic2 {
+    @include blockStatisMixin(#de4637, #fceceb);
+  }
+  .blockStatistic3 {
+    @include blockStatisMixin(#4285f4, #f6f9fe);
+  }
+  .blockStatistic4 {
+    @include blockStatisMixin(#ffc107, #fef7e5);
+  }
+  .profile {
+    width: 100%;
+
+    height: fit-content;
+    :global(.ant-card-body) {
+      display: flex;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+type AnalystWorkJob {
+    total_work_job: Int!
+    total_work_job_hiring: Int!
+    total_cv_applied: Int!
+    total_cv_new_applied: Int!
+}

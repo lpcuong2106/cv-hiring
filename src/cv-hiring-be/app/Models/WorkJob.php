@@ -41,6 +41,11 @@ class WorkJob extends Model
             ->where('expired_date', '<=', now());
     }
 
+    public function work_applies()
+    {
+        return $this->hasMany(WorkApply::class);
+    }
+
     public function statistics($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Builder
     {
         $provinceId = $args['provinceId'];
