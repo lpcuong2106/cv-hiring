@@ -43,6 +43,7 @@ type Query {
 
     # admin page
     analystWorkJob(companyId: ID): AnalystWorkJob @guard
+    workJobByCompany(companyId: ID): WorkJobPaginator @guard
 }
 
 type Mutation {

@@ -18,14 +18,12 @@ const SidebarAdmin = () => {
   const [selectedKeys, setSelectedKeys] = useState(["1"]);
   const router = useRouter();
   useEffect(() => {
-    console.log(selectedKeys);
     const asPath = router.asPath;
     switch (asPath) {
       case "/quan-tri":
         setSelectedKeys(["1"]);
         break;
       case "/quan-tri/tuyen-dung":
-        console.log("render day", asPath);
         setSelectedKeys(["2"]);
         break;
       case "/quan-tri/cong-ty":
@@ -36,23 +34,13 @@ const SidebarAdmin = () => {
         break;
     }
   }, [router]);
+
   const handleChangeSlide = (e: any) => {
-    console.log("change slide", e);
     setSelectedKeys(e.keyPath);
   };
 
   return (
     <div>
-      <Header className="site-layout-background" style={{ padding: 0 }}>
-        {React.createElement(
-          collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-          {
-            className: style.actionMenu,
-            onClick: () => setColappsed(true),
-          }
-        )}
-      </Header>
-
       <Sider
         trigger={null}
         collapsible
@@ -90,6 +78,9 @@ const SidebarAdmin = () => {
             <Link href="/quan-tri/cong-ty">
               <Button type="link">Công ty</Button>
             </Link>
+          </Menu.Item>
+          <Menu.Item key="4" icon={<UploadOutlined />}>
+            <Button type="link">Đăng xuất</Button>
           </Menu.Item>
         </Menu>
       </Sider>
