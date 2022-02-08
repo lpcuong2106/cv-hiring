@@ -85,7 +85,7 @@ const ManageDashboard = () => {
               <img src="https://tuyendung.topcv.vn/app/_nuxt/img/noavatar-2.18f0212.svg" />
               <div>
                 <b>Le Phu Cuong</b>
-                <p>Mã DN: 3512222 | {auth.user.email} |</p>
+                <p>Mã DN: 3512222 | {auth.user?.email} |</p>
                 <p>SĐT: 0349265776</p>
               </div>
             </Card>

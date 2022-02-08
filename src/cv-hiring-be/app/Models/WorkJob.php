@@ -16,7 +16,25 @@ class WorkJob extends Model
     use HasFactory;
 
     protected $fillable = [
-        'is_open'
+        'is_open',
+        "slug",
+        "name",
+        "description",
+        "benefit",
+        "requirement",
+        "requirement_exp",
+        "requirement_gender",
+        "requirement_age",
+        "amount_hiring",
+        "address_work",
+        "salary",
+        "type",
+        "expired_date",
+        "amount_apply",
+        "amount_accept",
+        "province_id",
+        "company_id",
+        "work_category_id",
     ];
 
     public function company()

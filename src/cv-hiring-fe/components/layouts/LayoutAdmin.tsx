@@ -5,12 +5,14 @@ import style from "./style.module.scss";
 import React, { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import SidebarAdmin from "./SidebarAdmin";
+import { useAuth } from "../AuthProvider";
 
 interface Props {
   children: ReactNode;
 }
 
 const LayoutAdmin = ({ children }: Props) => {
+  const auth = useAuth();
   return (
     <Layout>
       <SidebarAdmin />

@@ -180,6 +180,44 @@ export const FETCH_USER_APPLIED_JOB = gql`
     }
   }
 `;
+//need edit
+export const FETCH_WORK_JOB_EDIT = gql`
+  query workJobByCompany($companyId: ID!) {
+    workJobByCompany(companyId: $companyId) {
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
+      }
+      data {
+        id
+        name
+        slug
+        description
+        benefit
+        requirement
+        requirement_exp
+        requirement_gender
+        requirement_age
+        amount_hiring
+        amount_apply
+        address_work
+        salary
+        type
+        is_open
+        expired_date
+
+        created_at
+        updated_at
+      }
+    }
+  }
+`;
 
 export const FETCH_ALL_WORKJOB_MANAGE = gql`
   query workJobByCompany($companyId: ID!) {

@@ -1,10 +1,16 @@
-import { DatePicker, Input, Select } from "antd";
+import { DatePicker, Input, InputNumber, Select } from "antd";
 import { DefaultOptionType } from "antd/lib/select";
 import { FieldConfig, FormikProps, useField } from "formik";
+import moment from "moment";
 import React from "react";
 import style from "./style.module.scss";
 
-type Props = SelectProps | InputProps | TextAreaProps | DatepickerProps;
+type Props =
+  | SelectProps
+  | InputProps
+  | TextAreaProps
+  | DatepickerProps
+  | NumberProps;
 
 type SelectProps = {
   Icon: any;
@@ -20,6 +26,13 @@ type InputProps = {
   placeholder: string;
   label: string;
   mode: "input";
+};
+type NumberProps = {
+  Icon: any;
+  name: string;
+  placeholder: string;
+  label: string;
+  mode: "number";
 };
 type TextAreaProps = {
   mode: "textarea";
@@ -45,6 +58,9 @@ function AdminInput(props: Props) {
   function onChange(_: any, dateString: any) {
     helpers.setValue(dateString);
   }
+  function onChangeInput(value: number) {
+    helpers.setValue(value);
+  }
   return (
     <div className={style.formControl}>
       <div className={style.label}>
@@ -59,6 +75,18 @@ function AdminInput(props: Props) {
             className={style.inputControl}
             {...field}
             {...props}
+          />
+        )}
+        {props.mode === "number" && (
+          <InputNumber
+            min={1}
+            defaultValue={1}
+            size="large"
+            bordered={false}
+            className={style.inputControl}
+            {...field}
+            {...props}
+            onChange={onChangeInput}
           />
         )}
         {props.mode === "select" && (
@@ -91,10 +119,14 @@ function AdminInput(props: Props) {
             placeholder={props.placeholder}
             className={style.inputControl}
             onChange={onChange}
+            disabledDate={(current) => {
+              let customDate = moment().add(1, "day").format("YYYY-MM-DD");
+              return current && current < moment(customDate, "YYYY-MM-DD");
+            }}
           />
         )}
         {meta.touched && meta.error ? (
-          <div className="error">{meta.error}</div>
+          <div className={style.error}>{meta.error}</div>
         ) : null}
       </div>
     </div>

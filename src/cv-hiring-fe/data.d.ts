@@ -44,7 +44,7 @@ export type WorkJob = {
   company: Company;
   work_category: WorkCategory;
 };
-type PaginatorInfo = {
+export type PaginatorInfo = {
   count: number;
   currentPage: number;
   firstItem: number;
@@ -54,7 +54,7 @@ type PaginatorInfo = {
   perPage: number;
   total: number;
 };
-type WorkApply = {
+export type WorkApply = {
   id: int;
   user: User;
   work_job: WorkJob;
@@ -63,5 +63,24 @@ type WorkApply = {
   letter: string;
   updated_at: string;
   created_at: string;
-  deleted_at: String;
+  deleted_at: string;
+};
+export type User = {
+  id: number;
+  lastname: string;
+  firstname: string;
+  address: string;
+  email: string;
+  phone: string;
+  birthday: string;
+  created_at: string;
+  gender: 0 | 1;
+  avatar: string;
+  updated_at: string;
+  role: Role;
+};
+export type Role = {
+  id: number;
+  name: string;
+  users: User[];
 };

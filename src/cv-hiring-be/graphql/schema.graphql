@@ -51,6 +51,8 @@ type Mutation {
     registerUser(email: String!, password: String!): AuthPayload
     applyCV(content: String!, fileCV: Upload!, jobId: ID!): UploadedCV
     cancelAppliedWorkJob(workAppliedId: ID!): ResponseExecute @guard
+
+    createNewJob(input: WorkJobInput): ResponseExecute @guard
 }
 
 interface Modal {

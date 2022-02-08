@@ -1,12 +1,13 @@
 import { useQuery } from "@apollo/client";
 import Router, { useRouter } from "next/router";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { User } from "../../data";
 import { FETCH_USER_LOGIN } from "../../GraphQL/Query/FetchData";
 import { LoadingApp } from "../LoadingApp";
 
 export const AuthContext = createContext<{
   isLogged: boolean;
-  user: any;
+  user: User | null;
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
 }>({
   user: null,
@@ -19,7 +20,7 @@ export interface AuxProps {
 }
 
 export const AuthProvider = ({ children }: AuxProps) => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<User | null>(null);
   const { data, loading, error } = useQuery(FETCH_USER_LOGIN);
   const [isLogged, setIsLogged] = useState(false);
 
@@ -45,19 +46,26 @@ export const AuthProvider = ({ children }: AuxProps) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   const protectedRoute = ["/login", "/register"];
-  const protectedAcceptRoute = ["/viec-lam/ung-tuyen"];
+  const protectedAcceptRoute = [
+    "/viec-lam/ung-tuyen",
+    "/quan-tri",
+    "/quan-tri/tuyen-dung",
+    "/quan-tri/cong-ty",
+  ];
   const router = useRouter();
 
   useEffect(() => {
     if (context.isLogged && protectedRoute.includes(router.asPath)) {
       Router.replace("/");
     }
-    // if (!context.isLogged && protectedAcceptRoute.includes(router.asPath)) {
-    //   {
-    //     Router.replace("/");
-    //   }
-    // }
-  }, [context.isLogged]);
+    console.log("chjay day", router);
+    if (
+      (!context.isLogged || context.user?.role.name !== "admin") &&
+      protectedAcceptRoute.includes(router.asPath)
+    ) {
+      Router.replace("/404");
+    }
+  }, [context]);
 
   return context;
 };
