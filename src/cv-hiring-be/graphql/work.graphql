@@ -23,11 +23,30 @@ type WorkJob implements Modal {
     province: Province!
     company: Company! @belongsTo
     work_category: WorkCategory! @belongsTo
+    work_applies: [WorkApply!]! @hasMany
     created_at: Date
     updated_at: Date
 }
 
 input WorkJobInput {
+    name: String!
+    description: String!
+    benefit: String!
+    requirement: String!
+    requirement_exp: String!
+    requirement_gender: String!
+    requirement_age: String!
+    amount_hiring: Int!
+    address_work: String!
+    salary: String!
+    type: String!
+    expired_date: String!
+    province_id: ID!
+    company_id: ID!
+    work_category_id: ID!
+}
+input WorkJobInputUpdate {
+    id: ID!
     name: String!
     description: String!
     benefit: String!

@@ -12,7 +12,7 @@ interface Props {
 }
 
 const LayoutAdmin = ({ children }: Props) => {
-  const auth = useAuth();
+  // const auth = useAuth();
   return (
     <Layout>
       <SidebarAdmin />

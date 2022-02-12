@@ -10,66 +10,48 @@ import { Form, Formik } from "formik";
 import FormEditWorkJob from "./FormEditWorkJob";
 import { CREATE_WORKJOB } from "../../../../GraphQL/Mutation/CreateWorkJob";
 import { FETCH_ALL_PROVINCE_CATEGORY } from "../../../../GraphQL/Query/FetchData";
-import { Province, WorkCategory } from "../../../../data";
-import * as Yup from "yup";
+import { Province, WorkCategory, WorkJob } from "../../../../data";
+import { useRouter } from "next/router";
+import { validationSchemaWorkJob } from "../them-moi";
+import { FETCH_WORK_JOB_EDIT } from "../../../../GraphQL/Query/WorkJob";
+import { UPDATE_WORKJOB } from "../../../../GraphQL/Mutation/UpdateWorkJob";
 interface DataQuery {
   workCategories: WorkCategory[];
   provinces: Province[];
 }
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(8, "Tên công việc ít nhất 8 kí tự")
-    .required("Tên công việc là bắt buộc"),
-  benefit: Yup.string()
-    .min(8, "Lợi ích công việc ít nhất 8 kí tự")
-    .required("Lợi ích công việc là bắt buộc"),
-  description: Yup.string()
-    .min(8, "Mô tả công việc ít nhất 8 kí tự")
-    .required("Mô tả công việc là bắt buộc"),
-  requirement: Yup.string()
-    .min(8, "Yêu cầu công việc ít nhất 8 kí tự")
-    .required("Yêu cầu công việc là bắt buộc"),
-  requirement_exp: Yup.string()
-    .typeError("Vui lòng chọn yêu cầu kinh nghiệm")
-    .required("Vui lòng chọn yêu cầu kinh nghiệm"),
-  requirement_gender: Yup.string()
-    .typeError("Vui lòng chọn yêu cầu giới tính")
-    .required("Yêu cầu giới tính là bắt buộc"),
-  requirement_age: Yup.string().required("Yêu cầu độ tuổi là bắt buộc"),
-  amount_hiring: Yup.number()
-    .typeError("Vui lòng nhập đúng định dạng số lượng tuyển")
-    .min(1)
-    .required("Số lượng tuyển dụng là bắt buộc"),
-  address_work: Yup.string().required("Địa chỉ làm việc là bắt buộc"),
-  salary: Yup.string().required("Chọn lương là bắt buộc"),
-  type: Yup.string()
-    .typeError("Vui lòng chọn loại công việc")
-    .required("Vui lòng chọn loại công việc"),
-  expired_date: Yup.string().required("Chọn ngày hết hạn là bắt buộc"),
-  work_category_id: Yup.number()
-    .typeError("Vui lòng chọn lĩnh vực")
-    .required("Tên công việc là bắt buộc"),
-  company_id: Yup.number().required("Công ty là bắt buộc"),
-  province_id: Yup.number()
-    .typeError("Vui lòng chọn tỉnh thành")
-    .required("Vui lòng chọn tỉnh thành"),
-});
+interface DataWorkJob {
+  getWorkJobById: WorkJob;
+}
 
 const AppliedCVEdit = () => {
+  const router = useRouter();
+
   const { data, loading } = useQuery<DataQuery>(FETCH_ALL_PROVINCE_CATEGORY);
+  const { data: dataWorkJob, loading: loadingWorkJob } = useQuery<DataWorkJob>(
+    FETCH_WORK_JOB_EDIT,
+    {
+      variables: {
+        id: router.query.id,
+      },
+    }
+  );
   const workCategories = data?.workCategories;
   const provinces = data?.provinces;
+  const workJob = dataWorkJob?.getWorkJobById;
 
-  const [createNewJob, { loading: loadingSubmit }] =
-    useMutation(CREATE_WORKJOB);
+  const [updateNewJob, { loading: loadingSubmit }] =
+    useMutation(UPDATE_WORKJOB);
 
   return (
     <LayoutAdmin>
       <Head>
         <title>Kết nối lao động việt | Quản trị </title>
       </Head>
-      {loading || !workCategories || !provinces ? (
+      {loading ||
+      !workCategories ||
+      !provinces ||
+      loadingWorkJob ||
+      !workJob ? (
         <LoadingApp />
       ) : (
         <div className="site-statistic-demo-card">
@@ -80,36 +62,36 @@ const AppliedCVEdit = () => {
               <Card title="Nội dung tuyển dụng">
                 <Formik
                   initialValues={{
-                    name: "",
-                    benefit: "",
-                    requirement: "",
-                    requirement_exp: null,
-                    requirement_gender: null,
-                    requirement_age: "",
-                    amount_hiring: 1,
-                    address_work: "",
-                    salary: "",
-                    type: null,
-                    expired_date: "",
-                    work_category_id: null,
-                    company_id: 1,
-                    province_id: null,
+                    id: workJob.id,
+                    name: workJob.name,
+                    benefit: workJob.benefit,
+                    requirement: workJob.requirement,
+                    requirement_exp: workJob.requirement_gender ?? null,
+                    requirement_gender: workJob.requirement_gender ?? null,
+                    requirement_age: workJob.requirement_age ?? null,
+                    amount_hiring: workJob.amount_hiring,
+                    description: workJob.description,
+                    address_work: workJob.address_work,
+                    salary: workJob.salary ?? null,
+                    type: workJob.type ?? null,
+                    expired_date: workJob.expired_date,
+                    work_category_id: workJob.work_category.id,
+                    company_id: workJob.company.id,
+                    province_id: workJob.province.id,
                   }}
-                  validationSchema={validationSchema}
+                  validationSchema={validationSchemaWorkJob}
                   onSubmit={async (values, actions) => {
-                    // setTimeout(() => {
-                    //   alert(JSON.stringify(values, null, 2));
-                    //   actions.setSubmitting(false);
-                    // }, 1000);
-
-                    const { data } = await createNewJob({
+                    const { data } = await updateNewJob({
                       variables: values,
                     });
-                    if (data.createNewJob.status === "ERROR") {
+                    if (data.updateNewJob.status === "ERROR") {
                       message.error(data.message);
                       return;
                     }
-                    message.success("Tạo mới việc làm thành công!");
+                    message.success("Cập nhật việc làm thành công!");
+
+                    router.replace("/quan-tri/tuyen-dung");
+
                     return;
                   }}
                 >
@@ -119,6 +101,7 @@ const AppliedCVEdit = () => {
                         loadingSubmit={loadingSubmit}
                         workCategories={workCategories}
                         provinces={provinces}
+                        mode="edit"
                       />
                     </Form>
                   )}

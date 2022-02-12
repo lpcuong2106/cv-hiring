@@ -56,18 +56,11 @@ class WorkJob extends Model
     public function scopeJobHiring($query)
     {
         return $query->where('is_open', '=', 1)
-            ->where('expired_date', '<=', now());
+            ->where('expired_date', '>=', now());
     }
 
     public function work_applies()
     {
         return $this->hasMany(WorkApply::class);
-    }
-
-    public function statistics($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Builder
-    {
-        $provinceId = $args['provinceId'];
-        $workJob = DB::table('work_jobs')->where('province_id', $provinceId);
-        return $workJob;
     }
 }

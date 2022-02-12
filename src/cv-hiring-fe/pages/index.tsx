@@ -1,7 +1,6 @@
-import { Button, Carousel, Col, Row, Select } from "antd";
+import { Carousel, Col, Row, Select } from "antd";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import { Container } from "react-bootstrap";
 import Layout from "../components/layouts";
 import style from "./style.module.scss";
@@ -10,7 +9,6 @@ import NguyenKimBanner from "./nguyenkim_banner.png";
 import NguyenKim2Banner from "./shoppe_banner.png";
 import Image from "next/image";
 import Banner from "./banner.png";
-import Search from "antd/lib/input/Search";
 import classNames from "classnames";
 import { TopCompanyItem } from "../components/TopCompanyItem";
 import { useQuery } from "@apollo/client";
@@ -18,11 +16,7 @@ import { FETCH_HOME_PAGE } from "../GraphQL/Query/FetchData";
 import { LoadingApp } from "../components/LoadingApp";
 import { CategoryJobList } from "../components/CategoryJob";
 import { Company, Province, WorkCategory, WorkJob } from "../data";
-import JobItem from "../components/JobItem";
 import NewWorkJobItem from "../components/NewWorkJobItem";
-import SearchJobForm from "../components/SearchJobForm";
-
-const { Option } = Select;
 
 interface HomeQuery {
   provinces: Province[];

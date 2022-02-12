@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Row, Select } from "antd";
+import { Button, Col, Row, Select, Space } from "antd";
 import { EditSettings } from "@styled-icons/fluentui-system-filled/EditSettings";
 import AdminInput from "../../../../components/AdminInput";
 import { useFormikContext } from "formik";
@@ -27,12 +27,14 @@ interface Props {
   loadingSubmit: boolean;
   workCategories: WorkCategory[];
   provinces: Province[];
+  mode?: "edit" | "create";
 }
 
 const FormEditWorkJob = ({
   loadingSubmit,
   workCategories,
   provinces,
+  mode = "create",
 }: Props) => {
   const formikProps = useFormikContext<FormValue>();
   const provinceOptions = provinces.map((province) => ({
@@ -314,10 +316,12 @@ const FormEditWorkJob = ({
         />
       </Col>
       <Col md={24}>
-        <Button htmlType="submit" loading={loadingSubmit}>
-          Lưu
-        </Button>
-        <Button htmlType="reset">Hủy</Button>
+        <Space>
+          <Button htmlType="submit" loading={loadingSubmit}>
+            {mode === "edit" ? "Cập nhật" : "Lưu"}
+          </Button>
+          <Button htmlType="reset">Hủy</Button>
+        </Space>
       </Col>
     </Row>
   );

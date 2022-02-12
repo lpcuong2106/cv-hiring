@@ -31,6 +31,7 @@ type Query {
     workJobOfProvince(provinceId: ID!): WorkJobPaginator
     newWorkJob(amount: Int!): [WorkJob!]!
     getWorkJobBySlug(slug: String! @eq): WorkJob @find
+    getWorkJobById(id: ID! @eq): WorkJob @find
 
     workCategories: [WorkCategory!]! @all
     userAppliedWorkJob(user_id: ID! @eq, work_job_id: ID! @eq): UserAppliedJob
@@ -43,7 +44,7 @@ type Query {
 
     # admin page
     analystWorkJob(companyId: ID): AnalystWorkJob @guard
-    workJobByCompany(companyId: ID): WorkJobPaginator @guard
+    workJobByCompany(companyId: ID, page: Int): WorkJobPaginator @guard
 }
 
 type Mutation {
@@ -53,6 +54,8 @@ type Mutation {
     cancelAppliedWorkJob(workAppliedId: ID!): ResponseExecute @guard
 
     createNewJob(input: WorkJobInput): ResponseExecute @guard
+    updateNewJob(input: WorkJobInputUpdate): ResponseExecute @guard
+    pauseHiring(id: ID!, is_open: Int!): ResponseExecute @guard
 }
 
 interface Modal {

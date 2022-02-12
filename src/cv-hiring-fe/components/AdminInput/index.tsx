@@ -55,6 +55,7 @@ function AdminInput(props: Props) {
   const handleChangeSelect = (value: string) => {
     helpers.setValue(value);
   };
+  console.log("field", field);
   function onChange(_: any, dateString: any) {
     helpers.setValue(dateString);
   }
@@ -112,10 +113,10 @@ function AdminInput(props: Props) {
         )}
 
         {props.mode === "datepicker" && (
-          // @ts-ignore
           <DatePicker
             size="large"
             name={field.name}
+            defaultValue={moment(field.value)}
             placeholder={props.placeholder}
             className={style.inputControl}
             onChange={onChange}

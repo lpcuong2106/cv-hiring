@@ -13,10 +13,11 @@ class WorkJobByCompany
     public function __invoke($_, array $args)
     {
         $companyId = $args['companyId'];
+        $page = $args['page'];
 
         $workApply = WorkJob::where('company_id', $companyId)
             ->orderBy('updated_at', 'desc')
-            ->paginate();
+            ->paginate(10, ['*'], 'page', $page);
 
         $pagination = [
             'total' => $workApply->total(),

@@ -43,6 +43,7 @@ export type WorkJob = {
   province: Province;
   company: Company;
   work_category: WorkCategory;
+  work_applies: WorkApply[];
 };
 export type PaginatorInfo = {
   count: number;

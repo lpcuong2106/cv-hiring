@@ -1,9 +1,9 @@
-import React from "react";
-import { Row, Col, Table, Button, Tag, Space, Tooltip } from "antd";
+import React, { useState } from "react";
+import { Row, Col, Table, Button, Tag, Space, Tooltip, message } from "antd";
 import style from "./style.module.scss";
 import LayoutAdmin from "../../../components/layouts/LayoutAdmin";
 import Head from "next/head";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { FETCH_ALL_WORKJOB_MANAGE } from "../../../GraphQL/Query/WorkJob";
 import { LoadingApp } from "../../../components/LoadingApp";
 import { WorkJob } from "../../../data";
@@ -11,13 +11,73 @@ import { ColumnsType } from "antd/lib/table";
 import { Trash } from "styled-icons/boxicons-regular";
 import { Edit } from "@styled-icons/boxicons-regular/Edit";
 import Link from "next/link";
+import isBefore from "date-fns/isBefore";
+import { Play } from "@styled-icons/bootstrap/Play";
+import { PauseFill } from "@styled-icons/bootstrap/PauseFill";
+import { formatStringToDate } from "../../../utils/formatStringToDate";
+import { isExpiredDateHiring } from "../../../utils/formatTypeWorkJob";
+import {
+  PAUSE_HIRING_JOB,
+  RESUME_HIRING_JOB,
+} from "../../../GraphQL/Mutation/StatusHiringWorkJob";
+
+type PropsMutation = {
+  pauseHiring: {
+    status: "OK" | "ERROR";
+    message: string;
+  };
+};
 const AppliedCVManage = () => {
-  const { data, loading } = useQuery(FETCH_ALL_WORKJOB_MANAGE, {
+  const [page, setPage] = useState(1);
+  const { data, loading, refetch } = useQuery(FETCH_ALL_WORKJOB_MANAGE, {
     variables: {
       companyId: 1,
+      page: page,
     },
   });
+  const [pauseHiring, { loading: loadingPause }] = useMutation<
+    PropsMutation,
+    { id: number }
+  >(PAUSE_HIRING_JOB);
+  const [resumeHiring, { loading: loadingResume }] =
+    useMutation(RESUME_HIRING_JOB);
+
   const workJobByCompany = data?.workJobByCompany;
+
+  const handleChangePaginate = (page: number) => {
+    setPage(page);
+  };
+
+  const handleStopHiring = async (id: number) => {
+    const { data } = await pauseHiring({
+      variables: {
+        id: id,
+      },
+    });
+
+    if (data?.pauseHiring.status === "OK") {
+      message.success("Ngưng tuyển dụng thành công");
+      await refetch();
+      return;
+    }
+    message.error("Xảy ra lỗi không mong muốn");
+  };
+
+  const handleResumeHiring = async (id: number) => {
+    const { data } = await resumeHiring({
+      variables: {
+        id: id,
+      },
+    });
+
+    if (data?.pauseHiring.status === "OK") {
+      message.success("Tiếp tục tuyển dụng thành công");
+      await refetch();
+      return;
+    }
+    message.error("Xảy ra lỗi không mong muốn");
+  };
+
   const columns: ColumnsType<WorkJob> = [
     {
       title: "Tin tuyển dụng",
@@ -36,8 +96,8 @@ const AppliedCVManage = () => {
       width: 290,
       align: "center",
       key: "status",
-      render: (status: number, record: WorkJob) => {
-        return <p>hi</p>;
+      render: (_: number, record: WorkJob) => {
+        return <p>{record.work_applies.length}</p>;
       },
     },
     {
@@ -45,8 +105,13 @@ const AppliedCVManage = () => {
       dataIndex: "is_open",
       key: "is_open",
       width: 200,
-      render: (status: number) => {
-        if (status === 0) {
+      render: (is_open: number, record: WorkJob) => {
+        const date = formatStringToDate(record.expired_date);
+
+        if (isBefore(date, new Date())) {
+          return <Tag color={"red"}>Hết hạn tuyển dụng</Tag>;
+        }
+        if (is_open === 0) {
           return <Tag color={"red"}>Dừng đăng tuyển</Tag>;
         } else {
           return <Tag color={"success"}>Đang đăng tuyển</Tag>;
@@ -58,13 +123,6 @@ const AppliedCVManage = () => {
       dataIndex: "expired_date",
       width: 150,
       key: "expired_date",
-      // render: (text: string) => {
-      //   return (
-      //     <p>
-      //       {format(parse(text, "yyyy-MM-dd HH:m:s", new Date()), "dd-MM-yyyy")}
-      //     </p>
-      //   );
-      // },
     },
     {
       title: "Hành động",
@@ -80,10 +138,27 @@ const AppliedCVManage = () => {
                 </Button>
               </Tooltip>
             </Link>
-            {record.is_open === 1 && (
+            {!isExpiredDateHiring(record.expired_date) && record.is_open === 1 && (
               <Tooltip title="Dừng đăng tuyển">
-                <Button danger className={style.cancelApply}>
-                  <Trash width={16} />
+                <Button
+                  danger
+                  className={style.cancelApply}
+                  onClick={() => handleStopHiring(record.id)}
+                  loading={loadingPause}
+                >
+                  <PauseFill width={16} />
+                </Button>
+              </Tooltip>
+            )}
+            {!isExpiredDateHiring(record.expired_date) && record.is_open === 0 && (
+              <Tooltip title="Tiếp tục đăng tuyển">
+                <Button
+                  danger
+                  className={style.cancelApply}
+                  onClick={() => handleResumeHiring(record.id)}
+                  loading={loadingResume}
+                >
+                  <Play width={16} />
                 </Button>
               </Tooltip>
             )}
@@ -102,6 +177,12 @@ const AppliedCVManage = () => {
       ) : (
         <div className="site-statistic-demo-card">
           <h1>Tin tuyển dụng</h1>
+          <div className={style.actionAdd}>
+            <Link href={"/quan-tri/tuyen-dung/them-moi"}>
+              <Button type="primary">Thêm mới</Button>
+            </Link>
+          </div>
+
           <Row gutter={16}>
             <Col span={24} className={style.statistic}>
               <Table<WorkJob>
@@ -110,6 +191,7 @@ const AppliedCVManage = () => {
                 pagination={{
                   current: workJobByCompany.paginatorInfo.currentPage,
                   total: workJobByCompany.paginatorInfo.total,
+                  onChange: handleChangePaginate,
                 }}
               />
             </Col>

@@ -24,6 +24,7 @@ import { useContext, useState } from "react";
 import ApplyCVModal from "../../../components/ApplyCVModal";
 import Link from "next/link";
 import { AuthContext } from "../../../components/AuthProvider";
+import { formatTypeWorkJob } from "../../../utils/formatTypeWorkJob";
 
 interface DataQuery {
   getWorkJobBySlug: WorkJob;
@@ -208,10 +209,7 @@ const WorkJob: NextPage = () => {
                         label="Yêu cầu giới tính"
                         value={workJob?.requirement_gender ?? ""}
                       />
-                      <JobInfoRequirement
-                        label="Yêu cầu bằng cấp"
-                        value={workJob?.requirement_exp ?? ""}
-                      />
+
                       <JobInfoRequirement
                         label="Số lượng tuyển"
                         value={workJob?.amount_hiring?.toString() ?? "0"}
@@ -222,7 +220,7 @@ const WorkJob: NextPage = () => {
                       />
                       <JobInfoRequirement
                         label="Hình thức làm việc"
-                        value={workJob?.type ?? ""}
+                        value={formatTypeWorkJob(workJob?.type ?? "")}
                       />
                     </Row>
                   </div>
