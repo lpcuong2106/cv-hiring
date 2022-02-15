@@ -27,6 +27,7 @@ type User implements Modal {
     avatar: String
     updated_at: DateTime!
     role: Role! @belongsTo
+    company: Company @belongsTo
 }
 
 type UserAppliedJob {

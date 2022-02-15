@@ -33,6 +33,8 @@ const AppliedCVEdit = () => {
       variables: {
         id: router.query.id,
       },
+      fetchPolicy: "network-only",
+      nextFetchPolicy: "cache-and-network",
     }
   );
   const workCategories = data?.workCategories;
@@ -74,7 +76,7 @@ const AppliedCVEdit = () => {
                     address_work: workJob.address_work,
                     salary: workJob.salary ?? null,
                     type: workJob.type ?? null,
-                    expired_date: workJob.expired_date,
+                    expired_date_hiring: workJob.expired_date_hiring,
                     work_category_id: workJob.work_category.id,
                     company_id: workJob.company.id,
                     province_id: workJob.province.id,

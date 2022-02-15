@@ -86,7 +86,7 @@ const Province: NextPage = () => {
                               slug={job.slug}
                               provinceName={job.province.name}
                               salary={job.salary}
-                              deadlineDate={job.expired_date}
+                              deadlineDate={job.expired_date_hiring}
                               companyName={job.company.name}
                               title={job.name}
                               logoUrl={job.company.logo}

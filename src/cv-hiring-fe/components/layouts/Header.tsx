@@ -31,12 +31,11 @@ function HeaderNav() {
     message.success("Đăng xuất thành công!");
     router.replace("/login");
   };
+
   const menu = (
     <Menu>
       <Menu.Item key="1">
-        <Button onClick={handleLogout} type="link">
-          Cá nhân
-        </Button>
+        <Button type="link">Cá nhân</Button>
       </Menu.Item>
       <Menu.Item key="2">
         <Link href={"/viec-lam/ung-tuyen"}>

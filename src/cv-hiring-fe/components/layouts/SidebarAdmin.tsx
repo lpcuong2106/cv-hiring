@@ -1,22 +1,32 @@
-import { Breadcrumb, Menu, Button } from "antd";
-import Layout, { Content, Header } from "antd/lib/layout/layout";
+import { Menu, Button, message } from "antd";
 import Sider from "antd/lib/layout/Sider";
 import style from "./style.module.scss";
 import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
   UserOutlined,
   VideoCameraOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { AuthContext } from "../AuthProvider";
+import { useSelector } from "react-redux";
 
 const SidebarAdmin = () => {
   const [collapsed, setColappsed] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState(["1"]);
+  const auth = useContext(AuthContext);
+  const user = useSelector(state: RootSage)
   const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.replace("/login");
+    auth.setIsLogged(false);
+    auth.user = null;
+    message.success("Đăng xuất thành công!");
+  };
+
   useEffect(() => {
     const asPath = router.asPath;
     switch (asPath) {
@@ -79,8 +89,16 @@ const SidebarAdmin = () => {
               <Button type="link">Công ty</Button>
             </Link>
           </Menu.Item>
+
           <Menu.Item key="4" icon={<UploadOutlined />}>
-            <Button type="link">Đăng xuất</Button>
+            <Link href="/quan-tri/thong-tin-cong-ty">
+              <Button type="link">Thông tin công ty</Button>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="5" icon={<UploadOutlined />}>
+            <Button type="link" onClick={handleLogout}>
+              Đăng xuất
+            </Button>
           </Menu.Item>
         </Menu>
       </Sider>

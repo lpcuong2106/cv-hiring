@@ -20,6 +20,7 @@ export type Company = {
   banner: string;
   amount_job_hiring: number;
   work_jobs: WorkJob[];
+  manager?: User;
 };
 export type WorkJob = {
   id: int;
@@ -37,7 +38,7 @@ export type WorkJob = {
   salary: string;
   type: string;
   is_open: number;
-  expired_date: string;
+  expired_date_hiring: string;
   updated_at: string;
   created_at: string;
   province: Province;
@@ -79,6 +80,7 @@ export type User = {
   avatar: string;
   updated_at: string;
   role: Role;
+  company?: Company;
 };
 export type Role = {
   id: number;

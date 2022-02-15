@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
-use GraphQL\Type\Definition\ResolveInfo;
 use HoangPhi\VietnamMap\Models\Province;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\DB;
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class WorkJob extends Model
 {
 
     use HasFactory;
+
+    public $timestamps = true;
 
     protected $fillable = [
         'is_open',
@@ -29,7 +27,7 @@ class WorkJob extends Model
         "address_work",
         "salary",
         "type",
-        "expired_date",
+        "expired_date_hiring",
         "amount_apply",
         "amount_accept",
         "province_id",
@@ -56,7 +54,7 @@ class WorkJob extends Model
     public function scopeJobHiring($query)
     {
         return $query->where('is_open', '=', 1)
-            ->where('expired_date', '>=', now());
+            ->where('expired_date_hiring', '>=', now());
     }
 
     public function work_applies()

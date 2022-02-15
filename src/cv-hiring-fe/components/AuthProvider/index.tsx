@@ -3,6 +3,8 @@ import Router, { useRouter } from "next/router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { User } from "../../data";
 import { FETCH_USER_LOGIN } from "../../GraphQL/Query/FetchData";
+import { setUserLoggedIn } from "../../store/features/userSlideder";
+import { useAppDispatch } from "../../store/hook";
 import { LoadingApp } from "../LoadingApp";
 
 export const AuthContext = createContext<{
@@ -23,12 +25,14 @@ export const AuthProvider = ({ children }: AuxProps) => {
   const [user, setUser] = useState<User | null>(null);
   const { data, loading, error } = useQuery(FETCH_USER_LOGIN);
   const [isLogged, setIsLogged] = useState(false);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token && data?.me) {
       setUser(data?.me);
       setIsLogged(true);
+      dispatch(setUserLoggedIn(data.me));
     }
   }, [data]);
 

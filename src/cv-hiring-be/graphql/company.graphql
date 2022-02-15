@@ -12,4 +12,5 @@ type Company {
     banner: String
     amount_job_hiring: Int
     work_jobs: [WorkJob!]! @hasMany
+    manager: User @belongsTo
 }

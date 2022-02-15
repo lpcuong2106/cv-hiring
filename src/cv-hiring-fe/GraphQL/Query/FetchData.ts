@@ -12,6 +12,9 @@ export const FETCH_USER_LOGIN = gql`
         id
         name
       }
+      company {
+        id
+      }
     }
   }
 `;
@@ -45,7 +48,7 @@ export const FETCH_HOME_PAGE = gql`
       slug
       salary
       type
-      expired_date
+      expired_date_hiring
       province {
         name
       }

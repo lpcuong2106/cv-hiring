@@ -12,7 +12,7 @@ export const CREATE_WORKJOB = gql`
     $address_work: String!
     $salary: String!
     $type: String!
-    $expired_date: String!
+    $expired_date_hiring: String!
     $province_id: ID!
     $company_id: ID!
     $work_category_id: ID!
@@ -30,7 +30,7 @@ export const CREATE_WORKJOB = gql`
         address_work: $address_work
         salary: $salary
         type: $type
-        expired_date: $expired_date
+        expired_date_hiring: $expired_date_hiring
         province_id: $province_id
         company_id: $company_id
         work_category_id: $work_category_id

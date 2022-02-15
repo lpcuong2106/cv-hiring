@@ -28,7 +28,7 @@ class UpdateNewJob
             $address_work = $args["input"]["address_work"];
             $salary = $args["input"]["salary"];
             $type = $args["input"]["type"];
-            $expired_date = $args["input"]["expired_date"];
+            $expired_date_hiring = $args["input"]["expired_date_hiring"];
             $province_id = $args["input"]["province_id"];
             $work_category_id = $args["input"]["work_category_id"];
 
@@ -45,7 +45,7 @@ class UpdateNewJob
             $workJob->address_work = $address_work;
             $workJob->salary = $salary;
             $workJob->type = $type;
-            $workJob->expired_date = $expired_date;
+            $workJob->expired_date_hiring = $expired_date_hiring;
             $workJob->province_id = $province_id;
             $workJob->work_category_id = $work_category_id;
 

@@ -28,7 +28,7 @@ class CreateNewJob
             $address_work = $args["input"]["address_work"];
             $salary = $args["input"]["salary"];
             $type = $args["input"]["type"];
-            $expired_date = $args["input"]["expired_date"];
+            $expired_date_hiring = $args["input"]["expired_date_hiring"];
             $province_id = $args["input"]["province_id"];
             $company_id = $args["input"]["company_id"];
             $work_category_id = $args["input"]["work_category_id"];
@@ -49,7 +49,7 @@ class CreateNewJob
                 "is_open"   => 1,
                 "amount_apply"  => 0,
                 "amount_accept" => 0,
-                "expired_date" => $expired_date,
+                "expired_date_hiring" => $expired_date_hiring,
                 "province_id" => $province_id,
                 "company_id" => $company_id,
                 "work_category_id" => $work_category_id,

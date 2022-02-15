@@ -19,7 +19,7 @@ interface FormValue {
   salary: string;
   type: string;
   is_open: number;
-  expired_date: Date;
+  expired_date_hiring: Date;
   province_id: number;
   description: string;
 }
@@ -308,11 +308,11 @@ const FormEditWorkJob = ({
         <AdminInput
           label="Hạn chót nhận CV"
           Icon={<EditSettings width={16} />}
-          name="expired_date"
+          name="expired_date_hiring"
           placeholder="Nhập hạn chót nhận CV"
           mode="datepicker"
           //   @ts-ignore
-          value={formikProps.values.expired_date}
+          value={formikProps.values.expired_date_hiring}
         />
       </Col>
       <Col md={24}>

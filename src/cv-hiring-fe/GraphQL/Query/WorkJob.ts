@@ -20,7 +20,7 @@ export const FETCH_WORKJOB_QUERY = gql`
       slug
       is_open
       salary
-      expired_date
+      expired_date_hiring
       description
       amount_hiring
       requirement_gender
@@ -71,7 +71,7 @@ export const FETCH_ALL_JOB_SEARCH = gql`
         slug
         is_open
         salary
-        expired_date
+        expired_date_hiring
         updated_at
         work_category {
           name
@@ -95,7 +95,7 @@ export const FETCH_WORK_JOB_HIRING_COMPANY = gql`
       name
       slug
       updated_at
-      expired_date
+      expired_date_hiring
       work_category {
         name
       }
@@ -124,7 +124,7 @@ export const FETCH_WORK_JOB_PROVINCE = gql`
         name
         slug
         updated_at
-        expired_date
+        expired_date_hiring
 
         salary
         company {
@@ -198,7 +198,7 @@ export const FETCH_WORK_JOB_EDIT = gql`
       address_work
       salary
       type
-      expired_date
+      expired_date_hiring
       province {
         id
       }
@@ -243,7 +243,7 @@ export const FETCH_ALL_WORKJOB_MANAGE = gql`
         salary
         type
         is_open
-        expired_date
+        expired_date_hiring
         work_applies {
           id
         }

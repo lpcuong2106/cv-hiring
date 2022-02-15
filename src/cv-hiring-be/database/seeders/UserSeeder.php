@@ -27,7 +27,8 @@ class UserSeeder extends Seeder
             'birthday'  => now(),
             'email_verified_at' => now(),
             'password' => bcrypt('08081508'), // password
-            'role_id'   => 1
+            'role_id'   => 1,
+            'company_id'    => 1
         ]);
     }
 }

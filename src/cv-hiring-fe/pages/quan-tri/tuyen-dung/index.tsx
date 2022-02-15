@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Table, Button, Tag, Space, Tooltip, message } from "antd";
 import style from "./style.module.scss";
 import LayoutAdmin from "../../../components/layouts/LayoutAdmin";
@@ -34,7 +34,10 @@ const AppliedCVManage = () => {
       companyId: 1,
       page: page,
     },
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-and-network",
   });
+
   const [pauseHiring, { loading: loadingPause }] = useMutation<
     PropsMutation,
     { id: number }
@@ -106,7 +109,7 @@ const AppliedCVManage = () => {
       key: "is_open",
       width: 200,
       render: (is_open: number, record: WorkJob) => {
-        const date = formatStringToDate(record.expired_date);
+        const date = formatStringToDate(record.expired_date_hiring);
 
         if (isBefore(date, new Date())) {
           return <Tag color={"red"}>Hết hạn tuyển dụng</Tag>;
@@ -120,9 +123,9 @@ const AppliedCVManage = () => {
     },
     {
       title: "Hạn ứng tuyển",
-      dataIndex: "expired_date",
+      dataIndex: "expired_date_hiring",
       width: 150,
-      key: "expired_date",
+      key: "expired_date_hiring",
     },
     {
       title: "Hành động",
@@ -138,30 +141,32 @@ const AppliedCVManage = () => {
                 </Button>
               </Tooltip>
             </Link>
-            {!isExpiredDateHiring(record.expired_date) && record.is_open === 1 && (
-              <Tooltip title="Dừng đăng tuyển">
-                <Button
-                  danger
-                  className={style.cancelApply}
-                  onClick={() => handleStopHiring(record.id)}
-                  loading={loadingPause}
-                >
-                  <PauseFill width={16} />
-                </Button>
-              </Tooltip>
-            )}
-            {!isExpiredDateHiring(record.expired_date) && record.is_open === 0 && (
-              <Tooltip title="Tiếp tục đăng tuyển">
-                <Button
-                  danger
-                  className={style.cancelApply}
-                  onClick={() => handleResumeHiring(record.id)}
-                  loading={loadingResume}
-                >
-                  <Play width={16} />
-                </Button>
-              </Tooltip>
-            )}
+            {!isExpiredDateHiring(record.expired_date_hiring) &&
+              record.is_open === 1 && (
+                <Tooltip title="Dừng đăng tuyển">
+                  <Button
+                    danger
+                    className={style.cancelApply}
+                    onClick={() => handleStopHiring(record.id)}
+                    loading={loadingPause}
+                  >
+                    <PauseFill width={16} />
+                  </Button>
+                </Tooltip>
+              )}
+            {!isExpiredDateHiring(record.expired_date_hiring) &&
+              record.is_open === 0 && (
+                <Tooltip title="Tiếp tục đăng tuyển">
+                  <Button
+                    danger
+                    className={style.cancelApply}
+                    onClick={() => handleResumeHiring(record.id)}
+                    loading={loadingResume}
+                  >
+                    <Play width={16} />
+                  </Button>
+                </Tooltip>
+              )}
           </Space>
         );
       },

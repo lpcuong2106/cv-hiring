@@ -33,6 +33,9 @@ class CreateUsersTable extends Migration
             $table->bigInteger('province_id')->unsigned()->nullable();
             $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
 
+            $table->bigInteger('company_id')->unsigned()->nullable();
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+
             $table->rememberToken();
             $table->timestamps();
         });

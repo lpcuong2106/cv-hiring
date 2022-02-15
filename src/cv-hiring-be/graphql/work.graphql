@@ -19,7 +19,7 @@ type WorkJob implements Modal {
     salary: String
     type: String
     is_open: Int
-    expired_date: String
+    expired_date_hiring: String
     province: Province!
     company: Company! @belongsTo
     work_category: WorkCategory! @belongsTo
@@ -40,7 +40,7 @@ input WorkJobInput {
     address_work: String!
     salary: String!
     type: String!
-    expired_date: String!
+    expired_date_hiring: String!
     province_id: ID!
     company_id: ID!
     work_category_id: ID!
@@ -58,7 +58,7 @@ input WorkJobInputUpdate {
     address_work: String!
     salary: String!
     type: String!
-    expired_date: String!
+    expired_date_hiring: String!
     province_id: ID!
     company_id: ID!
     work_category_id: ID!

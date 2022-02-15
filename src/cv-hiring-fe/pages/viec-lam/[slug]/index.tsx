@@ -116,10 +116,10 @@ const WorkJob: NextPage = () => {
                           <TimeSlot width={16} />
                           <span>
                             Hạn nộp hồ sơ:{" "}
-                            {workJob?.expired_date &&
+                            {workJob?.expired_date_hiring &&
                               format(
                                 parse(
-                                  workJob.expired_date,
+                                  workJob.expired_date_hiring,
                                   "yyyy-MM-dd HH:m:s",
                                   new Date()
                                 ),

@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\WorkJob;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class PauseHiring
 {
@@ -17,11 +18,16 @@ class PauseHiring
             $id = $args['id'];
             $is_open = $args['is_open'];
 
-            $workJob = WorkJob::where('id', $id)->update(['is_open' => $is_open]);
+            // $workJob = WorkJob::where('id', $id)->firstOrFail();
+            // $workJob->update(['is_open' => $is_open]);
             // if ($workJob) {
             // $workJob->is_open = $is_open;
             // $workJob->save();
             // }
+            $id = DB::table('work_jobs')
+                ->where('id', $id)
+                ->update(['is_open' => $is_open]);
+
 
             return [
                 'status' => 'OK',

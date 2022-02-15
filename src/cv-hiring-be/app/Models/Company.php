@@ -29,4 +29,9 @@ class Company extends Model
             ->count();
         return $workHiring;
     }
+
+    public function manager()
+    {
+        return $this->hasOne(User::class);
+    }
 }

@@ -16,7 +16,7 @@ class WorkJobFactory extends Factory
     {
         return [
             'name'          => $this->faker->name(),
-            'company_id'    => rand(1,10),
+            'company_id'    => rand(1, 10),
             'slug'          => $this->faker->slug(),
             'description'   => $this->faker->randomHtml(),
             'benefit'       => $this->faker->name(),
@@ -30,11 +30,10 @@ class WorkJobFactory extends Factory
             'address_work'          => $this->faker->address(),
             'salary'                => $this->faker->numerify('###'),
             'type'                  => 'partime',
-            'is_open'               => rand(0,1),
-            'expired_date'          => now(),
-            'province_id'           => rand(1,63),
-            'work_category_id'      => rand(1,20)
+            'is_open'               => rand(0, 1),
+            'expired_date_hiring'   => now(),
+            'province_id'           => rand(1, 63),
+            'work_category_id'      => rand(1, 20)
         ];
     }
 }
-

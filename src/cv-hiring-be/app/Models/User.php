@@ -22,7 +22,8 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'role_id'
+        'role_id',
+        'company_id'
     ];
 
     /**
@@ -54,6 +55,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(WorkApply::class);
     }
 
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

@@ -31,8 +31,9 @@ class CreateWorkJobsTable extends Migration
             $table->string('address_work');
             $table->string('salary');
             $table->string('type');
+
             $table->boolean('is_open');
-            $table->timestamp('expired_date');
+            $table->dateTime('expired_date_hiring');
             $table->bigInteger('province_id')->unsigned();
             $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
 

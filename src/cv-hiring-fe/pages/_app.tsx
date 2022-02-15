@@ -11,6 +11,8 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 import createUploadLink from "apollo-upload-client/public/createUploadLink.js";
+import { Provider } from "react-redux";
+import { store } from "../store/index";
 
 const httpLink = createUploadLink({ uri: "http://127.0.0.1:8000/graphql" });
 
@@ -38,11 +40,13 @@ const client = new ApolloClient({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div id="wrapp_app">
-      <ApolloProvider client={client}>
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
-      </ApolloProvider>
+      <Provider store={store}>
+        <ApolloProvider client={client}>
+          <AuthProvider>
+            <Component {...pageProps} />
+          </AuthProvider>
+        </ApolloProvider>
+      </Provider>
     </div>
   );
 }
