@@ -18,6 +18,7 @@ type SelectProps = {
   placeholder: string;
   label: string;
   mode: "select";
+  disabled?: boolean;
   options: DefaultOptionType[];
 };
 type InputProps = {
@@ -26,6 +27,7 @@ type InputProps = {
   placeholder: string;
   label: string;
   mode: "input";
+  disabled?: boolean;
 };
 type NumberProps = {
   Icon: any;
@@ -33,6 +35,7 @@ type NumberProps = {
   placeholder: string;
   label: string;
   mode: "number";
+  disabled?: boolean;
 };
 type TextAreaProps = {
   mode: "textarea";
@@ -40,6 +43,7 @@ type TextAreaProps = {
   name: string;
   placeholder: string;
   label: string;
+  disabled?: boolean;
 };
 
 type DatepickerProps = {
@@ -48,6 +52,7 @@ type DatepickerProps = {
   name: string;
   placeholder: string;
   label: string;
+  disabled?: boolean;
 };
 function AdminInput(props: Props) {
   // @ts-ignore

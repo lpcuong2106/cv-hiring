@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import LayoutAdmin from "../../components/layouts/LayoutAdmin";
 import { Row, Col, Card, Statistic } from "antd";
 import style from "./style.module.scss";
@@ -6,7 +6,7 @@ import Head from "next/head";
 import { useQuery } from "@apollo/client";
 import { ANALYST_ADMIN } from "../../GraphQL/Query/Analyst";
 import { LoadingApp } from "../../components/LoadingApp";
-import { AuthContext } from "../../components/AuthProvider";
+import { useAppSelector } from "../../store/hook";
 
 interface AnalystQuery {
   analystWorkJob: {
@@ -18,12 +18,17 @@ interface AnalystQuery {
 }
 
 const ManageDashboard = () => {
-  const auth = useContext(AuthContext);
+  const userLoggedIn = useAppSelector((state) => state.user.user);
+
   const { data, loading } = useQuery<AnalystQuery>(ANALYST_ADMIN, {
     variables: {
-      companyId: 1,
+      companyId: userLoggedIn?.company?.id,
     },
+    skip: !userLoggedIn?.company?.id,
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-and-network",
   });
+
   const analystWorkJob = data?.analystWorkJob;
 
   if (loading || !analystWorkJob) {
@@ -84,9 +89,9 @@ const ManageDashboard = () => {
             <Card className={style.profile}>
               <img src="https://tuyendung.topcv.vn/app/_nuxt/img/noavatar-2.18f0212.svg" />
               <div>
-                <b>Le Phu Cuong</b>
-                <p>Mã DN: 3512222 | {auth.user?.email} |</p>
-                <p>SĐT: 0349265776</p>
+                <b>{userLoggedIn?.lastname + " " + userLoggedIn?.firstname}</b>
+                <p>Mã DN: 3512222 | {userLoggedIn?.email} |</p>
+                <p>SĐT: {userLoggedIn?.phone || "Chưa có thông tin"}</p>
               </div>
             </Card>
           </Col>

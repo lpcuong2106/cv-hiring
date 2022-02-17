@@ -20,6 +20,7 @@ import {
   PAUSE_HIRING_JOB,
   RESUME_HIRING_JOB,
 } from "../../../GraphQL/Mutation/StatusHiringWorkJob";
+import { useAppSelector } from "../../../store/hook";
 
 type PropsMutation = {
   pauseHiring: {
@@ -29,11 +30,14 @@ type PropsMutation = {
 };
 const AppliedCVManage = () => {
   const [page, setPage] = useState(1);
+  const userLoggedIn = useAppSelector((state) => state.user.user);
+
   const { data, loading, refetch } = useQuery(FETCH_ALL_WORKJOB_MANAGE, {
     variables: {
-      companyId: 1,
+      companyId: userLoggedIn?.company?.id,
       page: page,
     },
+    skip: !userLoggedIn?.company?.id,
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-and-network",
   });

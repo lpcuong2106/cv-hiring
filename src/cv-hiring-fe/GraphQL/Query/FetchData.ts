@@ -14,6 +14,16 @@ export const FETCH_USER_LOGIN = gql`
       }
       company {
         id
+        name
+        description
+        amount_employee
+        website
+        fanpage
+        address
+        gg_map
+        logo
+        banner
+        amount_job_hiring
       }
     }
   }

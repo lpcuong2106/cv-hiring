@@ -25,7 +25,7 @@ class Company extends Model
 
     public function getAmountJobHiringAttribute()
     {
-        $workHiring = $this->work_jobs->where('is_open', 1)
+        $workHiring = $this->work_jobs->where('is_open', 1)->where('expired_date_hiring', '>=', now())
             ->count();
         return $workHiring;
     }

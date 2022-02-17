@@ -24,7 +24,7 @@ type Query {
     me: User @auth(guard: "api")
     topCompany(amount: Int!): [Company!]!
 
-    companyDetail(slug: String! @eq): Company @find
+    companyDetail(slug: String @eq, id: ID @eq): Company @find
 
     workJobHiringOfCompany(companyId: ID!): [WorkJob!]!
     workJobAppliedByUser(userId: ID!): WorkAppliedPaginator @guard

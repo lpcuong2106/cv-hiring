@@ -11,14 +11,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { AuthContext } from "../AuthProvider";
 import { useSelector } from "react-redux";
+import { useAppSelector } from "../../store/hook";
 
 const SidebarAdmin = () => {
   const [collapsed, setColappsed] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState(["1"]);
   const auth = useContext(AuthContext);
-  const user = useSelector(state: RootSage)
+  const userLoggedIn = useAppSelector((state) => state.user.user);
   const router = useRouter();
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     router.replace("/login");
@@ -84,17 +84,21 @@ const SidebarAdmin = () => {
               <Button type="link">Tin tuyển dụng</Button>
             </Link>
           </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            <Link href="/quan-tri/cong-ty">
-              <Button type="link">Công ty</Button>
-            </Link>
-          </Menu.Item>
+          {userLoggedIn?.role.name === "admin" && (
+            <Menu.Item key="3" icon={<UploadOutlined />}>
+              <Link href="/quan-tri/cong-ty">
+                <Button type="link">Công ty</Button>
+              </Link>
+            </Menu.Item>
+          )}
 
-          <Menu.Item key="4" icon={<UploadOutlined />}>
-            <Link href="/quan-tri/thong-tin-cong-ty">
-              <Button type="link">Thông tin công ty</Button>
-            </Link>
-          </Menu.Item>
+          {userLoggedIn?.role.name === "hr" && (
+            <Menu.Item key="4" icon={<UploadOutlined />}>
+              <Link href="/quan-tri/thong-tin-cong-ty">
+                <Button type="link">Thông tin công ty</Button>
+              </Link>
+            </Menu.Item>
+          )}
           <Menu.Item key="5" icon={<UploadOutlined />}>
             <Button type="link" onClick={handleLogout}>
               Đăng xuất
