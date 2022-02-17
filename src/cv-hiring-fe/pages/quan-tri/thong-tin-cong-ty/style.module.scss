@@ -7,3 +7,18 @@
 
   text-align: center;
 }
+
+.image {
+  .label {
+    display: flex;
+    h6 {
+      padding-left: 16px;
+    }
+  }
+  img {
+    margin-left: 20px;
+    width: 200px;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }
+}

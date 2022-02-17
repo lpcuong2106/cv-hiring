@@ -5,7 +5,7 @@ import { EditSettings } from "@styled-icons/fluentui-system-filled/EditSettings"
 import { useFormikContext } from "formik";
 import AdminInput from "../../../components/AdminInput";
 import { ModeView } from ".";
-
+import style from "./style.module.scss";
 interface FormValue {
   name: string;
   description: string;
@@ -140,29 +140,49 @@ const FormEditCompany = ({
           value={formikProps.values.gg_map}
         />
       </Col>
-      <Col md={8}>
-        <AdminInput
-          label="Logo"
-          Icon={<EditSettings width={16} />}
-          name="logo"
-          disabled={isView}
-          placeholder="Nhập địa chỉ nơi làm việc"
-          mode="input"
-          //   @ts-ignore
-          value={formikProps.values.logo}
-        />
+      <Col md={12}>
+        {isView ? (
+          <div className={style.image}>
+            <div className={style.label}>
+              <EditSettings width={16} />
+              <h6 className="">Logo</h6>
+            </div>
+            <img src={formikProps.values.logo} />
+          </div>
+        ) : (
+          <AdminInput
+            label="Logo"
+            Icon={<EditSettings width={16} />}
+            name="logo"
+            disabled={isView}
+            placeholder="Nhập địa chỉ nơi làm việc"
+            mode="input"
+            //   @ts-ignore
+            value={formikProps.values.logo}
+          />
+        )}
       </Col>
-      <Col md={24}>
-        <AdminInput
-          label="Ảnh bìa"
-          disabled={isView}
-          Icon={<EditSettings width={16} />}
-          name="banner"
-          placeholder="Ảnh bìa"
-          mode="input"
-          //   @ts-ignore
-          value={formikProps.values.banner}
-        />
+      <Col md={12}>
+        {isView ? (
+          <div className={style.image}>
+            <div className={style.label}>
+              <EditSettings width={16} />
+              <h6 className="">Ảnh bìa</h6>
+            </div>
+            <img src={formikProps.values.banner} />
+          </div>
+        ) : (
+          <AdminInput
+            label="Ảnh bìa"
+            disabled={isView}
+            Icon={<EditSettings width={16} />}
+            name="banner"
+            placeholder="Ảnh bìa"
+            mode="input"
+            //   @ts-ignore
+            value={formikProps.values.banner}
+          />
+        )}
       </Col>
       <Col md={24}>
         <Space>

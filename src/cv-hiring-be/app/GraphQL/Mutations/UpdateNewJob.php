@@ -53,7 +53,7 @@ class UpdateNewJob
 
             return [
                 'status' => 'OK',
-                'message'   => 'Tạo thành công'
+                'message'   => 'Cập nhật thành công'
             ];
         } catch (Exception $e) {
             return [

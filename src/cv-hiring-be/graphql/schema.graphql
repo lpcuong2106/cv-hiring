@@ -56,6 +56,7 @@ type Mutation {
     createNewJob(input: WorkJobInput): ResponseExecute @guard
     updateNewJob(input: WorkJobInputUpdate): ResponseExecute @guard
     pauseHiring(id: ID!, is_open: Int!): ResponseExecute @guard
+    updateCompany(input: CompanyInput): ResponseExecute @guard
 }
 
 interface Modal {

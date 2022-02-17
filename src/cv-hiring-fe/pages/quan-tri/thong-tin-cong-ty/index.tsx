@@ -11,51 +11,30 @@ import { LoadingApp } from "../../../components/LoadingApp";
 import { FETCH_COMPANY_DETAIL } from "../../../GraphQL/Query/Comapany";
 import { Company } from "../../../data";
 import { useAppSelector } from "../../../store/hook";
-import FormEditWorkJob from "../tuyen-dung/[id]/FormEditWorkJob";
 import FormEditCompany from "./FormEditCompany";
+import { UPDATE_COMPANY } from "../../../GraphQL/Mutation/UpdateCompany";
 
 interface DataQuery {
   companyDetail: Company;
 }
 
-// export const validationSchemaWorkJob = Yup.object().shape({
-//   name: Yup.string()
-//     .min(8, "Tên công việc ít nhất 8 kí tự")
-//     .required("Tên công việc là bắt buộc"),
-//   benefit: Yup.string()
-//     .min(8, "Lợi ích công việc ít nhất 8 kí tự")
-//     .required("Lợi ích công việc là bắt buộc"),
-//   description: Yup.string()
-//     .min(8, "Mô tả công việc ít nhất 8 kí tự")
-//     .required("Mô tả công việc là bắt buộc"),
-//   requirement: Yup.string()
-//     .min(8, "Yêu cầu công việc ít nhất 8 kí tự")
-//     .required("Yêu cầu công việc là bắt buộc"),
-//   requirement_exp: Yup.string()
-//     .typeError("Vui lòng chọn yêu cầu kinh nghiệm")
-//     .required("Vui lòng chọn yêu cầu kinh nghiệm"),
-//   requirement_gender: Yup.string()
-//     .typeError("Vui lòng chọn yêu cầu giới tính")
-//     .required("Yêu cầu giới tính là bắt buộc"),
-//   requirement_age: Yup.string().required("Yêu cầu độ tuổi là bắt buộc"),
-//   amount_hiring: Yup.number()
-//     .typeError("Vui lòng nhập đúng định dạng số lượng tuyển")
-//     .min(1)
-//     .required("Số lượng tuyển dụng là bắt buộc"),
-//   address_work: Yup.string().required("Địa chỉ làm việc là bắt buộc"),
-//   salary: Yup.string().required("Chọn lương là bắt buộc"),
-//   type: Yup.string()
-//     .typeError("Vui lòng chọn loại công việc")
-//     .required("Vui lòng chọn loại công việc"),
-//   expired_date_hiring: Yup.string().required("Chọn ngày hết hạn là bắt buộc"),
-//   work_category_id: Yup.number()
-//     .typeError("Vui lòng chọn lĩnh vực")
-//     .required("Tên công việc là bắt buộc"),
-//   company_id: Yup.number().required("Công ty là bắt buộc"),
-//   province_id: Yup.number()
-//     .typeError("Vui lòng chọn tỉnh thành")
-//     .required("Vui lòng chọn tỉnh thành"),
-// });
+export const validationSchemaCompany = Yup.object().shape({
+  id: Yup.number().required(),
+  name: Yup.string()
+    .min(8, "Tên công ty ít nhất 8 kí tự")
+    .required("Tên công ty là bắt buộc"),
+  description: Yup.string()
+    .min(8, "Mô tả công ty ít nhất 8 kí tự")
+    .required("Mô tả công ty là bắt buộc"),
+  amount_employee: Yup.string(),
+  website: Yup.string(),
+  fanpage: Yup.string(),
+  address: Yup.string(),
+  gg_map: Yup.string(),
+  logo: Yup.string().url("Logo nên là giá trị đường dẫn"),
+  banner: Yup.string().url("Banner nên là giá trị đường dẫn"),
+});
+
 export type ModeView = "edit" | "create" | "view";
 const ManageCompany = () => {
   const userLoggedIn = useAppSelector((state) => state.user.user);
@@ -66,14 +45,11 @@ const ManageCompany = () => {
     },
     skip: !userLoggedIn?.company?.id,
   });
+  const [updateCompanyDetail, { loading: loadingSubmit }] =
+    useMutation(UPDATE_COMPANY);
   const [mode, setMode] = useState<ModeView>("view");
   const companyDetail = data?.companyDetail;
-  // const provinces = data?.provinces;
-  // const router = useRouter();
-
-  // const [createNewJob, { loading: loadingSubmit }] =
-  //   useMutation(CREATE_WORKJOB);
-
+  const router = useRouter();
   return (
     <LayoutAdmin>
       <Head>
@@ -93,6 +69,7 @@ const ManageCompany = () => {
 
                   <Formik
                     initialValues={{
+                      id: companyDetail.id,
                       name: companyDetail.name,
                       description: companyDetail.description,
                       amount_employee: companyDetail.amount_employee,
@@ -103,27 +80,26 @@ const ManageCompany = () => {
                       logo: companyDetail.logo,
                       banner: companyDetail.banner,
                     }}
-                    // validationSchema={validationSchemaWorkJob}
+                    validationSchema={validationSchemaCompany}
                     onSubmit={async (values) => {
-                      // const { data } = await createNewJob({
-                      //   variables: values,
-                      // });
-                      alert(values);
-                      console.log(values);
+                      const { data } = await updateCompanyDetail({
+                        variables: values,
+                      });
+
+                      if (data.updateCompany.status === "ERROR") {
+                        message.error(data.updateCompany.message);
+                        return;
+                      }
+                      message.success(data.updateCompany.message);
                       setMode("view");
-                      // if (data.createNewJob.status === "ERROR") {
-                      //   message.error(data.message);
-                      //   return;
-                      // }
-                      // message.success("Tạo mới việc làm thành công!");
-                      // router.replace("/quan-tri/tuyen-dung");
+
                       return;
                     }}
                   >
                     {({ handleSubmit }) => (
                       <Form onSubmit={handleSubmit}>
                         <FormEditCompany
-                          loadingSubmit={false}
+                          loadingSubmit={loadingSubmit}
                           mode={mode}
                           setMode={setMode}
                         />

@@ -14,3 +14,16 @@ type Company {
     work_jobs: [WorkJob!]! @hasMany
     manager: User @belongsTo
 }
+
+input CompanyInput {
+    id: ID
+    name: String
+    description: String
+    amount_employee: String
+    website: String
+    fanpage: String
+    address: String
+    gg_map: String
+    logo: String
+    banner: String
+}
