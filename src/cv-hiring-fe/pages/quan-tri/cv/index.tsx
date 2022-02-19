@@ -7,17 +7,15 @@ import * as Yup from "yup";
 import LayoutAdmin from "../../../components/layouts/LayoutAdmin";
 import { LoadingApp } from "../../../components/LoadingApp";
 import Link from "next/link";
-import { Company, PaginatorInfo } from "../../../data";
+import { Company, PaginatorInfo, WorkApply } from "../../../data";
 import { ColumnsType } from "antd/lib/table";
-import { RESUME_HIRING_JOB } from "../../../GraphQL/Mutation/StatusHiringWorkJob";
 import { useAppSelector } from "../../../store/hook";
-import { FETCH_ALL_COMPANY_MANAGE } from "../../../GraphQL/Query/Comapany";
 import { Edit } from "styled-icons/boxicons-regular";
-import { Trash } from "styled-icons/bootstrap";
 import { REMOVE_COMPANY } from "../../../GraphQL/Mutation/RemoveCompany";
+import { FETCH_ALL_CV_APPLIED } from "../../../GraphQL/Query/WorkJob";
 interface DataQuery {
-  getAllCompany: {
-    data: Company[];
+  allCvApplied: {
+    data: WorkApply[];
     paginatorInfo: PaginatorInfo;
   };
 }
@@ -65,16 +63,14 @@ const ManageCV = () => {
   const [page, setPage] = useState(1);
   const userLoggedIn = useAppSelector((state) => state.user.user);
 
-  const { data, loading, refetch } = useQuery<DataQuery>(
-    FETCH_ALL_COMPANY_MANAGE,
-    {
-      variables: {
-        page: page,
-      },
-      fetchPolicy: "network-only",
-      nextFetchPolicy: "cache-and-network",
-    }
-  );
+  const { data, loading, refetch } = useQuery<DataQuery>(FETCH_ALL_CV_APPLIED, {
+    variables: {
+      company: userLoggedIn?.company?.id,
+      page: page,
+    },
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-and-network",
+  });
   const [removeCompany, { loading: loadingRemoveCompany }] = useMutation<
     {
       removeCompany: {
@@ -99,72 +95,71 @@ const ManageCV = () => {
     message.error(data?.removeCompany.message);
   };
 
-  const companies = data?.getAllCompany;
+  const cvApplied = data?.allCvApplied;
 
   const handleChangePaginate = (page: number) => {
     setPage(page);
   };
 
-  const columns: ColumnsType<Company> = [
+  const columns: ColumnsType<WorkApply> = [
     {
       title: "ID",
       dataIndex: "id",
       key: "id",
       width: 100,
-      render: (_, record: Company) => (
+      render: (_, record: WorkApply) => (
         <div>
           <p>#ID_{record.id}</p>
         </div>
       ),
     },
     {
-      title: "Tên công ty",
+      title: "Người dùng",
       dataIndex: "name",
       // width: 0,
       align: "center",
       key: "name",
-      render: (name: string, record: Company) => {
+      render: (name: string, record: WorkApply) => {
         return (
           <div className={style.logoItem}>
-            <img src={record.logo} />
+            <img src={record.cv_url} />
             {name}
           </div>
         );
       },
     },
     {
-      title: "Số lượng công việc đang tuyển",
+      title: "Vị trí",
       dataIndex: "amount_job_hiring",
       key: "amount_job_hiring",
       width: 230,
-      render: (_: number, record: Company) => {
-        return record.amount_job_hiring;
+      render: (_: number, record: WorkApply) => {
+        return record.cv_url;
+      },
+    },
+    {
+      title: "Trạng thái ứng tuyển",
+      dataIndex: "amount_job_hiring",
+      key: "amount_job_hiring",
+      width: 230,
+      render: (_: number, record: WorkApply) => {
+        return record.cv_url;
       },
     },
     {
       title: "Hành động",
       dataIndex: "contact",
       key: "contact",
-      render: (_, record: Company) => {
+      render: (_, record: WorkApply) => {
         return (
           <Space>
             <Link href={`/quan-tri/cong-ty/${record.id}`}>
-              <Tooltip title="Sửa công ty">
+              <Tooltip title="Xem hồ sơ CV">
                 <Button className={style.cancelApply}>
                   <Edit width={16} />
                 </Button>
               </Tooltip>
             </Link>
-            <Tooltip title="Xóa công ty">
-              <Button
-                className={style.cancelApply}
-                onClick={() => handleRemoveCompany(record.id)}
-                loading={loadingRemoveCompany}
-                danger
-              >
-                <Trash width={16} />
-              </Button>
-            </Tooltip>
           </Space>
         );
       },
@@ -175,11 +170,11 @@ const ManageCV = () => {
       <Head>
         <title>Kết nối lao động việt | Quản trị </title>
       </Head>
-      {loading || !companies ? (
+      {loading || !cvApplied ? (
         <LoadingApp />
       ) : (
         <div className="site-statistic-demo-card">
-          <h1>Danh sách công ty</h1>
+          <h1>Quản lý CV ứng viên</h1>
           <div className={style.actionAdd}>
             <Link href={"/quan-tri/cong-ty/them-moi"}>
               <Button type="primary">Thêm mới</Button>
@@ -188,12 +183,12 @@ const ManageCV = () => {
 
           <Row gutter={16}>
             <Col span={24} className={style.statistic}>
-              <Table<Company>
+              <Table<WorkApply>
                 columns={columns}
-                dataSource={companies.data}
+                dataSource={cvApplied.data}
                 pagination={{
-                  current: companies.paginatorInfo.currentPage,
-                  total: companies.paginatorInfo.total,
+                  current: cvApplied.paginatorInfo.currentPage,
+                  total: cvApplied.paginatorInfo.total,
                   onChange: handleChangePaginate,
                 }}
               />

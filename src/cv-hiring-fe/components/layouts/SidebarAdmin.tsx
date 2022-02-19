@@ -91,20 +91,27 @@ const SidebarAdmin = () => {
                   <Button type="link">Công ty</Button>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="6" icon={<UploadOutlined />}>
-                <Link href="/quan-tri/cv">
-                  <Button type="link">Quản lý CV</Button>
+              <Menu.Item key="7" icon={<UploadOutlined />}>
+                <Link href="/quan-tri/nguoi-dung">
+                  <Button type="link">Người dùng</Button>
                 </Link>
               </Menu.Item>
             </>
           )}
 
           {userLoggedIn?.role.name === "hr" && (
-            <Menu.Item key="4" icon={<UploadOutlined />}>
-              <Link href="/quan-tri/thong-tin-cong-ty">
-                <Button type="link">Thông tin công ty</Button>
-              </Link>
-            </Menu.Item>
+            <>
+              <Menu.Item key="4" icon={<UploadOutlined />}>
+                <Link href="/quan-tri/thong-tin-cong-ty">
+                  <Button type="link">Thông tin công ty</Button>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="6" icon={<UploadOutlined />}>
+                <Link href="/quan-tri/cv">
+                  <Button type="link">Quản lý CV</Button>
+                </Link>
+              </Menu.Item>
+            </>
           )}
           <Menu.Item key="5" icon={<UploadOutlined />}>
             <Button type="link" onClick={handleLogout}>

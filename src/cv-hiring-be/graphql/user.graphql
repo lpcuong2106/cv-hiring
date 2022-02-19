@@ -30,6 +30,11 @@ type User implements Modal {
     company: Company @hasOne
 }
 
+type UserPaginator {
+    paginatorInfo: PaginatorInfo!
+    data: [User!]!
+}
+
 type UserAppliedJob {
     id: ID!
     user_id: ID

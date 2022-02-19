@@ -37,7 +37,8 @@ type Query {
     workCategories: [WorkCategory!]! @all
     userAppliedWorkJob(user_id: ID! @eq, work_job_id: ID! @eq): UserAppliedJob
         @find(model: "App\\Models\\WorkApply")
-
+    allCvApplied(companyId: ID, page: Int): WorkAppliedPaginator @guard
+    getAllUsers(page: Int!): UserPaginator @guard
     getAllWorkJob(
         page: Int!
         input: WorkJobSearchInput @spread
@@ -54,13 +55,16 @@ type Mutation {
     applyCV(content: String!, fileCV: Upload!, jobId: ID!): UploadedCV
 
     cancelAppliedWorkJob(workAppliedId: ID!): ResponseExecute @guard
+    pauseHiring(id: ID!, is_open: Int!): ResponseExecute @guard
+
     createNewJob(input: WorkJobInput): ResponseExecute @guard
     updateNewJob(input: WorkJobInputUpdate): ResponseExecute @guard
-    pauseHiring(id: ID!, is_open: Int!): ResponseExecute @guard
 
     updateCompany(input: CompanyInput): ResponseExecute @guard
     removeCompany(id: ID!): ResponseExecute @guard
     createCompany(input: CompanyInput): ResponseExecute @guard
+
+    removeUser(id: ID!): ResponseExecute @guard
 }
 
 interface Modal {

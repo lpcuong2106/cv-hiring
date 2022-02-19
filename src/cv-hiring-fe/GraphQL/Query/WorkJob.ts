@@ -256,3 +256,25 @@ export const FETCH_ALL_WORKJOB_MANAGE = gql`
     }
   }
 `;
+
+export const FETCH_ALL_CV_APPLIED = gql`
+  query allCvApplied($companyId: ID, $page: Int) {
+    allCvApplied(companyId: $companyId, page: $page) {
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
+      }
+      data {
+        id
+        created_at
+        updated_at
+      }
+    }
+  }
+`;
