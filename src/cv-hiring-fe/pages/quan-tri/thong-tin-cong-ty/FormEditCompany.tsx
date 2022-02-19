@@ -6,6 +6,11 @@ import { useFormikContext } from "formik";
 import AdminInput from "../../../components/AdminInput";
 import { ModeView } from ".";
 import style from "./style.module.scss";
+import { useAppSelector } from "../../../store/hook";
+import { useQuery } from "@apollo/client";
+import { FETCH_ALL_USER } from "../../../GraphQL/Query/User";
+import { User } from "../../../data";
+
 interface FormValue {
   name: string;
   description: string;
@@ -22,6 +27,9 @@ interface Props {
   mode: ModeView;
   setMode: React.Dispatch<React.SetStateAction<ModeView>>;
 }
+interface PropsQuery {
+  users: User[];
+}
 
 const FormEditCompany = ({
   loadingSubmit,
@@ -30,14 +38,14 @@ const FormEditCompany = ({
 }: Props) => {
   const formikProps = useFormikContext<FormValue>();
   const isView = mode === "view";
-  // const provinceOptions = provinces.map((province) => ({
-  //   label: province.name,
-  //   value: province.id,
-  // }));
-  // const categoryOptions = workCategories.map((cateogry) => ({
-  //   label: cateogry.name,
-  //   value: cateogry.id,
-  // }));
+  const userLoggedIn = useAppSelector((state) => state.user.user);
+  const { data, loading } = useQuery<PropsQuery>(FETCH_ALL_USER);
+  const users = data?.users ?? [];
+
+  const usersOptions = users?.map((user) => ({
+    label: user.lastname + " " + user.firstname,
+    value: user.id,
+  }));
   const handleModeView = (mode: ModeView) => {
     setMode(mode);
   };
@@ -102,7 +110,7 @@ const FormEditCompany = ({
           name="address"
           mode="input"
           disabled={isView}
-          placeholder="Tiêu đề tuyển dụng"
+          placeholder="Nhập địa chỉ"
           //   @ts-ignore
           value={formikProps.values.address}
         />
@@ -113,6 +121,7 @@ const FormEditCompany = ({
           Icon={<EditSettings width={16} />}
           name="website"
           mode="input"
+          placeholder="Nhập url website"
           disabled={isView}
           //   @ts-ignore
           value={formikProps.values.website}
@@ -123,6 +132,7 @@ const FormEditCompany = ({
           label="Fanpage"
           Icon={<EditSettings width={16} />}
           name="fanpage"
+          placeholder="Nhập url Fanpage"
           mode="input"
           disabled={isView}
           //   @ts-ignore
@@ -134,12 +144,35 @@ const FormEditCompany = ({
           label="GoogleMap"
           Icon={<EditSettings width={16} />}
           name="gg_map"
+          placeholder="Nhập embed bản đồ"
           disabled={isView}
           mode="input"
           //   @ts-ignore
           value={formikProps.values.gg_map}
         />
       </Col>
+      {userLoggedIn?.role.name === "admin" && (
+        <Col md={8}>
+          <AdminInput
+            label="Chọn người quản trị doanh nghiệp"
+            Icon={<EditSettings width={16} />}
+            name="user_id"
+            placeholder="Chọn người quản trị doanh nghiệp"
+            disabled={isView}
+            mode="select"
+            options={[
+              {
+                label: "Chọn người quản trị",
+                value: null,
+              },
+
+              ...usersOptions,
+            ]}
+            //   @ts-ignore
+            value={formikProps.values.user_id}
+          />
+        </Col>
+      )}
       <Col md={12}>
         {isView ? (
           <div className={style.image}>
@@ -155,7 +188,7 @@ const FormEditCompany = ({
             Icon={<EditSettings width={16} />}
             name="logo"
             disabled={isView}
-            placeholder="Nhập địa chỉ nơi làm việc"
+            placeholder="Nhập url logo"
             mode="input"
             //   @ts-ignore
             value={formikProps.values.logo}
@@ -177,7 +210,7 @@ const FormEditCompany = ({
             disabled={isView}
             Icon={<EditSettings width={16} />}
             name="banner"
-            placeholder="Ảnh bìa"
+            placeholder="Nhập url ảnh bìa"
             mode="input"
             //   @ts-ignore
             value={formikProps.values.banner}

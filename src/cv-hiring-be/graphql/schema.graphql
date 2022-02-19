@@ -24,6 +24,7 @@ type Query {
     me: User @auth(guard: "api")
     topCompany(amount: Int!): [Company!]!
 
+    getAllCompany(page: Int): CompanyPaginator
     companyDetail(slug: String @eq, id: ID @eq): Company @find
 
     workJobHiringOfCompany(companyId: ID!): [WorkJob!]!
@@ -51,12 +52,15 @@ type Mutation {
     login(email: String!, password: String!): AuthPayload
     registerUser(email: String!, password: String!): AuthPayload
     applyCV(content: String!, fileCV: Upload!, jobId: ID!): UploadedCV
-    cancelAppliedWorkJob(workAppliedId: ID!): ResponseExecute @guard
 
+    cancelAppliedWorkJob(workAppliedId: ID!): ResponseExecute @guard
     createNewJob(input: WorkJobInput): ResponseExecute @guard
     updateNewJob(input: WorkJobInputUpdate): ResponseExecute @guard
     pauseHiring(id: ID!, is_open: Int!): ResponseExecute @guard
+
     updateCompany(input: CompanyInput): ResponseExecute @guard
+    removeCompany(id: ID!): ResponseExecute @guard
+    createCompany(input: CompanyInput): ResponseExecute @guard
 }
 
 interface Modal {

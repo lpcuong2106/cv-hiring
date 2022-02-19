@@ -4,8 +4,9 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\Company;
 use Exception;
+use Illuminate\Support\Str;
 
-class UpdateCompany
+class CreateCompany
 {
     /**
      * @param  null  $_
@@ -14,34 +15,41 @@ class UpdateCompany
     public function __invoke($_, array $args)
     {
         try {
-            $id = $args['input']['id'];
             $name = $args["input"]["name"];
             $description = $args["input"]["description"];
             $amount_employee = $args["input"]["amount_employee"];
             $website = $args["input"]["website"];
+            $fanpage = $args["input"]["fanpage"];
             $address = $args["input"]["address"];
             $gg_map = $args["input"]["gg_map"];
             $logo = $args["input"]["logo"];
             $banner = $args["input"]["banner"];
             $user_id = isset($args["input"]["user_id"]) ? $args["input"]["user_id"] : null;
 
-            // TODO implement the resolver
-            $company = Company::findOrFail($id);
-            $company->name = $name;
-            $company->description = $description;
-            $company->amount_employee = $amount_employee;
-            $company->website = $website;
-            $company->address = $address;
-            $company->gg_map = $gg_map;
-            $company->logo = $logo;
-            $company->user_id = $user_id;
-            $company->banner = $banner;
+            $slug = Str::slug($name);
+            $companyExist = Company::where('slug', $slug)->count();
+            if ($companyExist > 0) {
+                $slug = $slug . rand(1, 1000);
+            }
 
-            $company->save();
+            // TODO implement the resolver
+            Company::create([
+                'slug'  => $slug,
+                'name'  => $name,
+                'description' => $description,
+                'amount_employee' => $amount_employee,
+                'website' => $website,
+                'fanpage'   => $fanpage,
+                'address' => $address,
+                'gg_map' => $gg_map,
+                'logo' => $logo,
+                'banner' => $banner,
+                'user_id'   => $user_id,
+            ]);
 
             return [
                 'status' => 'OK',
-                'message'   => 'Cập nhật công ty thành công!'
+                'message'   => 'Tạo công ty thành công!'
             ];
         } catch (Exception $e) {
             return [

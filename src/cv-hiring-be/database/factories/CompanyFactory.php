@@ -23,7 +23,8 @@ class CompanyFactory extends Factory
             'fanpage'   => $this->faker->url(),
             'gg_map'    => $this->faker->url(),
             'logo'      => $this->faker->imageUrl(),
-            'banner'    => $this->faker->imageUrl(1024,360),
+            'banner'    => $this->faker->imageUrl(1024, 360),
+            'user_id'   => null
         ];
     }
 }

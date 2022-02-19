@@ -8,6 +8,7 @@ import { Container } from "react-bootstrap";
 import { useAuth } from "../AuthProvider";
 import { useRouter } from "next/router";
 import { DownOutlined } from "@ant-design/icons";
+import { useAppSelector } from "../../store/hook";
 
 function handleButtonClick(e: any) {
   message.info("Click on left button.");
@@ -21,12 +22,14 @@ function handleMenuClick(e: any) {
 
 function HeaderNav() {
   const auth = useAuth();
+  const userLoggedIn = useAppSelector((state) => state.user.user);
 
   const router = useRouter();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     auth.setIsLogged(false);
+
     auth.user = null;
     message.success("Đăng xuất thành công!");
     router.replace("/login");
@@ -34,6 +37,13 @@ function HeaderNav() {
 
   const menu = (
     <Menu>
+      {userLoggedIn?.role.name === "admin" && (
+        <Menu.Item key="4">
+          <Link href={"/quan-tri"}>
+            <Button type="link">Quản trị</Button>
+          </Link>
+        </Menu.Item>
+      )}
       <Menu.Item key="1">
         <Button type="link">Cá nhân</Button>
       </Menu.Item>
@@ -112,7 +122,7 @@ function HeaderNav() {
                   <Button shape="round" type="link">
                     <Avatar
                       src={
-                        <img src={auth?.user?.avatar} style={{ width: 32 }} />
+                        <img src={userLoggedIn?.avatar} style={{ width: 32 }} />
                       }
                     />
                     <DownOutlined />

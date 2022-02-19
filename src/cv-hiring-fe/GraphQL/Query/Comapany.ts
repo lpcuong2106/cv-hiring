@@ -15,6 +15,34 @@ export const FETCH_COMPANY_DETAIL = gql`
       fanpage
       address
       gg_map
+      user {
+        id
+      }
+    }
+  }
+`;
+
+export const FETCH_ALL_COMPANY_MANAGE = gql`
+  query getAllCompany($page: Int) {
+    getAllCompany(page: $page) {
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
+      }
+      data {
+        id
+        slug
+        name
+        logo
+        banner
+        amount_job_hiring
+      }
     }
   }
 `;

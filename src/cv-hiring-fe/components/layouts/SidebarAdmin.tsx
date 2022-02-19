@@ -85,11 +85,18 @@ const SidebarAdmin = () => {
             </Link>
           </Menu.Item>
           {userLoggedIn?.role.name === "admin" && (
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-              <Link href="/quan-tri/cong-ty">
-                <Button type="link">Công ty</Button>
-              </Link>
-            </Menu.Item>
+            <>
+              <Menu.Item key="3" icon={<UploadOutlined />}>
+                <Link href="/quan-tri/cong-ty">
+                  <Button type="link">Công ty</Button>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="6" icon={<UploadOutlined />}>
+                <Link href="/quan-tri/cv">
+                  <Button type="link">Quản lý CV</Button>
+                </Link>
+              </Menu.Item>
+            </>
           )}
 
           {userLoggedIn?.role.name === "hr" && (

@@ -12,7 +12,7 @@ type Company {
     banner: String
     amount_job_hiring: Int
     work_jobs: [WorkJob!]! @hasMany
-    manager: User @belongsTo
+    user: User @belongsTo
 }
 
 input CompanyInput {
@@ -26,4 +26,10 @@ input CompanyInput {
     gg_map: String
     logo: String
     banner: String
+    user_id: ID
+}
+
+type CompanyPaginator {
+    paginatorInfo: PaginatorInfo!
+    data: [Company!]!
 }

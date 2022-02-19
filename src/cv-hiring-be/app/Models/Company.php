@@ -9,6 +9,20 @@ class Company extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'slug',
+        'name',
+        'description',
+        'amount_employee',
+        'website',
+        'fanpage',
+        'address',
+        'gg_map',
+        'logo',
+        'user_id',
+        'banner',
+    ];
+
     protected $appends = [
         'amount_job_hiring'
     ];
@@ -30,8 +44,8 @@ class Company extends Model
         return $workHiring;
     }
 
-    public function manager()
+    public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 }

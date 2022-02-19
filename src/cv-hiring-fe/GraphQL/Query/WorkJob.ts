@@ -215,7 +215,7 @@ export const FETCH_WORK_JOB_EDIT = gql`
 `;
 
 export const FETCH_ALL_WORKJOB_MANAGE = gql`
-  query workJobByCompany($companyId: ID!, $page: Int) {
+  query workJobByCompany($companyId: ID, $page: Int) {
     workJobByCompany(companyId: $companyId, page: $page) {
       paginatorInfo {
         count
@@ -246,6 +246,9 @@ export const FETCH_ALL_WORKJOB_MANAGE = gql`
         expired_date_hiring
         work_applies {
           id
+        }
+        company {
+          name
         }
         created_at
         updated_at

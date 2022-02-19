@@ -61,7 +61,7 @@ export const validationSchemaWorkJob = Yup.object().shape({
     .required("Vui lòng chọn tỉnh thành"),
 });
 
-const ManageCompany = () => {
+const ManageCV = () => {
   const [page, setPage] = useState(1);
   const userLoggedIn = useAppSelector((state) => state.user.user);
 
@@ -205,4 +205,4 @@ const ManageCompany = () => {
   );
 };
 
-export default ManageCompany;
+export default ManageCV;

@@ -37,7 +37,7 @@ const AppliedCVManage = () => {
       companyId: userLoggedIn?.company?.id,
       page: page,
     },
-    skip: !userLoggedIn?.company?.id,
+    skip: !userLoggedIn?.company?.id && userLoggedIn?.role.name !== "admin",
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-and-network",
   });
@@ -94,6 +94,16 @@ const AppliedCVManage = () => {
         <div>
           <b>{record.name}</b>
           <p>#ID_{record.id}</p>
+        </div>
+      ),
+    },
+    {
+      title: "Thuộc công ty",
+      dataIndex: "company",
+      key: "company",
+      render: (_, record: WorkJob) => (
+        <div>
+          <p>{record.company.name}</p>
         </div>
       ),
     },
