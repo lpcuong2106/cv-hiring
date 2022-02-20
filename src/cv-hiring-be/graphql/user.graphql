@@ -11,7 +11,7 @@ type Role {
 
 enum GenderEnum {
     male @enum(value: 0)
-    femail @enum(value: 1)
+    female @enum(value: 1)
 }
 
 type User implements Modal {
@@ -42,4 +42,28 @@ type UserAppliedJob {
     cv_url: String!
     status: String
     letter: String
+}
+
+input UserUpdateInput {
+    id: ID!
+    password: String
+    role_id: ID!
+}
+
+input UserProfileInput {
+    lastname: String
+    firstname: String
+    address: String
+    phone: String
+    birthday: DateTime
+    gender: GenderEnum
+    avatar: String
+}
+
+input UserAddInput {
+    email: String!
+    password: String!
+    role_id: ID!
+    firstname: String!
+    lastname: String!
 }

@@ -23,7 +23,7 @@ interface PropsQuery {
   users: User[];
 }
 
-const FormEditUser = ({ loadingSubmit, mode = "create", setMode }: Props) => {
+const FormAddUser = ({ loadingSubmit, mode = "create", setMode }: Props) => {
   const formikProps = useFormikContext<FormValue>();
   const isView = mode === "view";
   const userLoggedIn = useAppSelector((state) => state.user.user);
@@ -39,14 +39,34 @@ const FormEditUser = ({ loadingSubmit, mode = "create", setMode }: Props) => {
           label="Email"
           Icon={<EditSettings width={16} />}
           name="email"
-          disabled
           mode="input"
           placeholder="Email"
           //   @ts-ignore
           value={formikProps.values.email}
         />
       </Col>
-
+      <Col md={12}>
+        <AdminInput
+          label="Họ"
+          Icon={<EditSettings width={16} />}
+          name="lastname"
+          mode="input"
+          placeholder="Nhập họ"
+          //   @ts-ignore
+          value={formikProps.values.lastname}
+        />
+      </Col>
+      <Col md={12}>
+        <AdminInput
+          label="Tên"
+          Icon={<EditSettings width={16} />}
+          name="firstname"
+          mode="input"
+          placeholder="Nhập tên"
+          //   @ts-ignore
+          value={formikProps.values.firstname}
+        />
+      </Col>
       <Col md={24}>
         <AdminInput
           label="Vai trò"
@@ -79,7 +99,7 @@ const FormEditUser = ({ loadingSubmit, mode = "create", setMode }: Props) => {
         />
       </Col>
 
-      <Col md={8}>
+      <Col md={12}>
         <AdminInput
           label="Mật khẩu"
           // @ts-ignore
@@ -91,6 +111,20 @@ const FormEditUser = ({ loadingSubmit, mode = "create", setMode }: Props) => {
           placeholder="Nhập mật khẩu"
           //   @ts-ignore
           value={formikProps.values.password}
+        />
+      </Col>
+      <Col md={12}>
+        <AdminInput
+          label="Xác nhận mật khẩu"
+          // @ts-ignore
+          type="password"
+          Icon={<EditSettings width={16} />}
+          name="re_password"
+          mode="input"
+          disabled={isView}
+          placeholder="Nhập lại mật khẩu"
+          //   @ts-ignore
+          value={formikProps.values.re_password}
         />
       </Col>
 
@@ -123,4 +157,4 @@ const FormEditUser = ({ loadingSubmit, mode = "create", setMode }: Props) => {
   );
 };
 
-export default FormEditUser;
+export default FormAddUser;

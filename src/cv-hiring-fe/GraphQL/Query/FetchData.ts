@@ -28,6 +28,21 @@ export const FETCH_USER_LOGIN = gql`
     }
   }
 `;
+export const FETCH_PROFILE = gql`
+  query FetchUserLogin {
+    me {
+      id
+      email
+      lastname
+      firstname
+      avatar
+      birthday
+      gender
+      address
+      phone
+    }
+  }
+`;
 
 export const FETCH_ALL_PROVINCE_CATEGORY = gql`
   query FetchAllProvinceAndCategory {

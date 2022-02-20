@@ -39,6 +39,15 @@ const SidebarAdmin = () => {
       case "/quan-tri/cong-ty":
         setSelectedKeys(["3"]);
         break;
+      case "/quan-tri/thong-tin-cong-ty":
+        setSelectedKeys(["4"]);
+        break;
+      case "/quan-tri/cv":
+        setSelectedKeys(["6"]);
+        break;
+      case "/quan-tri/nguoi-dung":
+        setSelectedKeys(["7"]);
+        break;
       default:
         setSelectedKeys(["1"]);
         break;

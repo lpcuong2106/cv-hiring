@@ -133,7 +133,23 @@ const ManageUser = () => {
       key: "role",
       width: 230,
       render: (_: number, record: User) => {
-        return record.role.name;
+        switch (record.role.name) {
+          case "hr":
+            return "Doanh nghiệp";
+          case "admin":
+            return "Quản trị";
+          default:
+            return "Người lao động";
+        }
+      },
+    },
+    {
+      title: "Thuộc doanh nghiệp",
+      dataIndex: "company",
+      key: "company",
+      width: 230,
+      render: (_: number, record: User) => {
+        return record.company?.name;
       },
     },
     {
@@ -176,7 +192,7 @@ const ManageUser = () => {
         <div className="site-statistic-demo-card">
           <h1>Quản lý người dùng</h1>
           <div className={style.actionAdd}>
-            <Link href={"/quan-tri/cong-ty/them-moi"}>
+            <Link href={"/quan-tri/nguoi-dung/them-moi"}>
               <Button type="primary">Thêm mới</Button>
             </Link>
           </div>

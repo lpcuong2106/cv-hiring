@@ -87,7 +87,7 @@ const ManageDashboard = () => {
 
             <Col span={12} className={style.statistic}>
               <Card className={style.profile}>
-                <img src="https://tuyendung.topcv.vn/app/_nuxt/img/noavatar-2.18f0212.svg" />
+                <img src={userLoggedIn?.avatar} />
                 <div>
                   <b>
                     {userLoggedIn?.lastname + " " + userLoggedIn?.firstname}

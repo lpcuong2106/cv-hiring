@@ -4,7 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { User } from "../../data";
 import { FETCH_USER_LOGIN } from "../../GraphQL/Query/FetchData";
 import { setUserLoggedIn } from "../../store/features/userSlideder";
-import { useAppDispatch } from "../../store/hook";
+import { useAppDispatch, useAppSelector } from "../../store/hook";
 import { LoadingApp } from "../LoadingApp";
 
 export const AuthContext = createContext<{
@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }: AuxProps) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
+  const userLoggedIn = useAppSelector((state) => state.user);
   const protectedRoute = ["/login", "/register"];
   const protectedAcceptRoute = [
     "/viec-lam/ung-tuyen",
@@ -62,14 +63,14 @@ export const useAuth = () => {
     if (context.isLogged && protectedRoute.includes(router.asPath)) {
       Router.replace("/");
     }
-    console.log("chjay day", router);
-    if (
-      (!context.isLogged || context.user?.role.name !== "admin") &&
-      protectedAcceptRoute.includes(router.asPath)
-    ) {
-      Router.replace("/404");
-    }
-  }, [context]);
+    // console.log("chjay day", router);
+    // if (
+    //   (!context.isLogged || userLoggedIn.user?.role.name !== "admin") &&
+    //   protectedAcceptRoute.includes(router.asPath)
+    // ) {
+    //   Router.replace("/404");
+    // }
+  }, [context, userLoggedIn]);
 
   return context;
 };

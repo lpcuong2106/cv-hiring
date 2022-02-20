@@ -1,17 +1,17 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { Button, Space, Table, Tag, Timeline } from "antd";
+import { Button, Table, Tag, Timeline } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React from "react";
 import { PaginatorInfo, WorkApply } from "../../data";
 import { FETCH_USER_APPLIED_JOB } from "../../GraphQL/Query/WorkJob";
-import { AuthContext } from "../AuthProvider";
 import { LoadingApp } from "../LoadingApp";
 import style from "./style.module.scss";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import { Trash } from "@styled-icons/bootstrap/Trash";
 import { format, parse } from "date-fns";
 import { SOFT_DELETE_WORKJOB } from "../../GraphQL/Mutation/DeleteAppliedCV";
+import { useAppSelector } from "../../store/hook";
 
 interface DataQuery {
   workJobAppliedByUser: {
@@ -20,18 +20,17 @@ interface DataQuery {
   };
 }
 function AppliedCVTable() {
-  const context = useContext(AuthContext);
-
+  const userLoggedIn = useAppSelector((state) => state.user);
   const { data, loading, refetch } = useQuery<DataQuery>(
     FETCH_USER_APPLIED_JOB,
     {
       variables: {
-        userId: context?.user?.id,
+        userId: userLoggedIn?.user?.id,
       },
-      skip: !context?.user?.id,
+      skip: !userLoggedIn?.user?.id,
     }
   );
-  const [cancelWorkJob, { data: responseDelete, loading: loadingDelete }] =
+  const [cancelWorkJob, { loading: loadingDelete }] =
     useMutation(SOFT_DELETE_WORKJOB);
 
   const workJobsApplied = data?.workJobAppliedByUser;

@@ -8,7 +8,7 @@ import { ModeView } from ".";
 import style from "./style.module.scss";
 import { useAppSelector } from "../../../store/hook";
 import { useQuery } from "@apollo/client";
-import { FETCH_ALL_USER } from "../../../GraphQL/Query/User";
+import { FETCH_USER_ROLE_HR_UNMANAGE } from "../../../GraphQL/Query/User";
 import { User } from "../../../data";
 
 interface FormValue {
@@ -28,7 +28,7 @@ interface Props {
   setMode: React.Dispatch<React.SetStateAction<ModeView>>;
 }
 interface PropsQuery {
-  users: User[];
+  hrUnManage: User[];
 }
 
 const FormEditCompany = ({
@@ -39,8 +39,11 @@ const FormEditCompany = ({
   const formikProps = useFormikContext<FormValue>();
   const isView = mode === "view";
   const userLoggedIn = useAppSelector((state) => state.user.user);
-  const { data, loading } = useQuery<PropsQuery>(FETCH_ALL_USER);
-  const users = data?.users ?? [];
+  const { data } = useQuery<PropsQuery>(FETCH_USER_ROLE_HR_UNMANAGE, {
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-and-network",
+  });
+  const users = data?.hrUnManage ?? [];
 
   const usersOptions = users?.map((user) => ({
     label: user.lastname + " " + user.firstname,

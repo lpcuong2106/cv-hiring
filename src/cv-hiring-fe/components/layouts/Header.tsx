@@ -45,7 +45,9 @@ function HeaderNav() {
         </Menu.Item>
       )}
       <Menu.Item key="1">
-        <Button type="link">Cá nhân</Button>
+        <Link href={"/ca-nhan"}>
+          <Button type="link">Cá nhân</Button>
+        </Link>
       </Menu.Item>
       <Menu.Item key="2">
         <Link href={"/viec-lam/ung-tuyen"}>

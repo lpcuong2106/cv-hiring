@@ -47,6 +47,7 @@ type Query {
     # admin page
     analystWorkJob(companyId: ID): AnalystWorkJob @guard
     workJobByCompany(companyId: ID, page: Int): WorkJobPaginator @guard
+    hrUnManage: [User!]! @guard
 }
 
 type Mutation {
@@ -65,6 +66,9 @@ type Mutation {
     createCompany(input: CompanyInput): ResponseExecute @guard
 
     removeUser(id: ID!): ResponseExecute @guard
+    updateUser(input: UserUpdateInput): ResponseExecute @guard
+    createUser(input: UserAddInput): ResponseExecute @guard
+    updateProfile(input: UserProfileInput): ResponseExecute @guard
 }
 
 interface Modal {

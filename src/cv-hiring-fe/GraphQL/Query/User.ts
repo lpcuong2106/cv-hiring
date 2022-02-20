@@ -1,17 +1,12 @@
 import { gql } from "@apollo/client";
 
-export const FETCH_ALL_USER = gql`
+export const FETCH_USER_ROLE_HR_UNMANAGE = gql`
   query users {
-    users {
+    hrUnManage {
       id
       email
       lastname
       firstname
-      avatar
-      role {
-        id
-        name
-      }
     }
   }
 `;
@@ -37,6 +32,9 @@ export const FETCH_ALL_USER_MANAGE = gql`
         avatar
         role {
           id
+          name
+        }
+        company {
           name
         }
       }
