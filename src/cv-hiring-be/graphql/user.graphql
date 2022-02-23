@@ -55,7 +55,7 @@ input UserProfileInput {
     firstname: String
     address: String
     phone: String
-    birthday: DateTime
+    birthday: String
     gender: GenderEnum
     avatar: String
 }

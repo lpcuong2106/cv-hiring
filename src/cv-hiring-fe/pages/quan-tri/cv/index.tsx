@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { Row, Col, message, Table, Button, Space, Tooltip } from "antd";
+import {
+  Row,
+  Col,
+  message,
+  Table,
+  Button,
+  Space,
+  Tooltip,
+  Tag,
+  Drawer,
+} from "antd";
 import style from "./style.module.scss";
 import Head from "next/head";
 import { useMutation, useQuery } from "@apollo/client";
@@ -7,17 +17,27 @@ import * as Yup from "yup";
 import LayoutAdmin from "../../../components/layouts/LayoutAdmin";
 import { LoadingApp } from "../../../components/LoadingApp";
 import Link from "next/link";
-import { Company, PaginatorInfo, WorkApply } from "../../../data";
+import { Company, PaginatorInfo, User, WorkApply } from "../../../data";
 import { ColumnsType } from "antd/lib/table";
 import { useAppSelector } from "../../../store/hook";
 import { Edit } from "styled-icons/boxicons-regular";
 import { REMOVE_COMPANY } from "../../../GraphQL/Mutation/RemoveCompany";
 import { FETCH_ALL_CV_APPLIED } from "../../../GraphQL/Query/WorkJob";
+import { useRouter } from "next/router";
+import {
+  formatStatusWorkJob,
+  formatTypeWorkJob,
+} from "../../../utils/formatTypeWorkJob";
+import { FETCH_USER_DETAIL_MANAGER } from "../../../GraphQL/Query/User";
+
 interface DataQuery {
   allCvApplied: {
     data: WorkApply[];
     paginatorInfo: PaginatorInfo;
   };
+}
+interface DataUserDetail {
+  user: User;
 }
 
 export const validationSchemaWorkJob = Yup.object().shape({
@@ -63,7 +83,7 @@ const ManageCV = () => {
   const [page, setPage] = useState(1);
   const userLoggedIn = useAppSelector((state) => state.user.user);
 
-  const { data, loading, refetch } = useQuery<DataQuery>(FETCH_ALL_CV_APPLIED, {
+  const { data, loading } = useQuery<DataQuery>(FETCH_ALL_CV_APPLIED, {
     variables: {
       company: userLoggedIn?.company?.id,
       page: page,
@@ -71,28 +91,23 @@ const ManageCV = () => {
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-and-network",
   });
-  const [removeCompany, { loading: loadingRemoveCompany }] = useMutation<
+  const { data: dataUser, refetch: refetchUser } = useQuery<DataUserDetail>(
+    FETCH_USER_DETAIL_MANAGER,
     {
-      removeCompany: {
-        status: string;
-        message: string;
-      };
-    },
-    { id: number }
-  >(REMOVE_COMPANY);
-
-  const handleRemoveCompany = async (id: number) => {
-    const { data } = await removeCompany({
-      variables: {
-        id,
-      },
-    });
-    if (data?.removeCompany.status === "OK") {
-      message.success(data?.removeCompany.message);
-      await refetch();
-      return;
+      fetchPolicy: "network-only",
+      nextFetchPolicy: "cache-and-network",
     }
-    message.error(data?.removeCompany.message);
+  );
+
+  const [visible, setVisible] = useState(false);
+  const showDrawer = async (userId: number) => {
+    setVisible(true);
+    await refetchUser({
+      id: userId,
+    });
+  };
+  const onClose = () => {
+    setVisible(false);
   };
 
   const cvApplied = data?.allCvApplied;
@@ -116,26 +131,33 @@ const ManageCV = () => {
     {
       title: "Người dùng",
       dataIndex: "name",
-      // width: 0,
       align: "center",
       key: "name",
-      render: (name: string, record: WorkApply) => {
-        return (
-          <div className={style.logoItem}>
-            <img src={record.cv_url} />
-            {name}
-          </div>
-        );
+      render: (_: string, record: WorkApply) => {
+        return <p>{record.user.lastname + " " + record.user.firstname}</p>;
       },
     },
     {
       title: "Vị trí",
-      dataIndex: "amount_job_hiring",
-      key: "amount_job_hiring",
+      dataIndex: "position",
+      key: "position",
       width: 230,
       render: (_: number, record: WorkApply) => {
-        return record.cv_url;
+        return (
+          <a
+            target={"_blank"}
+            href={window.location.origin + "/viec-lam/" + record.work_job.slug}
+          >
+            {record.work_job.name}
+          </a>
+        );
       },
+    },
+    {
+      title: "Nội dung ứng tuyển",
+      dataIndex: "letter",
+      key: "letter",
+      width: 230,
     },
     {
       title: "Trạng thái ứng tuyển",
@@ -143,7 +165,8 @@ const ManageCV = () => {
       key: "amount_job_hiring",
       width: 230,
       render: (_: number, record: WorkApply) => {
-        return record.cv_url;
+        const statusWork = formatStatusWorkJob(record.status);
+        return <Tag color={statusWork.color}>{statusWork.status}</Tag>;
       },
     },
     {
@@ -186,6 +209,14 @@ const ManageCV = () => {
               <Table<WorkApply>
                 columns={columns}
                 dataSource={cvApplied.data}
+                onRow={(record, rowIndex) => {
+                  return {
+                    onClick: (event) => {
+                      showDrawer(record.user.id);
+                      console.log(record, rowIndex);
+                    }, // click row
+                  };
+                }}
                 pagination={{
                   current: cvApplied.paginatorInfo.currentPage,
                   total: cvApplied.paginatorInfo.total,
@@ -194,6 +225,20 @@ const ManageCV = () => {
               />
             </Col>
           </Row>
+          <Drawer
+            title="Thông tin người ứng tuyển"
+            placement="right"
+            onClose={onClose}
+            visible={visible}
+          >
+            <img src={dataUser?.user.avatar} style={{ width: "100%" }} />
+            <p>
+              Họ và tên:{" "}
+              {dataUser?.user.lastname + " " + dataUser?.user.firstname}
+            </p>
+            <p>Ngày sinh: {dataUser?.user.birthday}</p>
+            <p>Giới tính: {dataUser?.user.gender}</p>
+          </Drawer>
         </div>
       )}
     </LayoutAdmin>

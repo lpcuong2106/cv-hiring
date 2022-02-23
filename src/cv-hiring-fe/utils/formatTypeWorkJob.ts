@@ -12,6 +12,41 @@ export const formatTypeWorkJob = (type: string) => {
   }
 };
 
+export const formatStatusWorkJob = (type: number) => {
+  switch (type) {
+    case 1:
+      return {
+        status: "Ứng tuyển",
+        color: "orange",
+      };
+    case 2:
+      return {
+        status: "Phỏng vấn",
+        color: "warning",
+      };
+    case 3:
+      return {
+        status: "Đậu việc làm",
+        color: "green",
+      };
+    case 4:
+      return {
+        status: "Từ chối việc làm",
+        color: "red",
+      };
+    case 5:
+      return {
+        status: "Hủy ứng tuyển",
+        color: "default",
+      };
+    default:
+      return {
+        status: "Chưa có thông tin",
+        color: "default",
+      };
+  }
+};
+
 export const isExpiredDateHiring = (date: string) => {
   const dateFormat = formatStringToDate(date);
   if (isBefore(dateFormat, new Date())) {

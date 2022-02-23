@@ -15,8 +15,8 @@ class AllCvApplied
         $companyId = isset($args['companyId']) ? $args['companyId'] : null;
         $workJobAppied = WorkApply::withTrashed()
             ->when($companyId, function ($query, $companyId) {
-                return $query->where('companyId', $companyId);
-            })->orderBy('created_at', 'desc')->paginate();
+                return $query->join('work_jobs', 'work_applies.work_job_id', 'work_jobs.id')->where('company_id', $companyId);
+            })->orderBy('work_applies.created_at', 'desc')->paginate();
 
         $pagination = [
             'total' => $workJobAppied->total(),

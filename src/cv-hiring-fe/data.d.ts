@@ -61,7 +61,7 @@ export type WorkApply = {
   user: User;
   work_job: WorkJob;
   cv_url: !string;
-  status: string;
+  status: number;
   letter: string;
   updated_at: string;
   created_at: string;

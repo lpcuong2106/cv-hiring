@@ -6,7 +6,27 @@ export const LOGIN_USER = gql`
       token
       user {
         id
+        email
         lastname
+        firstname
+        avatar
+        role {
+          id
+          name
+        }
+        company {
+          id
+          name
+          description
+          amount_employee
+          website
+          fanpage
+          address
+          gg_map
+          logo
+          banner
+          amount_job_hiring
+        }
       }
     }
   }

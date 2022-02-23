@@ -8,22 +8,13 @@ import { Container } from "react-bootstrap";
 import { useAuth } from "../AuthProvider";
 import { useRouter } from "next/router";
 import { DownOutlined } from "@ant-design/icons";
-import { useAppSelector } from "../../store/hook";
-
-function handleButtonClick(e: any) {
-  message.info("Click on left button.");
-  console.log("click left button", e);
-}
-
-function handleMenuClick(e: any) {
-  message.info("Click on menu item.");
-  console.log("click", e);
-}
+import { useAppSelector, useAppDispatch } from "../../store/hook";
+import { setUserLoggedIn } from "../../store/features/userSlideder";
 
 function HeaderNav() {
   const auth = useAuth();
   const userLoggedIn = useAppSelector((state) => state.user.user);
-
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const handleLogout = () => {
@@ -31,13 +22,15 @@ function HeaderNav() {
     auth.setIsLogged(false);
 
     auth.user = null;
+    // @ts-ignore
+    dispatch(setUserLoggedIn(null));
     message.success("Đăng xuất thành công!");
     router.replace("/login");
   };
 
   const menu = (
     <Menu>
-      {userLoggedIn?.role.name === "admin" && (
+      {userLoggedIn?.role.name !== "user" && (
         <Menu.Item key="4">
           <Link href={"/quan-tri"}>
             <Button type="link">Quản trị</Button>
@@ -124,7 +117,15 @@ function HeaderNav() {
                   <Button shape="round" type="link">
                     <Avatar
                       src={
-                        <img src={userLoggedIn?.avatar} style={{ width: 32 }} />
+                        <img
+                          src={userLoggedIn?.avatar}
+                          onError={({ currentTarget }) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src =
+                              "https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png";
+                          }}
+                          style={{ width: 32 }}
+                        />
                       }
                     />
                     <DownOutlined />

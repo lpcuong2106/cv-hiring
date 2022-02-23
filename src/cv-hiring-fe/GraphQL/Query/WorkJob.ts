@@ -272,8 +272,26 @@ export const FETCH_ALL_CV_APPLIED = gql`
       }
       data {
         id
+        cv_url
+        letter
+        status
+        user {
+          id
+          firstname
+          lastname
+          email
+        }
+        work_job {
+          name
+          slug
+          company {
+            name
+            slug
+          }
+        }
         created_at
         updated_at
+        deleted_at
       }
     }
   }

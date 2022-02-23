@@ -46,7 +46,15 @@ export const FETCH_USER_DETAIL_MANAGER = gql`
   query users($id: ID!) {
     user(id: $id) {
       id
+      lastname
+      firstname
+      address
       email
+      phone
+      birthday
+      gender
+      avatar
+
       role {
         id
         name

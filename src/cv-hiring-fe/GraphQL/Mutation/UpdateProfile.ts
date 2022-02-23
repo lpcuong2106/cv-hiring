@@ -6,7 +6,7 @@ export const UPDATE_PROFILE = gql`
     $firstname: String
     $address: String
     $phone: String
-    $birthday: DateTime
+    $birthday: String
     $gender: GenderEnum
     $avatar: String
   ) {

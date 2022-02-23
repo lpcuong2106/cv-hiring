@@ -1,11 +1,13 @@
 import React from "react";
-import { Button, Col, Row, Space } from "antd";
+import { Button, Col, DatePicker, Row, Space } from "antd";
 import { EditSettings } from "@styled-icons/fluentui-system-filled/EditSettings";
 
 import { useFormikContext } from "formik";
 import { User } from "../../data";
 import { useAppSelector } from "../../store/hook";
 import AdminInput from "../../components/AdminInput";
+import moment from "moment";
+import style from "./style.module.scss";
 
 interface FormValue {
   email: string;
@@ -31,6 +33,9 @@ const FormEditProfileUser = ({ loadingSubmit }: Props) => {
 
   const userLoggedIn = useAppSelector((state) => state.user.user);
 
+  function onChangeBirthday(_: any, dateString: any) {
+    formikProps.setFieldValue("birthday", dateString);
+  }
   return (
     <Row>
       <Col md={24}>
@@ -128,15 +133,34 @@ const FormEditProfileUser = ({ loadingSubmit }: Props) => {
         />
       </Col>
       <Col md={12}>
-        <AdminInput
-          label="Ngày sinh"
-          Icon={<EditSettings width={16} />}
-          name="date"
-          mode="datepicker"
-          placeholder="Vui lòng ngày sinh"
-          //   @ts-ignore
-          value={formikProps.values.firstname}
-        />
+        <div className={style.formControl}>
+          <div className={style.label}>
+            <EditSettings width={16} />
+            <h6>Ngày sinh</h6>
+          </div>
+          <div>
+            <DatePicker
+              size="large"
+              name="birthday"
+              defaultValue={
+                formikProps.values.birthday
+                  ? moment(formikProps.values.birthday)
+                  : moment().add("day", 1)
+              }
+              placeholder="Vui lòng ngày sinh"
+              className={style.inputControl}
+              onChange={onChangeBirthday}
+              disabledDate={(current) => {
+                let customDate = moment().add(1, "day").format("YYYY-MM-DD");
+                return current && current > moment(customDate, "YYYY-MM-DD");
+              }}
+            />
+
+            {formikProps.errors.birthday ? (
+              <div className={style.error}>{formikProps.errors.birthday}</div>
+            ) : null}
+          </div>
+        </div>
       </Col>
 
       <Col md={24}>

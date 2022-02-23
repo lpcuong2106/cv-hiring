@@ -11,6 +11,8 @@ import Head from "next/head";
 import { useAuth } from "../../components/AuthProvider";
 import { FormItemInput } from "../../components/FormItem";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { useAppDispatch } from "../../store/hook";
+import { setUserLoggedIn } from "../../store/features/userSlideder";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -24,7 +26,7 @@ const validationSchema = Yup.object().shape({
 const Login = () => {
   const [login, { loading, error }] = useMutation(LOGIN_USER);
   const auth = useAuth();
-
+  const dispatch = useAppDispatch();
   const form = useFormik({
     initialValues: {
       email: "",
@@ -38,6 +40,7 @@ const Login = () => {
       if (data && data.login?.token) {
         localStorage.setItem("token", data.login?.token);
         auth.setIsLogged(true);
+        dispatch(setUserLoggedIn(data.login.user));
         message.success("Đăng nhập thành công!");
         Router.push("/");
         return;
