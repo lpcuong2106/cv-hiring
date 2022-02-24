@@ -1,0 +1,16 @@
+.containerImage {
+  text-align: center;
+  margin-bottom: 20px;
+  .avatarUser {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}
+.actionAdd {
+  text-align: right;
+  button {
+    margin-bottom: 10px;
+  }
+}

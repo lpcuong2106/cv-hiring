@@ -57,7 +57,7 @@ export type PaginatorInfo = {
   total: number;
 };
 export type WorkApply = {
-  id: int;
+  id: number;
   user: User;
   work_job: WorkJob;
   cv_url: !string;
@@ -76,7 +76,7 @@ export type User = {
   phone: string;
   birthday: string;
   created_at: string;
-  gender: 0 | 1;
+  gender: "male" | "female";
   avatar: string;
   updated_at: string;
   role: Role;

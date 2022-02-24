@@ -69,6 +69,9 @@ function AppliedCVTable() {
       key: "status",
       render: (status: number, record: WorkApply) => {
         function handleColor(valueItem: number) {
+          if (status == 4 && valueItem == 4) {
+            return "red";
+          }
           if (status < valueItem && record.deleted_at) {
             return "grey";
           }
@@ -101,20 +104,24 @@ function AppliedCVTable() {
                 Hủy ứng tuyển
               </Timeline.Item>
             )}
-            <Timeline.Item
-              color={handleColor(4)}
-              label={dataLastUpdate(4, record.updated_at)}
-              dot={handleDot(4)}
-            >
-              Từ chối việc làm
-            </Timeline.Item>
-            <Timeline.Item
-              label={dataLastUpdate(3, record.updated_at)}
-              color={handleColor(3)}
-              dot={handleDot(3)}
-            >
-              Đậu việc làm
-            </Timeline.Item>
+            {record.status != 3 && (
+              <Timeline.Item
+                color={handleColor(4)}
+                label={dataLastUpdate(4, record.updated_at)}
+                dot={handleDot(4)}
+              >
+                Từ chối việc làm
+              </Timeline.Item>
+            )}
+            {record.status != 4 && (
+              <Timeline.Item
+                label={dataLastUpdate(3, record.updated_at)}
+                color={handleColor(3)}
+                dot={handleDot(3)}
+              >
+                Đậu việc làm
+              </Timeline.Item>
+            )}
             <Timeline.Item
               label={dataLastUpdate(2, record.updated_at)}
               color={handleColor(2)}
@@ -158,7 +165,16 @@ function AppliedCVTable() {
       dataIndex: "contact",
       key: "contact",
       render: (_, record: WorkApply) => {
-        return !record.deleted_at ? (
+        if (record.status == 3) {
+          return <Tag color="success">Đã được duyệt</Tag>;
+        }
+        if (record.status == 4) {
+          return <Tag color="red">Đã bị từ chối</Tag>;
+        }
+
+        return !record.deleted_at &&
+          record.status != 4 &&
+          record.status != 3 ? (
           <Button
             danger
             className={style.cancelApply}
