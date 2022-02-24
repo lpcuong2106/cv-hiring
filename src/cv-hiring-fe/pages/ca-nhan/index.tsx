@@ -32,16 +32,20 @@ const validationSchemaProfile = Yup.object().shape({
   lastname: Yup.string()
     .min(1, "Họ người dùng ít nhất 1 kí tự")
     .required("Vui lòng nhập họ người dùng"),
-  birthday: Yup.string().required("Ngày sinh là bắt buộc"),
+  birthday: Yup.string()
+    .required("Ngày sinh là bắt buộc")
+    .typeError("Vui lòng chọn ngày sinh"),
+
   avatar: Yup.string().required("Avatar là bắt buộc"),
   gender: Yup.string()
     .required("Vui lòng chọn giới tính")
     .typeError("Vui lòng chọn giới tính"),
-  address: Yup.string(),
+  address: Yup.string().typeError("Vui lòng nhập địa chỉ bạn đang sinh sống"),
   phone: Yup.string()
     .min(10, "Số điện thoại bắt buộc 10 kí tự")
     .max(10, "Số điện thoại bắt buộc 10 kí tự")
-    .required("Vui lòng nhập thông tin số điện thoại"),
+    .required("Vui lòng nhập thông tin số điện thoại")
+    .typeError("Vui lòng nhập thông tin số điện thoại"),
 });
 
 function Profile() {

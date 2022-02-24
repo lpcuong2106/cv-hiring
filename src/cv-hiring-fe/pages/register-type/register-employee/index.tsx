@@ -5,17 +5,21 @@ import style from "./style.module.scss";
 import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
 import { Button, message } from "antd";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { REGISTER_USER } from "./RegisterData";
 import Head from "next/head";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { FormItemInput } from "../../../components/FormItem";
 import { useAuth } from "../../../components/AuthProvider";
+import { setUserLoggedIn } from "../../../store/features/userSlideder";
+import { useAppDispatch } from "../../../store/hook";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Vui lòng nhập đúng định dạng email")
     .required("Email là bắt buộc"),
+  firstname: Yup.string().required("Vui lòng nhập tên"),
+  lastname: Yup.string().required("Vui lòng nhập họ"),
   password: Yup.string()
     .min(8, "Vui lòng nhập ít nhất 8 kí tự")
     .required("Password là bắt buộc"),
@@ -28,29 +32,33 @@ const validationSchema = Yup.object().shape({
 const Register = () => {
   const [registerUser, { data, loading, error }] = useMutation(REGISTER_USER);
   const auth = useAuth();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const form = useFormik({
     initialValues: {
       email: "",
-      fullname: "",
+      firstname: "",
+      lastname: "",
       password: "",
       rePassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const { email, password } = values;
+      const { email, password, firstname, lastname } = values;
       const { data } = await registerUser({
-        variables: { email, password },
+        variables: { email, password, firstname, lastname },
       });
 
-      if (data?.registerUser?.token) {
-        localStorage.setItem("token", data.login?.token);
+      if (data.registerUser?.token) {
+        localStorage.setItem("token", data.registerUser?.token);
         auth.setIsLogged(true);
+        dispatch(setUserLoggedIn(data.registerUser?.user));
         message.success("Đăng ký thành công!");
-        Router.push("/");
-        return;
+        router.push("/");
+      } else {
+        message.error("Đăng ký thất bại!");
       }
-      message.error("Đăng ký thất bại!");
     },
   });
 
@@ -71,19 +79,36 @@ const Register = () => {
             className="login100-form validate-form"
             onSubmit={form.handleSubmit}
           >
-            <span className={style.titleLogin}>Đăng ký tài khoản</span>
+            <span className={style.titleLogin}>
+              Đăng ký tài khoản dành cho người lao động
+            </span>
+
             <div>
               <FormItemInput
                 form={form}
                 prefix={<UserOutlined className="site-form-item-icon" />}
-                lable="Họ và tên"
-                name="fullname"
+                lable="Họ"
+                name="lastname"
                 isError={
-                  (form.errors.fullname && form.touched.fullname) as boolean
+                  (form.errors.lastname && form.touched.lastname) as boolean
                 }
                 type="text"
-                error={form.errors.fullname}
-                value={form.values.fullname}
+                error={form.errors.lastname}
+                value={form.values.lastname}
+              />
+            </div>
+            <div>
+              <FormItemInput
+                form={form}
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                lable="Tên"
+                name="firstname"
+                isError={
+                  (form.errors.firstname && form.touched.firstname) as boolean
+                }
+                type="text"
+                error={form.errors.firstname}
+                value={form.values.firstname}
               />
             </div>
             <div>

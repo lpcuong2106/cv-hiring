@@ -15,8 +15,8 @@ class RegisterUser
     {
         // TODO implement the resolver
         $exist = User::where('email', $args['email'])->get();
-     
-        if($exist->count() > 0){
+
+        if ($exist->count() > 0) {
             return [
                 'token' => null,
                 'user'  => null
@@ -25,16 +25,18 @@ class RegisterUser
 
         $user = User::create([
             'email'  => $args['email'],
+            'firstname' =>  $args['firstname'],
+            'lastname' =>  $args['lastname'],
             'password'  => bcrypt($args['password']),
-            'role_id'   => 1,
+            'role_id'   => isset($args['role_id']) ? $args['role_id'] : 2,
         ]);
-        if (! $token = auth()->login($user)) {
+        if (!$token = auth()->login($user)) {
             return [
                 'token' => null,
                 'user'  => null
             ];
         }
-       
+
         return [
             'token' => $token,
             'user'  => Auth::user()
