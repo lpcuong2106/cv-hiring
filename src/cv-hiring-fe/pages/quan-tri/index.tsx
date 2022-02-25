@@ -87,7 +87,7 @@ const ManageDashboard = () => {
 
             <Col span={12} className={style.statistic}>
               <Card className={style.profile}>
-                <img src={userLoggedIn?.avatar} />
+                <img src={userLoggedIn?.avatar || "/avatarDefault.png"} />
                 <div>
                   <p>
                     <b>

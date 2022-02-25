@@ -25,6 +25,7 @@ import ApplyCVModal from "../../../components/ApplyCVModal";
 import Link from "next/link";
 import { AuthContext } from "../../../components/AuthProvider";
 import { formatTypeWorkJob } from "../../../utils/formatTypeWorkJob";
+import { useAppSelector } from "../../../store/hook";
 
 interface DataQuery {
   getWorkJobBySlug: WorkJob;
@@ -55,7 +56,7 @@ const CompanyBox = ({ content, lable, icon }: CompanyBoxProps) => {
 const WorkJob: NextPage = () => {
   const router = useRouter();
   const context = useContext(AuthContext);
-
+  const userLoggedIn = useAppSelector((state) => state.user);
   const [isShowApply, setIsShowApply] = useState(false);
   const { slug } = router.query;
   const { data, loading } = useQuery<DataQuery>(FETCH_WORKJOB_QUERY, {
@@ -102,7 +103,9 @@ const WorkJob: NextPage = () => {
                 <div className={style.boxContent}>
                   <div style={{ display: "flex" }}>
                     <div className={style.companyLogo}>
-                      <img src={workJob?.company.logo} />
+                      <img
+                        src={workJob?.company.logo || "/company-default.svg"}
+                      />
                     </div>
                     <div>
                       <h3 className={style.workJobTitle}>{workJob?.name}</h3>
@@ -160,13 +163,15 @@ const WorkJob: NextPage = () => {
                           </Link>
                         </Tooltip>
                       ) : (
-                        <Button
-                          type="primary"
-                          size="large"
-                          onClick={() => setIsShowApply(true)}
-                        >
-                          Nộp hồ sơ ngay
-                        </Button>
+                        userLoggedIn.user?.role.name === "user" && (
+                          <Button
+                            type="primary"
+                            size="large"
+                            onClick={() => setIsShowApply(true)}
+                          >
+                            Nộp hồ sơ ngay
+                          </Button>
+                        )
                       )}
 
                       <FacebookShareButton

@@ -8,6 +8,10 @@ export const FETCH_USER_LOGIN = gql`
       lastname
       firstname
       avatar
+      phone
+      birthday
+      address
+      gender
       role {
         id
         name

@@ -54,3 +54,5 @@ export const isExpiredDateHiring = (date: string) => {
   }
   return false;
 };
+
+export const formatTypeSalary = () => {};

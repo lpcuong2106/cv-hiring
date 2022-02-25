@@ -31,7 +31,7 @@ function JobItem({
   return (
     <div className={style.jobItem}>
       <div className={style.avatar}>
-        <img src={logoUrl} />
+        <img src={logoUrl || "/company-default.svg"} />
       </div>
       <div className={style.jobInfo}>
         <div className={style.info}>
@@ -66,9 +66,9 @@ function JobItem({
               "dd-MM-yyyy"
             )}
           </p>
-          <button>
+          {/* <button>
             <Heart width={20} />
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

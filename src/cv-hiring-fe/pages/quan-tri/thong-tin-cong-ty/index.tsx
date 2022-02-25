@@ -25,14 +25,19 @@ export const validationSchemaCompany = Yup.object().shape({
     .required("Tên công ty là bắt buộc"),
   description: Yup.string()
     .min(8, "Mô tả công ty ít nhất 8 kí tự")
-    .required("Mô tả công ty là bắt buộc"),
+    .required("Mô tả công ty là bắt buộc")
+    .typeError("Mô tả công ty là bắt buộc"),
   amount_employee: Yup.string(),
-  website: Yup.string(),
-  fanpage: Yup.string(),
+  website: Yup.string().typeError("Website công ty là bắt buộc"),
+  fanpage: Yup.string().typeError("Fanpage công ty là bắt buộc"),
   address: Yup.string(),
-  gg_map: Yup.string(),
-  logo: Yup.string().url("Logo nên là giá trị đường dẫn"),
-  banner: Yup.string().url("Banner nên là giá trị đường dẫn"),
+  gg_map: Yup.string().typeError("GoogleMap là bắt buộc"),
+  logo: Yup.string()
+    .url("Logo nên là giá trị đường dẫn")
+    .typeError("Logo nên là giá trị đường dẫn"),
+  banner: Yup.string()
+    .url("Banner nên là giá trị đường dẫn")
+    .typeError("Banner nên là giá trị đường dẫn"),
   user_id: Yup.number().required(),
 });
 

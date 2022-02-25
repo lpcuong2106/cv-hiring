@@ -62,12 +62,15 @@ const Company: NextPage = () => {
             <Row>
               <Col md={24}>
                 <div className={style.banner}>
-                  <img src={company?.banner} />
+                  <img
+                    src={company?.banner || "/company-default-banner.jpg"}
+                    className={style.bannerImg}
+                  />
                   <div className={style.introControl}>
                     <div className={style.logo}>
                       <div className={style.nameCompany}>
                         <img
-                          src={company?.logo}
+                          src={company?.logo || "/company-default.svg"}
                           alt=""
                           className={style.logoImage}
                         />

@@ -42,11 +42,13 @@ function HeaderNav() {
           <Button type="link">Cá nhân</Button>
         </Link>
       </Menu.Item>
-      <Menu.Item key="2">
-        <Link href={"/viec-lam/ung-tuyen"}>
-          <Button type="link">Ứng tuyển</Button>
-        </Link>
-      </Menu.Item>
+      {userLoggedIn?.role.name === "user" && (
+        <Menu.Item key="2">
+          <Link href={"/viec-lam/ung-tuyen"}>
+            <Button type="link">Ứng tuyển</Button>
+          </Link>
+        </Menu.Item>
+      )}
       <Menu.Item key="3">
         <Button onClick={handleLogout} type="link">
           Đăng xuất
@@ -118,12 +120,7 @@ function HeaderNav() {
                     <Avatar
                       src={
                         <img
-                          src={userLoggedIn?.avatar}
-                          onError={({ currentTarget }) => {
-                            currentTarget.onerror = null; // prevents looping
-                            currentTarget.src =
-                              "https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png";
-                          }}
+                          src={userLoggedIn?.avatar || "/avatarDefault.png"}
                           style={{ width: 32 }}
                         />
                       }

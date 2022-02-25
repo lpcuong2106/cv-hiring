@@ -1,5 +1,10 @@
 .wrapCompanyDetail {
   background: linear-gradient(180deg, #d1e5fa, #f4f8fc);
+  .bannerImg {
+    width: 1024px;
+    height: 360px;
+    object-fit: cover;
+  }
   .banner {
     text-align: center;
     position: relative;
