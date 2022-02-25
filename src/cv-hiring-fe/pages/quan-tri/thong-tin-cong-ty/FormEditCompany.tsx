@@ -96,12 +96,16 @@ const FormEditCompany = ({
               value: null,
             },
             {
-              label: "10 - 20 nhân viên",
-              value: "full-time",
+              label: "10 - 100 nhân viên",
+              value: "10 - 100 nhân viên",
             },
             {
-              label: "20 - 100 nhân viên",
-              value: "part-time",
+              label: "100 - 1000 nhân viên",
+              value: "100 - 1000 nhân viên",
+            },
+            {
+              label: "> 1000 nhân viên",
+              value: "> 1000 nhân viên",
             },
           ]}
         />

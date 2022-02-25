@@ -89,9 +89,11 @@ const ManageDashboard = () => {
               <Card className={style.profile}>
                 <img src={userLoggedIn?.avatar} />
                 <div>
-                  <b>
-                    {userLoggedIn?.lastname + " " + userLoggedIn?.firstname}
-                  </b>
+                  <p>
+                    <b>
+                      {userLoggedIn?.lastname + " " + userLoggedIn?.firstname}
+                    </b>
+                  </p>
                   {userLoggedIn?.role.name !== "admin" && (
                     <span>Mã DN: #ID_{userLoggedIn?.company?.id} |</span>
                   )}{" "}

@@ -2,11 +2,13 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\Company;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
-class RegisterUser
+class RegisterUserHr
 {
     /**
      * @param  null  $_
@@ -30,8 +32,17 @@ class RegisterUser
                 'firstname' =>  $args['firstname'],
                 'lastname' =>  $args['lastname'],
                 'password'  => bcrypt($args['password']),
-                'role_id'   => isset($args['role_id']) ? $args['role_id'] : 2,
+                'role_id'   => isset($args['role_id']) ? $args['role_id'] : 3,
             ]);
+
+            Company::create([
+                'slug'          => Str::slug($args['name']) . rand(10, 1000),
+                'name'          => $args['name'],
+                'address'       => $args['address'],
+                'amount_employee' => $args['amount_employee'],
+                'user_id'       => $user->id
+            ]);
+
             if (!$token = auth()->login($user)) {
                 return [
                     'token' => null,
@@ -46,7 +57,8 @@ class RegisterUser
             ];
         } catch (Exception $e) {
             return [
-                'status' => 'ERROR',
+                'token' => null,
+                'user'   => null,
                 'message'   => $e->getMessage()
             ];
         }

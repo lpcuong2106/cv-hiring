@@ -21,6 +21,7 @@ import {
   RESUME_HIRING_JOB,
 } from "../../../GraphQL/Mutation/StatusHiringWorkJob";
 import { useAppSelector } from "../../../store/hook";
+import moment from "moment";
 
 type PropsMutation = {
   pauseHiring: {
@@ -140,6 +141,9 @@ const AppliedCVManage = () => {
       dataIndex: "expired_date_hiring",
       width: 150,
       key: "expired_date_hiring",
+      render: (deadline: string) => {
+        return <p>{moment(deadline).format("DD-MM-YYYY")}</p>;
+      },
     },
     {
       title: "Hành động",

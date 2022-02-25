@@ -58,6 +58,15 @@ type Mutation {
         firstname: String!
         lastname: String!
     ): AuthPayload
+    registerUserHr(
+        email: String!
+        password: String!
+        firstname: String!
+        lastname: String!
+        name: String!
+        address: String!
+        amount_employee: String!
+    ): AuthPayload
     applyCV(content: String!, fileCV: Upload!, jobId: ID!): UploadedCV
 
     cancelAppliedWorkJob(workAppliedId: ID!): ResponseExecute @guard

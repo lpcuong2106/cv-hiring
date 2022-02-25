@@ -34,7 +34,7 @@ class CreateNewJob
             $work_category_id = $args["input"]["work_category_id"];
 
             WorkJob::create([
-                "slug"  => Str::slug($name),
+                "slug"  => Str::slug($name) . rand(10, 1000),
                 "name" => $name,
                 "description" => $description,
                 "benefit" => $benefit,

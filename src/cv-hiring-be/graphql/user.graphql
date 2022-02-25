@@ -1,6 +1,7 @@
 type AuthPayload {
     token: String
     user: User
+    message: String
 }
 
 type Role {

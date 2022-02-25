@@ -13,6 +13,7 @@ import { Province, WorkCategory } from "../../../../data";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
 import FormEditWorkJob from "../[id]/FormEditWorkJob";
+import { useAppSelector } from "../../../../store/hook";
 interface DataQuery {
   workCategories: WorkCategory[];
   provinces: Province[];
@@ -62,6 +63,7 @@ const AppliedCVAdd = () => {
   const workCategories = data?.workCategories;
   const provinces = data?.provinces;
   const router = useRouter();
+  const userLoggedIn = useAppSelector((state) => state.user.user);
 
   const [createNewJob, { loading: loadingSubmit }] =
     useMutation(CREATE_WORKJOB);
@@ -94,11 +96,11 @@ const AppliedCVAdd = () => {
                     type: null,
                     expired_date_hiring: null,
                     work_category_id: null,
-                    company_id: 1,
+                    company_id: userLoggedIn?.company?.id,
                     province_id: null,
                   }}
                   validationSchema={validationSchemaWorkJob}
-                  onSubmit={async (values, actions) => {
+                  onSubmit={async (values) => {
                     const { data } = await createNewJob({
                       variables: values,
                     });
