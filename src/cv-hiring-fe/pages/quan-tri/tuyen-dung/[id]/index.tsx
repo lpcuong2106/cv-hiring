@@ -8,7 +8,6 @@ import { LoadingApp } from "../../../../components/LoadingApp";
 import BackButton from "../../../../components/BackButton";
 import { Form, Formik } from "formik";
 import FormEditWorkJob from "./FormEditWorkJob";
-import { CREATE_WORKJOB } from "../../../../GraphQL/Mutation/CreateWorkJob";
 import { FETCH_ALL_PROVINCE_CATEGORY } from "../../../../GraphQL/Query/FetchData";
 import { Province, WorkCategory, WorkJob } from "../../../../data";
 import { useRouter } from "next/router";

@@ -222,10 +222,6 @@ const FormEditWorkJob = ({
               value: null,
             },
             {
-              label: "Trong khoảng",
-              value: "1",
-            },
-            {
               label: "Từ",
               value: "2",
             },

@@ -98,7 +98,7 @@ const WorkJob: NextPage = () => {
               companyLogo={workJob?.company.logo ?? ""}
             />
             <Row>
-              <Col md={18}>
+              <Col md={24}>
                 <div className={style.boxContent}>
                   <div style={{ display: "flex" }}>
                     <div className={style.companyLogo}>
@@ -127,10 +127,7 @@ const WorkJob: NextPage = () => {
                               )}{" "}
                           </span>
                         </div>
-                        <div>
-                          <Eye width={16} />
-                          <span>Lượt xem: 2157</span>
-                        </div>
+
                         <div>
                           <Clock width={16} />
                           <span>
@@ -259,32 +256,6 @@ const WorkJob: NextPage = () => {
                     </div>
                   </TabPane>
                 </Tabs>
-              </Col>
-              <Col md={6}>
-                <Card title="Việc làm tương tự">
-                  <div className={style.sameJob}>
-                    <a
-                      href="/procurement-staff-nhan-vien-mua-hang-8-1461179-jv/?utm_source=jobdetail&amp;utm_medium=rightcorner&amp;utm_campaign=relevantjobs&amp;utm_content=SmartNaviIOP"
-                      target="_blank"
-                    >
-                      <div className={style.sameJobItem}>
-                        <img
-                          className={style.logo}
-                          src="https://images.vietnamworks.com/pictureofcompany/6d/10256033.png"
-                          alt="Procurement Staff / Nhân Viên Mua Hàng"
-                        />
-                        <div className={style.info}>
-                          <p className={style.title}>
-                            Procurement Staff / Nhân Viên Mua Hàng
-                          </p>
-                          <p className={style.description}>
-                            Sumitomo NACCO Forklift Vietnam Co., Ltd.
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </Card>
               </Col>
             </Row>
           </Container>
