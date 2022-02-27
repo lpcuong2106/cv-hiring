@@ -32,12 +32,8 @@ export const validationSchemaCompany = Yup.object().shape({
   fanpage: Yup.string().typeError("Fanpage công ty là bắt buộc"),
   address: Yup.string(),
   gg_map: Yup.string().typeError("GoogleMap là bắt buộc"),
-  logo: Yup.string()
-    .url("Logo nên là giá trị đường dẫn")
-    .typeError("Logo nên là giá trị đường dẫn"),
-  banner: Yup.string()
-    .url("Banner nên là giá trị đường dẫn")
-    .typeError("Banner nên là giá trị đường dẫn"),
+  logo: Yup.mixed(),
+  banner: Yup.mixed(),
   user_id: Yup.number().required(),
 });
 
@@ -45,10 +41,16 @@ export type ModeView = "edit" | "create" | "view";
 const ManageCompany = () => {
   const userLoggedIn = useAppSelector((state) => state.user.user);
 
-  const { data, loading } = useQuery<DataQuery>(FETCH_COMPANY_DETAIL, {
+  const {
+    data,
+    loading,
+    refetch: refetchCompanyInfo,
+  } = useQuery<DataQuery>(FETCH_COMPANY_DETAIL, {
     variables: {
       id: userLoggedIn?.company?.id,
     },
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-and-network",
     skip: !userLoggedIn?.company?.id,
   });
   const [updateCompanyDetail, { loading: loadingSubmit }] =
@@ -80,10 +82,20 @@ const ManageCompany = () => {
                       address: companyDetail.address,
                       gg_map: companyDetail.gg_map,
                       logo: companyDetail.logo,
+                      user_id: companyDetail.user?.id,
                       banner: companyDetail.banner,
                     }}
                     validationSchema={validationSchemaCompany}
                     onSubmit={async (values) => {
+                      console.log(values);
+                      if (typeof values.logo === "string") {
+                        // @ts-ignore
+                        values.logo = null;
+                      }
+                      if (typeof values.banner === "string") {
+                        // @ts-ignore
+                        values.banner = null;
+                      }
                       const { data } = await updateCompanyDetail({
                         variables: values,
                       });
@@ -92,13 +104,13 @@ const ManageCompany = () => {
                         message.error(data.updateCompany.message);
                         return;
                       }
-                      message.success(data.updateCompany.message);
-                      setMode("view");
 
-                      return;
+                      message.success(data.updateCompany.message);
+                      await refetchCompanyInfo();
+                      setMode("view");
                     }}
                   >
-                    {({ handleSubmit }) => (
+                    {({ handleSubmit, errors }) => (
                       <Form onSubmit={handleSubmit}>
                         <FormEditCompany
                           loadingSubmit={loadingSubmit}

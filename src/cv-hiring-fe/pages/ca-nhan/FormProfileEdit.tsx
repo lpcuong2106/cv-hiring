@@ -76,17 +76,6 @@ const FormEditProfileUser = ({ loadingSubmit }: Props) => {
 
       <Col md={12}>
         <AdminInput
-          label="Avatar"
-          Icon={<EditSettings width={16} />}
-          name="avatar"
-          mode="input"
-          placeholder="Vui lòng nhập avatar"
-          //   @ts-ignore
-          value={formikProps.values.avatar}
-        />
-      </Col>
-      <Col md={12}>
-        <AdminInput
           label="Giới tính"
           Icon={<EditSettings width={16} />}
           name="gender"

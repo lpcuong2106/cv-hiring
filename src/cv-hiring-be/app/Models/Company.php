@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Company extends Model
 {
@@ -35,6 +36,16 @@ class Company extends Model
     public function work_jobs()
     {
         return $this->hasMany(WorkJob::class);
+    }
+
+    public function getLogoAttribute($value)
+    {
+        return request()->getSchemeAndHttpHost() . Storage::url($value);
+    }
+
+    public function getBannerAttribute($value)
+    {
+        return request()->getSchemeAndHttpHost() . Storage::url($value);
     }
 
     public function getAmountJobHiringAttribute()

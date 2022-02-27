@@ -58,7 +58,7 @@ input UserProfileInput {
     phone: String
     birthday: String
     gender: GenderEnum
-    avatar: String
+    avatar: Upload
 }
 
 input UserAddInput {

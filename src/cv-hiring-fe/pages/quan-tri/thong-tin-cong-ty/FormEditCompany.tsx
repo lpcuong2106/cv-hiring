@@ -10,6 +10,8 @@ import { useAppSelector } from "../../../store/hook";
 import { useQuery } from "@apollo/client";
 import { FETCH_USER_ROLE_HR_UNMANAGE } from "../../../GraphQL/Query/User";
 import { User } from "../../../data";
+import { UploadChangeParam } from "antd/lib/upload";
+import { UploadFile } from "antd/lib/upload/interface";
 
 interface FormValue {
   name: string;
@@ -51,6 +53,16 @@ const FormEditCompany = ({
   }));
   const handleModeView = (mode: ModeView) => {
     setMode(mode);
+  };
+
+  const changeFileUpload = (
+    keyField: string,
+    values?: UploadChangeParam<UploadFile<any>>
+  ) => {
+    formikProps.setFieldValue(
+      keyField,
+      values?.fileList[0]?.originFileObj || null
+    );
   };
 
   return (
@@ -172,7 +184,6 @@ const FormEditCompany = ({
                 label: "Chọn người quản trị",
                 value: null,
               },
-
               ...usersOptions,
             ]}
             //   @ts-ignore
@@ -196,7 +207,8 @@ const FormEditCompany = ({
             name="logo"
             disabled={isView}
             placeholder="Nhập url logo"
-            mode="input"
+            handleChangeFile={(value) => changeFileUpload("logo", value)}
+            mode="file"
             //   @ts-ignore
             value={formikProps.values.logo}
           />
@@ -216,11 +228,12 @@ const FormEditCompany = ({
         ) : (
           <AdminInput
             label="Ảnh bìa"
-            disabled={isView}
             Icon={<EditSettings width={16} />}
             name="banner"
-            placeholder="Nhập url ảnh bìa"
-            mode="input"
+            disabled={isView}
+            placeholder="Nhập url logo"
+            handleChangeFile={(value) => changeFileUpload("banner", value)}
+            mode="file"
             //   @ts-ignore
             value={formikProps.values.banner}
           />

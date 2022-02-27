@@ -24,8 +24,8 @@ input CompanyInput {
     fanpage: String
     address: String
     gg_map: String
-    logo: String
-    banner: String
+    logo: Upload
+    banner: Upload
     user_id: ID
 }
 

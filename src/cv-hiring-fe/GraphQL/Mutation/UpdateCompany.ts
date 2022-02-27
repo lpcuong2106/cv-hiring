@@ -10,8 +10,8 @@ export const UPDATE_COMPANY = gql`
     $fanpage: String!
     $address: String!
     $gg_map: String!
-    $logo: String!
-    $banner: String!
+    $logo: Upload
+    $banner: Upload
     $user_id: ID!
   ) {
     updateCompany(

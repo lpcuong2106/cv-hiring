@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UpdateProfile
 {
@@ -25,6 +26,7 @@ class UpdateProfile
             $avatar =  isset($args["input"]["avatar"]) ? $args["input"]["avatar"] : null;
 
             $userCurrent = Auth::user();
+            $path = Storage::putFile('public/avatars', $avatar);
 
             if (isset($userCurrent)) {
                 $userCurrent->lastname = $lastname;
@@ -33,8 +35,7 @@ class UpdateProfile
                 $userCurrent->phone = $phone;
                 $userCurrent->birthday = $birthday;
                 $userCurrent->gender = $gender;
-                $userCurrent->avatar = $avatar;
-
+                $userCurrent->avatar = $path;
 
                 $userCurrent->save();
             }

@@ -1,16 +1,20 @@
-import { DatePicker, Input, InputNumber, Select } from "antd";
+import { Button, DatePicker, Input, InputNumber, Select, Upload } from "antd";
 import { DefaultOptionType } from "antd/lib/select";
 import { FieldConfig, FormikProps, useField } from "formik";
 import moment from "moment";
 import React from "react";
 import style from "./style.module.scss";
+import { UploadOutlined } from "@ant-design/icons";
+import { UploadChangeParam } from "antd/lib/upload";
+import { UploadFile } from "antd/lib/upload/interface";
 
 type Props =
   | SelectProps
   | InputProps
   | TextAreaProps
   | DatepickerProps
-  | NumberProps;
+  | NumberProps
+  | FileProps;
 
 type SelectProps = {
   Icon: any;
@@ -44,6 +48,16 @@ type TextAreaProps = {
   placeholder: string;
   label: string;
   disabled?: boolean;
+};
+type FileProps = {
+  mode: "file";
+  Icon: any;
+  name: string;
+  placeholder: string;
+  label: string;
+  disabled?: boolean;
+  handleChangeFile: (value: UploadChangeParam<UploadFile<any>>) => void;
+  onRemove: () => void;
 };
 
 type DatepickerProps = {
@@ -115,7 +129,17 @@ function AdminInput(props: Props) {
             className={style.inputControl}
           />
         )}
-
+        {props.mode === "file" && (
+          <Upload
+            onChange={props.handleChangeFile}
+            listType="picture"
+            maxCount={1}
+            accept="image/png, image/gif, image/jpeg"
+            onRemove={props.onRemove}
+          >
+            <Button icon={<UploadOutlined />}>Tải lên</Button>
+          </Upload>
+        )}
         {props.mode === "datepicker" && (
           <DatePicker
             size="large"

@@ -8,7 +8,7 @@ export const UPDATE_PROFILE = gql`
     $phone: String
     $birthday: String
     $gender: GenderEnum
-    $avatar: String
+    $avatar: Upload
   ) {
     updateProfile(
       input: {
