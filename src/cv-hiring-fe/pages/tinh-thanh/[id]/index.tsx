@@ -40,6 +40,8 @@ const Province: NextPage = () => {
     variables: {
       provinceId: id,
     },
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-and-network",
   });
   const workJobOfProvince = data?.workJobOfProvince;
   const provinceDetail = data?.provinceDetail;

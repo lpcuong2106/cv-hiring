@@ -141,6 +141,42 @@ export const FETCH_WORK_JOB_PROVINCE = gql`
     }
   }
 `;
+export const FETCH_WORK_JOB_CATEGORY = gql`
+  query workJobOfCategory($categoryId: ID!) {
+    categoryDetail(id: $categoryId) {
+      name
+    }
+    workJobOfCategory(categoryId: $categoryId) {
+      paginatorInfo {
+        total
+        perPage
+        firstItem
+        lastPage
+        currentPage
+        lastItem
+      }
+      data {
+        id
+        name
+        slug
+        updated_at
+        expired_date_hiring
+
+        salary
+        company {
+          slug
+          logo
+        }
+        work_category {
+          name
+        }
+        province {
+          name
+        }
+      }
+    }
+  }
+`;
 export const FETCH_USER_APPLIED_JOB = gql`
   query fetch_user_appied_job($userId: ID!) {
     workJobAppliedByUser(userId: $userId) {

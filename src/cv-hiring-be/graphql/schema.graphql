@@ -35,6 +35,9 @@ type Query {
     getWorkJobById(id: ID! @eq): WorkJob @find
 
     workCategories: [WorkCategory!]! @all
+    categoryDetail(id: ID! @eq): WorkCategory @find
+    workJobOfCategory(categoryId: ID!): WorkJobPaginator
+
     userAppliedWorkJob(user_id: ID! @eq, work_job_id: ID! @eq): UserAppliedJob
         @find(model: "App\\Models\\WorkApply")
     allCvApplied(companyId: ID, page: Int): WorkAppliedPaginator @guard
