@@ -24,7 +24,11 @@ interface DataQuery {
 const ManageCompanyDetail = () => {
   const userLoggedIn = useAppSelector((state) => state.user.user);
   const router = useRouter();
-  const { data, loading } = useQuery<DataQuery>(FETCH_COMPANY_DETAIL, {
+  const {
+    data,
+    loading,
+    refetch: refetchCompanyInfo,
+  } = useQuery<DataQuery>(FETCH_COMPANY_DETAIL, {
     variables: {
       id: router.query.id,
     },
@@ -67,6 +71,14 @@ const ManageCompanyDetail = () => {
                     }}
                     validationSchema={validationSchemaCompany}
                     onSubmit={async (values) => {
+                      if (typeof values.logo === "string") {
+                        // @ts-ignore
+                        values.logo = null;
+                      }
+                      if (typeof values.banner === "string") {
+                        // @ts-ignore
+                        values.banner = null;
+                      }
                       const { data } = await updateCompanyDetail({
                         variables: values,
                       });
@@ -76,9 +88,8 @@ const ManageCompanyDetail = () => {
                         return;
                       }
                       message.success(data.updateCompany.message);
+                      await refetchCompanyInfo();
                       setMode("view");
-
-                      return;
                     }}
                   >
                     {({ handleSubmit }) => (

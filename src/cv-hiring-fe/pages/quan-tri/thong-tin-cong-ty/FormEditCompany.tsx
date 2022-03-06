@@ -198,7 +198,10 @@ const FormEditCompany = ({
               <EditSettings width={16} />
               <h6 className="">Logo</h6>
             </div>
-            <img src={formikProps.values.logo || "/company-default.svg"} />
+            <img
+              src={formikProps.values.logo || "/company-default.svg"}
+              className={style.logoImage}
+            />
           </div>
         ) : (
           <AdminInput
@@ -223,6 +226,7 @@ const FormEditCompany = ({
             </div>
             <img
               src={formikProps.values.banner || "/company-default-banner.jpg"}
+              className={style.logoImage}
             />
           </div>
         ) : (

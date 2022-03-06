@@ -34,7 +34,7 @@ export const validationSchemaCompany = Yup.object().shape({
   gg_map: Yup.string().typeError("GoogleMap là bắt buộc"),
   logo: Yup.mixed(),
   banner: Yup.mixed(),
-  user_id: Yup.number().required(),
+  user_id: Yup.number().required("Vui lòng chọn người quản trị"),
 });
 
 export type ModeView = "edit" | "create" | "view";
@@ -87,7 +87,6 @@ const ManageCompany = () => {
                     }}
                     validationSchema={validationSchemaCompany}
                     onSubmit={async (values) => {
-                      console.log(values);
                       if (typeof values.logo === "string") {
                         // @ts-ignore
                         values.logo = null;

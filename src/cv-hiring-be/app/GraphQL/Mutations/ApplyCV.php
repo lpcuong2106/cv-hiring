@@ -2,8 +2,12 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Jobs\SendEmailJob;
+use App\Mail\EmailAppliedCv;
 use App\Models\WorkApply;
+use App\Models\WorkJob;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class ApplyCV
@@ -24,17 +28,19 @@ class ApplyCV
                 "path"  => null
             ];
         }
-
-        $userId = Auth::user()->id;
+        $job = WorkJob::findOrFail($jobId);
+        $user = Auth::user();
 
         $path = Storage::putFile('public/avatars', $fileCV);
+
+        dispatch(new SendEmailJob($user->email, $job));
 
         $workApply = WorkApply::create([
             'cv_url'    => $path,
             'letter'    => $content,
             'status'    => 1,
             'work_job_id'   => $jobId,
-            'user_id'   => $userId
+            'user_id'   => $user->id
         ]);
 
         return [

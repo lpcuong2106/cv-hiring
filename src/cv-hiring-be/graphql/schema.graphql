@@ -84,7 +84,7 @@ type Mutation {
     createUser(input: UserAddInput): ResponseExecute @guard
     updateProfile(input: UserProfileInput): ResponseExecute @guard
 
-    updateWorkApply(id: ID!, status: Int): WorkApply @update
+    updateWorkApply(id: ID!, status: Int): WorkApply
 }
 
 interface Modal {
