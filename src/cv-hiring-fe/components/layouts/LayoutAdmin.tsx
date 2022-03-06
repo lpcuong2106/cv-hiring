@@ -25,8 +25,9 @@ const LayoutAdmin = ({ children }: Props) => {
         }}
       >
         <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
-          <Breadcrumb.Item>Bill</Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link href={"/quan-tri"}>Trang chủ</Link>
+          </Breadcrumb.Item>
         </Breadcrumb>
         <div>{children}</div>
       </Content>
