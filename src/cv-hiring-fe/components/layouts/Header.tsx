@@ -122,6 +122,10 @@ function HeaderNav() {
                         <img
                           src={userLoggedIn?.avatar || "/avatarDefault.png"}
                           style={{ width: 32 }}
+                          onError={({ currentTarget }) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src = "/avatarDefault.png";
+                          }}
                         />
                       }
                     />

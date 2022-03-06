@@ -33,7 +33,7 @@ class ApplyCV
 
         $path = Storage::putFile('public/avatars', $fileCV);
 
-        dispatch(new SendEmailJob($user->email, $job));
+        dispatch(new SendEmailJob($user->email, $job, 'ApplyCV'));
 
         $workApply = WorkApply::create([
             'cv_url'    => $path,

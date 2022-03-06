@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Jobs\SendEmailJob;
 use App\Models\WorkApply;
 use Exception;
 
@@ -18,6 +19,7 @@ class CancelAppliedWorkJob
             $workApplied = WorkApply::find($workAppliedId);
             if (isset($workApplied)) {
                 $workApplied->delete();
+                dispatch(new SendEmailJob($workApplied->user, $workApplied->work_job, 'CancelApplyCV'));
                 return [
                     'status' => 'OK',
                     'message'   => 'Xóa thành công'

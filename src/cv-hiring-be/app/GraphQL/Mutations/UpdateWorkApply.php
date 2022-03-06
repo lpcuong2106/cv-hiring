@@ -20,6 +20,6 @@ class UpdateWorkApply
         $workJobApply->status = $status;
         $workJobApply->save();
 
-        dispatch(new SendEmailJob($workJobApply->user->email, $workJobApply->work_job));
+        dispatch(new SendEmailJob($workJobApply->user->email, $workJobApply->work_job, 'ApplyCV'));
     }
 }

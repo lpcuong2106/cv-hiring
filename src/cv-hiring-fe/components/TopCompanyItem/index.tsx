@@ -19,7 +19,13 @@ export const TopCompanyItem = ({ companyTop }: Props) => {
                 <img
                   src={company.logo}
                   style={{ width: "63px", objectFit: "contain" }}
+                  onError={({ currentTarget }) => {
+                    console.log("chay error");
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src = "/company-default.svg";
+                  }}
                 />
+                <p>{company.name}</p>
                 <p>{company.amount_job_hiring} vị trí đang tuyển</p>
               </div>
             </a>

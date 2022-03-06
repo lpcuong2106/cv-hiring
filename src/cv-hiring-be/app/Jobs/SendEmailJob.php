@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Mail\CancelApplyCV;
 use App\Mail\EmailAppliedCv;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -18,15 +19,18 @@ class SendEmailJob implements ShouldQueue
     public $workJob;
 
     public $email;
+
+    public $type;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($email, $job)
+    public function __construct($email, $job, $type)
     {
         $this->email = $email;
         $this->workJob = $job;
+        $this->type = $type;
     }
 
     /**
@@ -36,6 +40,13 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new EmailAppliedCv($this->workJob));
+        switch ($this->type) {
+            case 'ApplyCV':
+                Mail::to($this->email)->send(new EmailAppliedCv($this->workJob));
+                break;
+            case 'CancelApplyCV':
+                Mail::to($this->email)->send(new CancelApplyCV($this->workJob));
+                break;
+        }
     }
 }

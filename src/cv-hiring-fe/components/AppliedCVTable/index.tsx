@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { Button, Table, Tag, Timeline } from "antd";
+import { Button, message, Table, Tag, Timeline } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import Link from "next/link";
 import React from "react";
@@ -28,6 +28,8 @@ function AppliedCVTable() {
         userId: userLoggedIn?.user?.id,
       },
       skip: !userLoggedIn?.user?.id,
+      fetchPolicy: "network-only",
+      nextFetchPolicy: "cache-and-network",
     }
   );
   const [cancelWorkJob, { loading: loadingDelete }] =
@@ -205,7 +207,12 @@ function AppliedCVTable() {
       },
     });
     if (data?.cancelAppliedWorkJob.status === "OK") {
+      message.success("Hủy ứng tuyển thành công");
       refetch();
+    } else {
+      message.success(
+        "Hủy ứng tuyển thất bại" + data?.cancelAppliedWorkJob?.message
+      );
     }
   };
 

@@ -105,6 +105,10 @@ const WorkJob: NextPage = () => {
                     <div className={style.companyLogo}>
                       <img
                         src={workJob?.company.logo || "/company-default.svg"}
+                        onError={({ currentTarget }) => {
+                          currentTarget.onerror = null; // prevents looping
+                          currentTarget.src = "/company-default.svg";
+                        }}
                       />
                     </div>
                     <div>

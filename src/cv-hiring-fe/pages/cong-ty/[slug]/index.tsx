@@ -65,6 +65,10 @@ const Company: NextPage = () => {
                   <img
                     src={company?.banner || "/company-default-banner.jpg"}
                     className={style.bannerImg}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src = "/company-default-banner.jpg";
+                    }}
                   />
                   <div className={style.introControl}>
                     <div className={style.logo}>
@@ -73,6 +77,10 @@ const Company: NextPage = () => {
                           src={company?.logo || "/company-default.svg"}
                           alt=""
                           className={style.logoImage}
+                          onError={({ currentTarget }) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src = "/company-default.svg";
+                          }}
                         />
                         <div className={style.introCompany}>
                           <h1>{company?.name}</h1>
