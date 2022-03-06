@@ -71,7 +71,7 @@ const WorkJob: NextPage = () => {
       user_id: context?.user?.id,
       work_job_id: data?.getWorkJobBySlug?.id,
     },
-    skip: !data?.getWorkJobBySlug?.id && !context?.user?.id,
+    skip: !data?.getWorkJobBySlug?.id || !context?.user?.id,
   });
 
   const workJob = data?.getWorkJobBySlug;
@@ -149,9 +149,8 @@ const WorkJob: NextPage = () => {
                       </div>
                     </div>
                     <div className={style.btnAction}>
-                      {userApplyLoading ? (
-                        <LoadingApp />
-                      ) : userAppliedWorkJob?.userAppliedWorkJob?.id ? (
+                      {!userApplyLoading &&
+                      userAppliedWorkJob?.userAppliedWorkJob?.id ? (
                         <Tooltip
                           placement="topRight"
                           title="Click vào để xem trạng thái xử lý"
@@ -165,6 +164,7 @@ const WorkJob: NextPage = () => {
                       ) : (
                         userLoggedIn.user?.role.name === "user" && (
                           <Button
+                            loading={userApplyLoading}
                             type="primary"
                             size="large"
                             onClick={() => setIsShowApply(true)}

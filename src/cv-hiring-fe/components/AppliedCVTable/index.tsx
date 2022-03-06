@@ -42,7 +42,14 @@ function AppliedCVTable() {
       render: (_, record: WorkApply) => (
         <div className={style.infoJob}>
           <div className={style.companyLogo}>
-            <img src={record.work_job.company.logo} />
+            <img
+              src={record.work_job.company.logo}
+              onError={({ currentTarget }) => {
+                console.log("chay error");
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = "/company-default.svg";
+              }}
+            />
           </div>
           <div className={style.infoJob}>
             <Link href={record.work_job.slug}>
