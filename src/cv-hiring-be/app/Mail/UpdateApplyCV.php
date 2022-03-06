@@ -12,14 +12,17 @@ class UpdateApplyCV extends Mailable
     use Queueable, SerializesModels;
 
     public $mailData;
+
+    public $status;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($job)
+    public function __construct($job, $status)
     {
         $this->mailData = $job;
+        $this->status = $status;
     }
 
     /**
@@ -29,6 +32,6 @@ class UpdateApplyCV extends Mailable
      */
     public function build()
     {
-        return $this->markdown('Email.emailUpdateAppliedCv')->with('job', $this->mailData);
+        return $this->markdown('Email.emailUpdateAppliedCv')->with('job', $this->mailData)->with('status', $this->status);
     }
 }

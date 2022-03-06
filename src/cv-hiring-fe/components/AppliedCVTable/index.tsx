@@ -47,7 +47,6 @@ function AppliedCVTable() {
             <img
               src={record.work_job.company.logo}
               onError={({ currentTarget }) => {
-                console.log("chay error");
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src = "/company-default.svg";
               }}

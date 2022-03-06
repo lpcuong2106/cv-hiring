@@ -20,7 +20,6 @@ export const TopCompanyItem = ({ companyTop }: Props) => {
                   src={company.logo}
                   style={{ width: "63px", objectFit: "contain" }}
                   onError={({ currentTarget }) => {
-                    console.log("chay error");
                     currentTarget.onerror = null; // prevents looping
                     currentTarget.src = "/company-default.svg";
                   }}

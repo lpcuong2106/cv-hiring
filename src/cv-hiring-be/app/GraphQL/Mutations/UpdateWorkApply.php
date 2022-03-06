@@ -21,7 +21,7 @@ class UpdateWorkApply
             $workJobApply = WorkApply::findOrFail($workApplyId);
             $workJobApply->status = $status;
             $workJobApply->save();
-            dispatch(new SendEmailJob($workJobApply->user->email, $workJobApply->work_job, 'UpdateApplyCV'));
+            dispatch(new SendEmailJob($workJobApply->user->email, $workJobApply->work_job, 'UpdateApplyCV', $status));
             return [
                 'status' => 'OK',
                 'message'   => 'Duyệt hồ sơ thành công!'

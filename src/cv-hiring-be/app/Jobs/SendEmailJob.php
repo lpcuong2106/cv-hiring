@@ -22,16 +22,21 @@ class SendEmailJob implements ShouldQueue
     public $email;
 
     public $type;
+
+    public $statusAppliedJob;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($email, $job, $type)
+    public function __construct($email, $job, $type, $statusAppliedJob = 1)
     {
         $this->email = $email;
         $this->workJob = $job;
         $this->type = $type;
+        if ($type == 'UpdateApplyCV') {
+            $this->statusAppliedJob = $statusAppliedJob;
+        }
     }
 
     /**
@@ -49,7 +54,7 @@ class SendEmailJob implements ShouldQueue
                 Mail::to($this->email)->send(new CancelApplyCV($this->workJob));
                 break;
             case 'UpdateApplyCV':
-                Mail::to($this->email)->send(new UpdateApplyCV($this->workJob));
+                Mail::to($this->email)->send(new UpdateApplyCV($this->workJob, $this->statusAppliedJob));
                 break;
         }
     }
