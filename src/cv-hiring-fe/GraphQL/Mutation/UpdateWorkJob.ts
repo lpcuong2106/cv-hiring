@@ -46,13 +46,8 @@ export const UPDATE_WORKJOB = gql`
 export const UPDATE_STATUS_WORK_JOB = gql`
   mutation updateStatusWorkJob($id: ID!, $status: Int!) {
     updateWorkApply(id: $id, status: $status) {
-      id
-      cv_url
-      letter
       status
-      created_at
-      updated_at
-      deleted_at
+      message
     }
   }
 `;

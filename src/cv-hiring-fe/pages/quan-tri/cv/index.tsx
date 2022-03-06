@@ -87,21 +87,17 @@ const ManageCV = () => {
     setPage(page);
   };
   const handleChangeStatus = async (status: number, workApplyId: number) => {
-    try {
-      const { data } = await updateWorkApply({
-        variables: {
-          id: workApplyId,
-          status: status,
-        },
-      });
-      if (!data?.updateWorkApply.id) {
-        message.error("Lỗi duyệt hồ sơ");
-      } else {
-        refetch();
-        message.success("Duyệt hồ sơ thành công");
-      }
-    } catch {
-      message.error("Lỗi duyệt hồ sơ");
+    const { data } = await updateWorkApply({
+      variables: {
+        id: workApplyId,
+        status: status,
+      },
+    });
+    if (data?.updateWorkApply?.status == "ERROR") {
+      message.error("Lỗi duyệt hồ sơ" + data?.updateWorkApply.message);
+    } else {
+      refetch();
+      message.success("Duyệt hồ sơ thành công");
     }
 
     setWorkAppliedEdit({

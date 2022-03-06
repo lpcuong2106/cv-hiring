@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Mail\CancelApplyCV;
 use App\Mail\EmailAppliedCv;
+use App\Mail\UpdateApplyCV;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -46,6 +47,9 @@ class SendEmailJob implements ShouldQueue
                 break;
             case 'CancelApplyCV':
                 Mail::to($this->email)->send(new CancelApplyCV($this->workJob));
+                break;
+            case 'UpdateApplyCV':
+                Mail::to($this->email)->send(new UpdateApplyCV($this->workJob));
                 break;
         }
     }
