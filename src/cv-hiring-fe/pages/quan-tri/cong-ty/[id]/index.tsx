@@ -16,6 +16,7 @@ import { useAppSelector } from "../../../../store/hook";
 import { FETCH_COMPANY_DETAIL } from "../../../../GraphQL/Query/Comapany";
 import { UPDATE_COMPANY } from "../../../../GraphQL/Mutation/UpdateCompany";
 import BackButton from "../../../../components/BackButton";
+import NotFound from "../../../../components/NotFound";
 
 interface DataQuery {
   companyDetail: Company;
@@ -40,74 +41,77 @@ const ManageCompanyDetail = () => {
     useMutation(UPDATE_COMPANY);
   const [mode, setMode] = useState<ModeView>("view");
   const companyDetail = data?.companyDetail;
+  if (loading) {
+    return <LoadingApp />;
+  }
+  if (!companyDetail) {
+    return <NotFound />;
+  }
 
   return (
     <LayoutAdmin>
       <Head>
         <title>Kết nối lao động việt | Quản trị </title>
       </Head>
-      {loading || !companyDetail ? (
-        <LoadingApp />
-      ) : (
-        <div className="site-statistic-demo-card">
-          <Row gutter={16}>
-            <Col span={24} className={style.statistic}>
-              <BackButton />
-              <Card title="Thông tin công ty">
-                <div>
-                  <Formik
-                    initialValues={{
-                      id: companyDetail.id,
-                      name: companyDetail.name,
-                      description: companyDetail.description,
-                      amount_employee: companyDetail.amount_employee,
-                      website: companyDetail.website,
-                      fanpage: companyDetail.fanpage,
-                      address: companyDetail.address,
-                      gg_map: companyDetail.gg_map,
-                      logo: companyDetail.logo,
-                      banner: companyDetail.banner,
-                      user_id: companyDetail.user?.id,
-                    }}
-                    validationSchema={validationSchemaCompany}
-                    onSubmit={async (values) => {
-                      if (typeof values.logo === "string") {
-                        // @ts-ignore
-                        values.logo = null;
-                      }
-                      if (typeof values.banner === "string") {
-                        // @ts-ignore
-                        values.banner = null;
-                      }
-                      const { data } = await updateCompanyDetail({
-                        variables: values,
-                      });
 
-                      if (data.updateCompany.status === "ERROR") {
-                        message.error(data.updateCompany.message);
-                        return;
-                      }
-                      message.success(data.updateCompany.message);
-                      await refetchCompanyInfo();
-                      setMode("view");
-                    }}
-                  >
-                    {({ handleSubmit }) => (
-                      <Form onSubmit={handleSubmit}>
-                        <FormEditCompany
-                          loadingSubmit={loadingSubmit}
-                          mode={mode}
-                          setMode={setMode}
-                        />
-                      </Form>
-                    )}
-                  </Formik>
-                </div>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      )}
+      <div className="site-statistic-demo-card">
+        <Row gutter={16}>
+          <Col span={24} className={style.statistic}>
+            <BackButton />
+            <Card title="Thông tin công ty">
+              <div>
+                <Formik
+                  initialValues={{
+                    id: companyDetail.id,
+                    name: companyDetail.name,
+                    description: companyDetail.description,
+                    amount_employee: companyDetail.amount_employee,
+                    website: companyDetail.website,
+                    fanpage: companyDetail.fanpage,
+                    address: companyDetail.address,
+                    gg_map: companyDetail.gg_map,
+                    logo: companyDetail.logo,
+                    banner: companyDetail.banner,
+                    user_id: companyDetail.user?.id,
+                  }}
+                  validationSchema={validationSchemaCompany}
+                  onSubmit={async (values) => {
+                    if (typeof values.logo === "string") {
+                      // @ts-ignore
+                      values.logo = null;
+                    }
+                    if (typeof values.banner === "string") {
+                      // @ts-ignore
+                      values.banner = null;
+                    }
+                    const { data } = await updateCompanyDetail({
+                      variables: values,
+                    });
+
+                    if (data.updateCompany.status === "ERROR") {
+                      message.error(data.updateCompany.message);
+                      return;
+                    }
+                    message.success(data.updateCompany.message);
+                    await refetchCompanyInfo();
+                    setMode("view");
+                  }}
+                >
+                  {({ handleSubmit }) => (
+                    <Form onSubmit={handleSubmit}>
+                      <FormEditCompany
+                        loadingSubmit={loadingSubmit}
+                        mode={mode}
+                        setMode={setMode}
+                      />
+                    </Form>
+                  )}
+                </Formik>
+              </div>
+            </Card>
+          </Col>
+        </Row>
+      </div>
     </LayoutAdmin>
   );
 };

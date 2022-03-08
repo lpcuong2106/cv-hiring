@@ -9,28 +9,32 @@ import { useAuth } from "../AuthProvider";
 import { useRouter } from "next/router";
 import { DownOutlined } from "@ant-design/icons";
 import { useAppSelector, useAppDispatch } from "../../store/hook";
-import { setUserLoggedIn } from "../../store/features/userSlideder";
+import {
+  setLoggedIn,
+  setUserLoggedIn,
+} from "../../store/features/userSlideder";
 
 function HeaderNav() {
   const auth = useAuth();
-  const userLoggedIn = useAppSelector((state) => state.user.user);
+  const userLoggedIn = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    auth.setIsLogged(false);
+    // auth.setIsLogged(false);
 
-    auth.user = null;
+    // auth.user = null;
     // @ts-ignore
     dispatch(setUserLoggedIn(null));
+    dispatch(setLoggedIn(false));
     message.success("Đăng xuất thành công!");
     router.replace("/login");
   };
 
   const menu = (
     <Menu>
-      {userLoggedIn?.role.name !== "user" && (
+      {userLoggedIn?.user?.role.name !== "user" && (
         <Menu.Item key="4">
           <Link href={"/quan-tri"}>
             <Button type="link">Quản trị</Button>
@@ -42,7 +46,7 @@ function HeaderNav() {
           <Button type="link">Cá nhân</Button>
         </Link>
       </Menu.Item>
-      {userLoggedIn?.role.name === "user" && (
+      {userLoggedIn?.user?.role.name === "user" && (
         <Menu.Item key="2">
           <Link href={"/viec-lam/ung-tuyen"}>
             <Button type="link">Ứng tuyển</Button>
@@ -97,7 +101,7 @@ function HeaderNav() {
               defaultSelectedKeys={["4"]}
               className={styles.menuU}
             >
-              {!auth.isLogged ? (
+              {!userLoggedIn.isLoggedIn ? (
                 <>
                   <Menu.Item key="1">
                     <Link href={"/login"}>
@@ -120,7 +124,9 @@ function HeaderNav() {
                     <Avatar
                       src={
                         <img
-                          src={userLoggedIn?.avatar || "/avatarDefault.png"}
+                          src={
+                            userLoggedIn?.user?.avatar || "/avatarDefault.png"
+                          }
                           style={{ width: 32 }}
                           onError={({ currentTarget }) => {
                             currentTarget.onerror = null; // prevents looping

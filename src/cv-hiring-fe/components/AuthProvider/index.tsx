@@ -3,7 +3,10 @@ import Router, { useRouter } from "next/router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { User } from "../../data";
 import { FETCH_USER_LOGIN } from "../../GraphQL/Query/FetchData";
-import { setUserLoggedIn } from "../../store/features/userSlideder";
+import {
+  setLoggedIn,
+  setUserLoggedIn,
+} from "../../store/features/userSlideder";
 import { useAppDispatch, useAppSelector } from "../../store/hook";
 import { LoadingApp } from "../LoadingApp";
 
@@ -30,9 +33,10 @@ export const AuthProvider = ({ children }: AuxProps) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token && data?.me) {
-      setUser(data?.me);
-      setIsLogged(true);
+      // setUser(data?.me);
+      // setIsLogged(true);
       dispatch(setUserLoggedIn(data.me));
+      dispatch(setLoggedIn(true));
     }
   }, [data]);
 
@@ -60,7 +64,7 @@ export const useAuth = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (context.isLogged && protectedRoute.includes(router.asPath)) {
+    if (userLoggedIn.isLoggedIn && protectedRoute.includes(router.asPath)) {
       Router.replace("/");
     }
     // console.log("chjay day", router);

@@ -11,6 +11,7 @@ import TextArea from "antd/lib/input/TextArea";
 import { useMutation } from "@apollo/client";
 import { APPLY_CV } from "../../GraphQL/Mutation/ApplyCV";
 import { AuthContext } from "../AuthProvider";
+import { useAppSelector } from "../../store/hook";
 
 interface Props {
   isShowApply: boolean;
@@ -44,8 +45,8 @@ function ApplyCVModal({
 }: Props) {
   const [fileList, setFileList] = useState<UploadFile<any>[]>([]);
   const [applyCV, { loading, error }] = useMutation(APPLY_CV);
-  const context = useContext(AuthContext);
-
+  // const context = useContext(AuthContext);
+  const userLoggedIn = useAppSelector((state) => state.user);
   const form = useFormik<FormApply>({
     initialValues: {
       fileCV: null,
@@ -72,7 +73,7 @@ function ApplyCVModal({
         form.resetForm();
         setFileList([]);
         refetchApply({
-          user_id: context?.user?.id,
+          user_id: userLoggedIn?.user?.id,
           work_job_id: jobId,
         });
         message.success("Nộp CV thành công!");

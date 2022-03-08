@@ -2,10 +2,11 @@ import Head from "next/head";
 import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
+import style from "./style.module.scss";
 
 function Layout({ children }: any) {
   return (
-    <div>
+    <div className={style.wrapperLayout}>
       <Head>
         <meta
           name="description"

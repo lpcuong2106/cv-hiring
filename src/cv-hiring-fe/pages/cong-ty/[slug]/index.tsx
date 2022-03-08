@@ -18,6 +18,7 @@ import BreadcrumbCus from "../../../components/BreadcrumbCus";
 import { FacebookShareButton, FacebookShareCount } from "react-share";
 import JobItem from "../../../components/JobItem";
 import { FETCH_WORK_JOB_HIRING_COMPANY } from "../../../GraphQL/Query/WorkJob";
+import NotFound from "../../404";
 const { TabPane } = Tabs;
 
 interface DataQuery {
@@ -38,15 +39,20 @@ const Company: NextPage = () => {
   });
   const company = data?.companyDetail;
 
-  const { data: workJobs, loading: loadingWorkJob } =
-    useQuery<DataWorkJobQuery>(FETCH_WORK_JOB_HIRING_COMPANY, {
+  const { data: workJobs } = useQuery<DataWorkJobQuery>(
+    FETCH_WORK_JOB_HIRING_COMPANY,
+    {
       variables: {
         companyId: company?.id,
       },
       skip: !company?.id,
-    });
-  if (loading || !company) {
+    }
+  );
+  if (loading) {
     return <LoadingApp />;
+  }
+  if (!company) {
+    return <NotFound />;
   }
 
   return (

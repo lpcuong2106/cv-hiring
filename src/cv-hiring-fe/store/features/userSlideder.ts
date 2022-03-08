@@ -3,10 +3,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
   user: User | null;
+  isLoggedIn: boolean;
 }
 
 const initialState: UserState = {
   user: null,
+  isLoggedIn: false,
 };
 
 export const userSlider = createSlice({
@@ -16,8 +18,11 @@ export const userSlider = createSlice({
     setUserLoggedIn: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
     },
+    setLoggedIn: (state, action: PayloadAction<boolean>) => {
+      state.isLoggedIn = action.payload;
+    },
   },
 });
 
-export const { setUserLoggedIn } = userSlider.actions;
+export const { setUserLoggedIn, setLoggedIn } = userSlider.actions;
 export default userSlider.reducer;

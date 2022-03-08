@@ -26,6 +26,7 @@ import Link from "next/link";
 import { AuthContext } from "../../../components/AuthProvider";
 import { formatTypeWorkJob } from "../../../utils/formatTypeWorkJob";
 import { useAppSelector } from "../../../store/hook";
+import NotFound from "../../../components/NotFound";
 
 interface DataQuery {
   getWorkJobBySlug: WorkJob;
@@ -55,7 +56,7 @@ const CompanyBox = ({ content, lable, icon }: CompanyBoxProps) => {
 
 const WorkJob: NextPage = () => {
   const router = useRouter();
-  const context = useContext(AuthContext);
+  // const context = useContext(AuthContext);
   const userLoggedIn = useAppSelector((state) => state.user);
   const [isShowApply, setIsShowApply] = useState(false);
   const { slug } = router.query;
@@ -68,16 +69,20 @@ const WorkJob: NextPage = () => {
     refetch,
   } = useQuery<DataAppliedQuery>(FETCH_USER_IS_APPLIED_WORKJOB, {
     variables: {
-      user_id: context?.user?.id,
+      user_id: userLoggedIn?.user?.id,
       work_job_id: data?.getWorkJobBySlug?.id,
     },
-    skip: !data?.getWorkJobBySlug?.id || !context?.user?.id,
+    skip: !data?.getWorkJobBySlug?.id || !userLoggedIn?.user?.id,
   });
 
   const workJob = data?.getWorkJobBySlug;
 
   if (loading) {
     return <LoadingApp />;
+  }
+
+  if (!workJob) {
+    return <NotFound />;
   }
 
   return (

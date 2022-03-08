@@ -12,7 +12,10 @@ import { useAuth } from "../../components/AuthProvider";
 import { FormItemInput } from "../../components/FormItem";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../../store/hook";
-import { setUserLoggedIn } from "../../store/features/userSlideder";
+import {
+  setLoggedIn,
+  setUserLoggedIn,
+} from "../../store/features/userSlideder";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -41,6 +44,7 @@ const Login = () => {
         localStorage.setItem("token", data.login?.token);
         auth.setIsLogged(true);
         dispatch(setUserLoggedIn(data.login.user));
+        dispatch(setLoggedIn(true));
         message.success("Đăng nhập thành công!");
         Router.push("/");
         return;

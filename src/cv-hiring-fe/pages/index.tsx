@@ -26,7 +26,10 @@ interface HomeQuery {
 }
 
 const Home: NextPage = () => {
-  const { data, loading, refetch } = useQuery<HomeQuery>(FETCH_HOME_PAGE);
+  const { data, loading } = useQuery<HomeQuery>(FETCH_HOME_PAGE, {
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-and-network",
+  });
 
   if (loading) {
     return <LoadingApp />;
