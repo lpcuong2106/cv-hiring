@@ -20,7 +20,7 @@ function Footer() {
           </Col>
           <Col md={4}></Col>
           <Col span={6}>
-            <b>Thông tin</b>
+            {/* <b>Thông tin</b>
             <ul style={{ padding: 0 }}>
               <li>
                 <a target="_blank" href="/dieu-khoan-su-dung.html">
@@ -43,7 +43,7 @@ function Footer() {
                   </span>
                 </a>
               </li>
-            </ul>
+            </ul> */}
           </Col>
           <Col span={6}>
             <b>Kết nối với chúng tôi</b>
@@ -93,22 +93,22 @@ function Footer() {
                 </svg>
               </a>
             </div>
+            <img
+              src={"./logo.png"}
+              alt="TopCV tuyen dung tai TopCV"
+              title="TopCV tuyển dụng tại TopCV"
+              width={100}
+              className={style.logoImageFooter}
+            />
           </Col>
 
           <hr />
-          <Col span={20}>
+          <Col span={18}>
             <p>
               ©2022 - <b>Le Phu Cuong B1805744</b>
             </p>
           </Col>
-          <Col span={4}>
-            <img
-              src={"https://www.topcv.vn/v3/images/topcv-logo-4.png?v=1.0.1"}
-              alt="TopCV tuyen dung tai TopCV"
-              title="TopCV tuyển dụng tại TopCV"
-              width={100}
-            />
-          </Col>
+          <Col span={6}></Col>
         </Row>
       </Container>
     </footer>

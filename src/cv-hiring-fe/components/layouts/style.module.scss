@@ -50,3 +50,10 @@
   height: 100vh;
   flex-direction: column;
 }
+.logoImg {
+  height: 46px;
+  object-fit: cover;
+}
+.logoImageFooter {
+  mix-blend-mode: darken;
+}

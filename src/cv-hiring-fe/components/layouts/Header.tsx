@@ -69,12 +69,11 @@ function HeaderNav() {
             <Link href={"/"}>
               <a>
                 <img
-                  src={
-                    "https://www.topcv.vn/v3/images/topcv-logo-4.png?v=1.0.1"
-                  }
+                  src={"./logo.png"}
                   alt="TopCV tuyen dung tai TopCV"
                   title="TopCV tuyển dụng tại TopCV"
                   width={100}
+                  className={styles.logoImg}
                 />
               </a>
             </Link>
