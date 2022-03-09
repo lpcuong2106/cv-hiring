@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\WorkApply;
+use App\Models\WorkJob;
 
 class AllCvApplied
 {
@@ -13,9 +14,10 @@ class AllCvApplied
     public function __invoke($_, array $args)
     {
         $companyId = isset($args['companyId']) ? $args['companyId'] : null;
+
         $workJobAppied = WorkApply::withTrashed()
             ->when($companyId, function ($query, $companyId) {
-                return $query->join('work_jobs', 'work_applies.work_job_id', 'work_jobs.id')->where('company_id', $companyId);
+                return $query->join('work_jobs', 'work_applies.work_job_id', 'work_jobs.id')->where('work_jobs.company_id', $companyId);
             })->orderBy('work_applies.created_at', 'desc')->paginate();
 
         $pagination = [

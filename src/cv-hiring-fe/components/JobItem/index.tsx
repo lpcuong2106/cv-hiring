@@ -31,7 +31,13 @@ function JobItem({
   return (
     <div className={style.jobItem}>
       <div className={style.avatar}>
-        <img src={logoUrl || "/company-default.svg"} />
+        <img
+          src={logoUrl || "/company-default.svg"}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src = "/company-default.svg";
+          }}
+        />
       </div>
       <div className={style.jobInfo}>
         <div className={style.info}>

@@ -33,6 +33,10 @@ class UpdateUser
                 $user->password = bcrypt($password);
             }
 
+            if ($role_id != 3) {
+                $user->company()->update(['user_id' => null]);
+            }
+
             $user->save();
 
             return [

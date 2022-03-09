@@ -46,7 +46,7 @@ const ManageCV = () => {
 
   const { data, loading, refetch } = useQuery<DataQuery>(FETCH_ALL_CV_APPLIED, {
     variables: {
-      company: userLoggedIn?.company?.id,
+      companyId: userLoggedIn?.company?.id,
       page: page,
     },
     fetchPolicy: "network-only",
@@ -55,6 +55,10 @@ const ManageCV = () => {
   const { data: dataUser, refetch: refetchUser } = useQuery<DataUserDetail>(
     FETCH_USER_DETAIL_MANAGER,
     {
+      variables: {
+        id: userLoggedIn?.id,
+      },
+      skip: !userLoggedIn?.id,
       fetchPolicy: "network-only",
       nextFetchPolicy: "cache-and-network",
     }

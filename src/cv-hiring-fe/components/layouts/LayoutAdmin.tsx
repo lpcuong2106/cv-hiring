@@ -24,11 +24,11 @@ const LayoutAdmin = ({ children }: Props) => {
           minHeight: 280,
         }}
       >
-        <Breadcrumb style={{ margin: "16px 0" }}>
+        {/* <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>
             <Link href={"/quan-tri"}>Trang chủ</Link>
           </Breadcrumb.Item>
-        </Breadcrumb>
+        </Breadcrumb> */}
         <div>{children}</div>
       </Content>
     </Layout>
