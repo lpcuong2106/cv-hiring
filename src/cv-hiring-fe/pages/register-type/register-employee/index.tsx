@@ -11,7 +11,10 @@ import Head from "next/head";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { FormItemInput } from "../../../components/FormItem";
 import { useAuth } from "../../../components/AuthProvider";
-import { setUserLoggedIn } from "../../../store/features/userSlideder";
+import {
+  setLoggedIn,
+  setUserLoggedIn,
+} from "../../../store/features/userSlideder";
 import { useAppDispatch } from "../../../store/hook";
 
 const validationSchema = Yup.object().shape({
@@ -31,7 +34,7 @@ const validationSchema = Yup.object().shape({
 
 const Register = () => {
   const [registerUser, { data, loading, error }] = useMutation(REGISTER_USER);
-  const auth = useAuth();
+  // const auth = useAuth();
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -52,8 +55,9 @@ const Register = () => {
 
       if (data.registerUser?.token) {
         localStorage.setItem("token", data.registerUser?.token);
-        auth.setIsLogged(true);
+        // auth.setIsLogged(true);
         dispatch(setUserLoggedIn(data.registerUser?.user));
+        dispatch(setLoggedIn(true));
         message.success("Đăng ký thành công!");
         router.push("/");
       } else {

@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import style from "./style.module.scss";
 import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
@@ -8,7 +8,6 @@ import { LOGIN_USER } from "./QueryData";
 import { Button, message } from "antd";
 import Router from "next/router";
 import Head from "next/head";
-import { useAuth } from "../../components/AuthProvider";
 import { FormItemInput } from "../../components/FormItem";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../../store/hook";
@@ -28,7 +27,7 @@ const validationSchema = Yup.object().shape({
 
 const Login = () => {
   const [login, { loading, error }] = useMutation(LOGIN_USER);
-  const auth = useAuth();
+  // const auth = useAuth();
   const dispatch = useAppDispatch();
   const form = useFormik({
     initialValues: {
@@ -42,7 +41,7 @@ const Login = () => {
 
       if (data && data.login?.token) {
         localStorage.setItem("token", data.login?.token);
-        auth.setIsLogged(true);
+        // auth.setIsLogged(true);
         dispatch(setUserLoggedIn(data.login.user));
         dispatch(setLoggedIn(true));
         message.success("Đăng nhập thành công!");

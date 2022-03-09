@@ -5,7 +5,6 @@ import { Menu } from "antd";
 import Link from "next/link";
 import styles from "./style.module.scss";
 import { Container } from "react-bootstrap";
-import { useAuth } from "../AuthProvider";
 import { useRouter } from "next/router";
 import { DownOutlined } from "@ant-design/icons";
 import { useAppSelector, useAppDispatch } from "../../store/hook";
@@ -15,7 +14,7 @@ import {
 } from "../../store/features/userSlideder";
 
 function HeaderNav() {
-  const auth = useAuth();
+  // const auth = useAuth();
   const userLoggedIn = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -69,7 +68,7 @@ function HeaderNav() {
             <Link href={"/"}>
               <a>
                 <img
-                  src={"./logo.png"}
+                  src={"/logo.png"}
                   alt="TopCV tuyen dung tai TopCV"
                   title="TopCV tuyển dụng tại TopCV"
                   width={100}

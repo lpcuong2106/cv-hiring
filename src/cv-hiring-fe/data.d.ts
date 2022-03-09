@@ -87,9 +87,3 @@ export type Role = {
   name: string;
   users: User[];
 };
-
-export enum RoleEnum {
-  ADMIN = "admin",
-  HR = "hr",
-  USER = "user",
-}

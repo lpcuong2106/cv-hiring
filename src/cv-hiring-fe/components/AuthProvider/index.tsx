@@ -3,12 +3,14 @@ import Router, { useRouter } from "next/router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { User } from "../../data";
 import { FETCH_USER_LOGIN } from "../../GraphQL/Query/FetchData";
+import { useRedirect } from "../../hooks/useRedirect";
 import {
   setLoggedIn,
   setUserLoggedIn,
 } from "../../store/features/userSlideder";
 import { useAppDispatch, useAppSelector } from "../../store/hook";
 import { LoadingApp } from "../LoadingApp";
+import NotFound from "../NotFound";
 
 export const AuthContext = createContext<{
   isLogged: boolean;
@@ -29,19 +31,22 @@ export const AuthProvider = ({ children }: AuxProps) => {
   const { data, loading, error } = useQuery(FETCH_USER_LOGIN);
   const [isLogged, setIsLogged] = useState(false);
   const dispatch = useAppDispatch();
+  const shouldRedirect = useRedirect();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token && data?.me) {
-      // setUser(data?.me);
-      // setIsLogged(true);
       dispatch(setUserLoggedIn(data.me));
       dispatch(setLoggedIn(true));
     }
   }, [data]);
+  useAuth();
 
   if (loading || error) {
     return <LoadingApp />;
+  }
+  if (shouldRedirect) {
+    return <NotFound />;
   }
 
   return (
@@ -54,27 +59,15 @@ export const AuthProvider = ({ children }: AuxProps) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   const userLoggedIn = useAppSelector((state) => state.user);
-  const protectedRoute = ["/login", "/register"];
-  const protectedAcceptRoute = [
-    "/viec-lam/ung-tuyen",
-    "/quan-tri",
-    "/quan-tri/tuyen-dung",
-    "/quan-tri/cong-ty",
-  ];
+  // da dang nhap => khong vao duoc login, reigster
+  const protectedRoute = ["/login", "/register-type"];
   const router = useRouter();
 
   useEffect(() => {
     if (userLoggedIn.isLoggedIn && protectedRoute.includes(router.asPath)) {
       Router.replace("/");
     }
-    // console.log("chjay day", router);
-    // if (
-    //   (!context.isLogged || userLoggedIn.user?.role.name !== "admin") &&
-    //   protectedAcceptRoute.includes(router.asPath)
-    // ) {
-    //   Router.replace("/404");
-    // }
-  }, [context, userLoggedIn]);
+  }, [userLoggedIn]);
 
   return context;
 };

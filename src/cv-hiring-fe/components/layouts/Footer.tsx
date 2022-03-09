@@ -94,7 +94,7 @@ function Footer() {
               </a>
             </div>
             <img
-              src={"./logo.png"}
+              src={"/logo.png"}
               alt="TopCV tuyen dung tai TopCV"
               title="TopCV tuyển dụng tại TopCV"
               width={100}

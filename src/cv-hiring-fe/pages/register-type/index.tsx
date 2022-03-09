@@ -9,7 +9,7 @@ import Check from "./check.png";
 import Image from "next/image";
 import { useRouter } from "next/router";
 const Register = () => {
-  useAuth();
+  // useAuth();
   const router = useRouter();
   return (
     <Layout>
