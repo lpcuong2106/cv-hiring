@@ -205,7 +205,7 @@ const WorkJob: NextPage = () => {
                   <div className={style.detailJob}>
                     <Row style={{ marginTop: "24px" }}>
                       <JobInfoRequirement
-                        label="Mức lương"
+                        label="Mức lương (tr/tháng)"
                         value={workJob?.salary ?? ""}
                       />
                       <JobInfoRequirement

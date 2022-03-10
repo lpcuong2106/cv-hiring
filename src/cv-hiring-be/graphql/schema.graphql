@@ -49,6 +49,7 @@ type Query {
 
     # admin page
     analystWorkJob(companyId: ID): AnalystWorkJob @guard
+    analystTrend: AnalystTrend
     workJobByCompany(companyId: ID, page: Int): WorkJobPaginator @guard
     hrUnManage: [User!]! @guard
 }
@@ -102,4 +103,13 @@ type Province implements Modal {
 type ResponseExecute {
     status: String
     message: String
+}
+
+type AnalystTrend {
+    category: [CategoryAnalyst!]!
+}
+
+type CategoryAnalyst {
+    name: String!
+    amountJob: Int!
 }

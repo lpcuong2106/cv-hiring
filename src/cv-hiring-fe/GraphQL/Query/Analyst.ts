@@ -10,3 +10,14 @@ export const ANALYST_ADMIN = gql`
     }
   }
 `;
+
+export const ANALYST_TRENDING = gql`
+  query analyst_trending {
+    analystTrend {
+      category {
+        name
+        amountJob
+      }
+    }
+  }
+`;

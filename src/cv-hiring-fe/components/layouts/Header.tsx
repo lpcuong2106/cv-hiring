@@ -89,7 +89,11 @@ function HeaderNav() {
                   <a>Việc làm</a>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3">Công cụ</Menu.Item>
+              <Menu.Item key="3">
+                <Link href={"/xu-huong"}>
+                  <a>Xu hướng tuyển dụng</a>
+                </Link>
+              </Menu.Item>
             </Menu>
           </Col>
           <Col span={6}>

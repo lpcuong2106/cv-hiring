@@ -212,28 +212,10 @@ const FormEditWorkJob = ({
       </Col>
       <Col md={8}>
         <AdminInput
-          label="Kiểu lương"
+          label="Lương (tr/tháng)"
           Icon={<EditSettings width={16} />}
           name="salary"
-          mode="select"
-          options={[
-            {
-              label: "Chọn kiểu lương",
-              value: null,
-            },
-            {
-              label: "Từ",
-              value: "2",
-            },
-            {
-              label: "Đến",
-              value: "3",
-            },
-            {
-              label: "Thỏa thuận",
-              value: "Thỏa thuận",
-            },
-          ]}
+          mode="input"
           //   @ts-ignore
           value={formikProps.values.salary}
         />
