@@ -88,3 +88,12 @@ export type Role = {
   name: string;
   users: User[];
 };
+export type Setting = {
+  id: number;
+  title_web: string;
+  description: string;
+  logo_url: string;
+  fb_url: string;
+  youtube_url: string;
+  phone_contact: string;
+};

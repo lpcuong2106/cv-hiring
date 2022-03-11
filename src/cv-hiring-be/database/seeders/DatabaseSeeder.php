@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             UserSeeder::class,
             WorkCategorySeeder::class,
-            WorkJobSeeder::class
+            WorkJobSeeder::class,
+            SeetingSeeder::class
         ]);
     }
 }

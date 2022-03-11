@@ -16,6 +16,10 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('title_web');
+            $table->text('description');
+            $table->string('logo_url');
+            $table->string('fb_url');
+            $table->string('youtube_url');
             $table->string('phone_contact');
             $table->timestamps();
         });

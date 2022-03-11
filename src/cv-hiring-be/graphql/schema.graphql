@@ -52,6 +52,7 @@ type Query {
     analystTrend: AnalystTrend
     workJobByCompany(companyId: ID, page: Int): WorkJobPaginator @guard
     hrUnManage: [User!]! @guard
+    settingWebsite: Setting @first
 }
 
 type Mutation {
@@ -92,6 +93,8 @@ type Mutation {
 
     removeCategory(id: ID!): ResponseExecute
     updateWorkCategory(id: ID!, name: String!): ResponseExecute
+
+    updateSetting(input: SettingInput): ResponseExecute
 }
 
 interface Modal {
@@ -101,6 +104,26 @@ interface Modal {
 type Province implements Modal {
     id: ID!
     name: String
+}
+
+type Setting implements Modal {
+    id: ID
+    title_web: String
+    description: String
+    logo_url: String
+    fb_url: String
+    youtube_url: String
+    phone_contact: String
+}
+
+input SettingInput {
+    id: ID
+    title_web: String
+    description: String
+    logo_url: String
+    fb_url: String
+    youtube_url: String
+    phone_contact: String
 }
 
 type ResponseExecute {

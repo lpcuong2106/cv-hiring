@@ -115,6 +115,11 @@ const SidebarAdmin = () => {
                   <a type="link">Người dùng</a>
                 </Link>
               </Menu.Item>
+              <Menu.Item key="9" icon={<UserOutlined />}>
+                <Link href="/quan-tri/cai-dat">
+                  <a type="link">Cài đặt</a>
+                </Link>
+              </Menu.Item>
             </>
           )}
 

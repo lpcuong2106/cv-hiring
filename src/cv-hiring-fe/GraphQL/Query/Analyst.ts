@@ -21,3 +21,17 @@ export const ANALYST_TRENDING = gql`
     }
   }
 `;
+
+export const FETCH_SETTING = gql`
+  query settingWebsite {
+    settingWebsite {
+      id
+      title_web
+      description
+      logo_url
+      fb_url
+      youtube_url
+      phone_contact
+    }
+  }
+`;
