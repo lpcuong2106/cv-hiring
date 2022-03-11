@@ -21,6 +21,10 @@ export const RedirectRules: IRedirectRules[] = [
     only: [RoleEnum.HR, RoleEnum.ADMIN, RoleEnum.USER],
   },
   {
+    route: { path: "/viec-lam/nganh-nghe" },
+    only: [RoleEnum.ADMIN],
+  },
+  {
     route: { path: "/viec-lam/ung-tuyen" },
     only: [RoleEnum.USER],
   },

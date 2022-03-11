@@ -13,7 +13,7 @@ import {
 import { Sketch } from "@styled-icons/boxicons-logos/Sketch";
 import { News } from "@styled-icons/boxicons-regular/News";
 import { Dashboard } from "@styled-icons/material/Dashboard";
-
+import { LayerGroup } from "@styled-icons/fa-solid/LayerGroup";
 const SidebarAdmin = () => {
   const [collapsed, setColappsed] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState(["1"]);
@@ -49,6 +49,9 @@ const SidebarAdmin = () => {
         break;
       case "/quan-tri/nguoi-dung":
         setSelectedKeys(["7"]);
+        break;
+      case "/quan-tri/nganh-nghe":
+        setSelectedKeys(["8"]);
         break;
       default:
         setSelectedKeys(["1"]);
@@ -100,6 +103,11 @@ const SidebarAdmin = () => {
               <Menu.Item key="3" icon={<Sketch width={14} />}>
                 <Link href="/quan-tri/cong-ty">
                   <a type="link">Công ty</a>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="8" icon={<LayerGroup width={14} />}>
+                <Link href="/quan-tri/nganh-nghe">
+                  <a type="link">Ngành nghề</a>
                 </Link>
               </Menu.Item>
               <Menu.Item key="7" icon={<UserOutlined />}>

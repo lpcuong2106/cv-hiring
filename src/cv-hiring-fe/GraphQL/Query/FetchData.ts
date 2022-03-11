@@ -61,6 +61,17 @@ export const FETCH_ALL_PROVINCE_CATEGORY = gql`
   }
 `;
 
+export const FETCH_ALL_CATEGORY = gql`
+  query FetchAllCategory {
+    workCategories {
+      id
+      name
+      workJob {
+        id
+      }
+    }
+  }
+`;
 export const FETCH_HOME_PAGE = gql`
   query FetchHomePage {
     workCategories {

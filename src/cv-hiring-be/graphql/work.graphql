@@ -1,6 +1,7 @@
 type WorkCategory {
     id: ID!
     name: String
+    workJob: [WorkJob!]!
 }
 
 type WorkJob implements Modal {

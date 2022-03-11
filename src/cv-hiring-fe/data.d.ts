@@ -1,6 +1,7 @@
 export type WorkCategory = {
   id: string;
   name: string;
+  workJob: WorkJob[];
 };
 export type Province = {
   id: string;

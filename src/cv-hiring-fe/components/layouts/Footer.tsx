@@ -49,7 +49,7 @@ function Footer() {
             <b>Kết nối với chúng tôi</b>
             <div className="flex">
               <a
-                href="https://www.facebook.com/fanvieclam24h"
+                href="https://www.facebook.com/sanketnoivieclam"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -69,7 +69,7 @@ function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.youtube.com/channel/UCbR8sMm4gS10B9iTRD-_xaw"
+                href="https://www.youtube.com/channel/UCGKj3PgO2U4XGKdCPCiwraA"
                 target="_blank"
                 rel="noreferrer"
               >
