@@ -9,7 +9,6 @@ import { LoadingApp } from "../../../components/LoadingApp";
 import Link from "next/link";
 import { Company, PaginatorInfo } from "../../../data";
 import { ColumnsType } from "antd/lib/table";
-import { useAppSelector } from "../../../store/hook";
 import { FETCH_ALL_COMPANY_MANAGE } from "../../../GraphQL/Query/Comapany";
 import { Edit } from "styled-icons/boxicons-regular";
 import { Trash } from "styled-icons/bootstrap";
@@ -185,6 +184,7 @@ const ManageCompany = () => {
       ) : (
         <div className="site-statistic-demo-card">
           <h1>Danh sách công ty</h1>
+
           <div className={style.actionAdd}>
             <Link href={"/quan-tri/cong-ty/them-moi"}>
               <Button type="primary">Thêm mới</Button>

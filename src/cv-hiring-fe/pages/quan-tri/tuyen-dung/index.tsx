@@ -210,11 +210,13 @@ const AppliedCVManage = () => {
       ) : (
         <div className="site-statistic-demo-card">
           <h1>Tin tuyển dụng</h1>
-          <div className={style.actionAdd}>
-            <Link href={"/quan-tri/tuyen-dung/them-moi"}>
-              <Button type="primary">Thêm mới</Button>
-            </Link>
-          </div>
+          {userLoggedIn?.role.name !== "admin" && (
+            <div className={style.actionAdd}>
+              <Link href={"/quan-tri/tuyen-dung/them-moi"}>
+                <Button type="primary">Thêm mới</Button>
+              </Link>
+            </div>
+          )}
 
           <Row gutter={16}>
             <Col span={24} className={style.statistic}>
