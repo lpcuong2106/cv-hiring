@@ -91,6 +91,7 @@ type Mutation {
 
     updateWorkApply(id: ID!, status: Int): ResponseExecute
 
+    createWorkCategory(name: String!): ResponseExecute
     removeCategory(id: ID!): ResponseExecute
     updateWorkCategory(id: ID!, name: String!): ResponseExecute
 

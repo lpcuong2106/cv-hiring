@@ -2,55 +2,30 @@ import React, { useState } from "react";
 import { Row, Col, Card, message } from "antd";
 import style from "../../thong-tin-cong-ty/style.module.scss";
 import Head from "next/head";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import { ModeView } from "../../thong-tin-cong-ty";
 import LayoutAdmin from "../../../../components/layouts/LayoutAdmin";
-import { LoadingApp } from "../../../../components/LoadingApp";
 import { WorkCategory } from "../../../../data";
-import { useAppSelector } from "../../../../store/hook";
-import { FETCH_CATEGORY_DETAIL } from "../../../../GraphQL/Query/WorkCategory";
 
 import BackButton from "../../../../components/BackButton";
-import NotFound from "../../../../components/NotFound";
-import FormEditCategory from "./FormEditCategory";
-import { UPDATE_CATEGORY } from "../../../../GraphQL/Mutation/UpdateCategory";
 import * as Yup from "yup";
-interface DataQuery {
-  categoryDetail: WorkCategory;
-}
+import FormEditCategory from "../[id]/FormEditCategory";
+import { CREATE_CATEGORY } from "../../../../GraphQL/Mutation/CreateCategory";
+
 export const validationSchemaCategory = Yup.object().shape({
-  id: Yup.number().required(),
   name: Yup.string()
     .min(4, "Tên ngành nghề ít nhất 4 kí tự")
     .required("Tên ngành nghề là bắt buộc"),
 });
 
-const ManageCategoryDetail = () => {
+const ManageAddCategoryDetail = () => {
   const router = useRouter();
-  const {
-    data,
-    loading,
-    refetch: refetchCompanyInfo,
-  } = useQuery<DataQuery>(FETCH_CATEGORY_DETAIL, {
-    variables: {
-      id: router.query.id,
-    },
-    skip: !router.query.id,
-    fetchPolicy: "network-only",
-    nextFetchPolicy: "cache-and-network",
-  });
-  const [updateCategoryDetail, { loading: loadingSubmit }] =
-    useMutation(UPDATE_CATEGORY);
+
+  const [createWorkCategory, { loading: loadingSubmit }] =
+    useMutation(CREATE_CATEGORY);
   const [mode, setMode] = useState<ModeView>("view");
-  const categoryDetail = data?.categoryDetail;
-  if (loading) {
-    return <LoadingApp />;
-  }
-  if (!categoryDetail) {
-    return <NotFound />;
-  }
 
   return (
     <LayoutAdmin>
@@ -66,29 +41,28 @@ const ManageCategoryDetail = () => {
               <div>
                 <Formik
                   initialValues={{
-                    id: categoryDetail.id,
-                    name: categoryDetail.name,
+                    name: "",
                   }}
                   validationSchema={validationSchemaCategory}
                   onSubmit={async (values) => {
-                    const { data } = await updateCategoryDetail({
+                    const { data } = await createWorkCategory({
                       variables: values,
                     });
 
-                    if (data.updateWorkCategory.status === "ERROR") {
-                      message.error(data.updateWorkCategory.message);
+                    if (data?.createWorkCategory.status === "ERROR") {
+                      message.error(data.createWorkCategory.message);
                       return;
                     }
-                    message.success(data.updateWorkCategory.message);
-                    await refetchCompanyInfo();
-                    setMode("view");
+                    message.success(data?.createWorkCategory.message);
+                    router.push("/quan-tri/nganh-nghe");
+                    return;
                   }}
                 >
                   {({ handleSubmit }) => (
                     <Form onSubmit={handleSubmit}>
                       <FormEditCategory
                         loadingSubmit={loadingSubmit}
-                        mode={mode}
+                        mode="create"
                         setMode={setMode}
                       />
                     </Form>
@@ -103,4 +77,4 @@ const ManageCategoryDetail = () => {
   );
 };
 
-export default ManageCategoryDetail;
+export default ManageAddCategoryDetail;

@@ -9,7 +9,6 @@ import { LoadingApp } from "../../../components/LoadingApp";
 import Link from "next/link";
 import { Company, PaginatorInfo } from "../../../data";
 import { ColumnsType } from "antd/lib/table";
-import { RESUME_HIRING_JOB } from "../../../GraphQL/Mutation/StatusHiringWorkJob";
 import { useAppSelector } from "../../../store/hook";
 import { FETCH_ALL_COMPANY_MANAGE } from "../../../GraphQL/Query/Comapany";
 import { Edit } from "styled-icons/boxicons-regular";
@@ -63,7 +62,6 @@ export const validationSchemaWorkJob = Yup.object().shape({
 
 const ManageCompany = () => {
   const [page, setPage] = useState(1);
-  const userLoggedIn = useAppSelector((state) => state.user.user);
 
   const { data, loading, refetch } = useQuery<DataQuery>(
     FETCH_ALL_COMPANY_MANAGE,

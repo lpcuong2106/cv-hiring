@@ -9,7 +9,12 @@ class WorkCategory extends Model
 {
     use HasFactory;
 
-    public function workJob(){
+    protected $fillable = [
+        'name'
+    ];
+
+    public function workJob()
+    {
         return $this->hasMany(WorkJob::class);
     }
 }

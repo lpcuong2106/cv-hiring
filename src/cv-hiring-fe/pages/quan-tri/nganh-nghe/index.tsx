@@ -126,7 +126,11 @@ const ManageWorkCategory = () => {
 
       <div className="site-statistic-demo-card">
         <h1>Quản lý ngành nghề</h1>
-
+        <div className={style.actionAdd}>
+          <Link href={"/quan-tri/nganh-nghe/them-moi"}>
+            <Button type="primary">Thêm mới</Button>
+          </Link>
+        </div>
         {loading || !workCategories ? (
           <LoadingApp />
         ) : (
