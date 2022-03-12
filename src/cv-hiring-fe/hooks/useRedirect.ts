@@ -15,6 +15,10 @@ interface IRedirectRules {
   only?: RoleEnum[];
 }
 export const RedirectRules: IRedirectRules[] = [
+  {
+    route: { path: "/quan-tri/tuyen-dung/them-moi" },
+    only: [RoleEnum.HR],
+  },
   { route: { path: "/quan-tri" }, only: [RoleEnum.HR, RoleEnum.ADMIN] },
   {
     route: { path: "/ca-nhan" },
@@ -42,7 +46,11 @@ export const useRedirect = () => {
 
     const shoudRedirect =
       routeWithRule?.only && routeWithRule.only?.indexOf(role) == -1;
-    console.log(routeWithRule?.only?.indexOf(role), shoudRedirect);
+    console.log(
+      routeWithRule,
+      routeWithRule?.only?.indexOf(role),
+      shoudRedirect
+    );
     if (shoudRedirect) {
       setShoudRedirect(true);
     } else {
