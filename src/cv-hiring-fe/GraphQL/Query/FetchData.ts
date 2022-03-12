@@ -30,6 +30,15 @@ export const FETCH_USER_LOGIN = gql`
         amount_job_hiring
       }
     }
+    settingWebsite {
+      id
+      title_web
+      description
+      logo_url
+      fb_url
+      youtube_url
+      phone_contact
+    }
   }
 `;
 export const FETCH_PROFILE = gql`

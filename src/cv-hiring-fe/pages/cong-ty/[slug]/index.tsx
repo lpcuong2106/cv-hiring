@@ -119,11 +119,6 @@ const Company: NextPage = () => {
                               </a>
                             </p>
 
-                            <Button type="primary" style={{ marginRight: 20 }}>
-                              <EyeShow width={16} />
-                              Theo dõi
-                            </Button>
-
                             <FacebookShareButton
                               url={window.location.href}
                               quote="hihi"
@@ -172,9 +167,6 @@ const Company: NextPage = () => {
                           updatedAt={job.updated_at}
                         />
                       ))}
-                    </TabPane>
-                    <TabPane tab="Đánh giá" key="3">
-                      Content of Tab Pane 3
                     </TabPane>
                   </Tabs>
                 </div>

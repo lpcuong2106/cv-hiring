@@ -1,14 +1,16 @@
-import { User } from "./../../data.d";
+import { Setting, User } from "./../../data.d";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
   user: User | null;
   isLoggedIn: boolean;
+  setting?: Setting;
 }
 
 const initialState: UserState = {
   user: null,
   isLoggedIn: false,
+  setting: undefined,
 };
 
 export const userSlider = createSlice({
@@ -21,8 +23,12 @@ export const userSlider = createSlice({
     setLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
     },
+    setSettingWebsite: (state, action: PayloadAction<Setting>) => {
+      state.setting = action.payload;
+    },
   },
 });
 
-export const { setUserLoggedIn, setLoggedIn } = userSlider.actions;
+export const { setUserLoggedIn, setLoggedIn, setSettingWebsite } =
+  userSlider.actions;
 export default userSlider.reducer;

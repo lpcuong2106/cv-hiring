@@ -6,6 +6,7 @@ import { FETCH_USER_LOGIN } from "../../GraphQL/Query/FetchData";
 import { useRedirect } from "../../hooks/useRedirect";
 import {
   setLoggedIn,
+  setSettingWebsite,
   setUserLoggedIn,
 } from "../../store/features/userSlideder";
 import { useAppDispatch, useAppSelector } from "../../store/hook";
@@ -37,6 +38,7 @@ export const AuthProvider = ({ children }: AuxProps) => {
     const token = localStorage.getItem("token");
     if (token && data?.me) {
       dispatch(setUserLoggedIn(data.me));
+      dispatch(setSettingWebsite(data.settingWebsite));
       dispatch(setLoggedIn(true));
     }
   }, [data]);

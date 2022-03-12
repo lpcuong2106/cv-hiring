@@ -53,6 +53,9 @@ const SidebarAdmin = () => {
       case "/quan-tri/nganh-nghe":
         setSelectedKeys(["8"]);
         break;
+      case "/quan-tri/cai-dat":
+        setSelectedKeys(["9"]);
+        break;
       default:
         setSelectedKeys(["1"]);
         break;

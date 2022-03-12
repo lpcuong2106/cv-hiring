@@ -87,7 +87,13 @@ const ManageDashboard = () => {
 
             <Col span={12} className={style.statistic}>
               <Card className={style.profile}>
-                <img src={userLoggedIn?.avatar || "/avatarDefault.png"} />
+                <img
+                  src={userLoggedIn?.avatar || "/avatarDefault.png"}
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src = "/avatarDefault.png";
+                  }}
+                />
                 <div>
                   <p>
                     <b>

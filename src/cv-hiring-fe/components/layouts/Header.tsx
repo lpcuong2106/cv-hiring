@@ -21,9 +21,6 @@ function HeaderNav() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    // auth.setIsLogged(false);
-
-    // auth.user = null;
     // @ts-ignore
     dispatch(setUserLoggedIn(null));
     dispatch(setLoggedIn(false));
@@ -68,9 +65,9 @@ function HeaderNav() {
             <Link href={"/"}>
               <a>
                 <img
-                  src={"/logo.png"}
-                  alt="TopCV tuyen dung tai TopCV"
-                  title="TopCV tuyển dụng tại TopCV"
+                  src={userLoggedIn.setting?.logo_url}
+                  alt={userLoggedIn.setting?.title_web}
+                  title={userLoggedIn.setting?.title_web}
                   width={100}
                   className={styles.logoImg}
                 />
