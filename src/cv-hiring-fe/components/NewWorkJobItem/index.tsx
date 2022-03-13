@@ -41,7 +41,7 @@ function NewWorkJobItem({
             </Link>
           </p>
           <Tag color="orange">{provinceName}</Tag>
-          <Tag color="success">{salary}</Tag>
+          <Tag color="success">{salary} (tr/tháng)</Tag>
           <Tag color="magenta">
             {format(
               parse(deadlineDate, "yyyy-MM-dd HH:m:s", new Date()),

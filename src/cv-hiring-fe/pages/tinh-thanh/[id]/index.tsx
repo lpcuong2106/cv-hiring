@@ -81,8 +81,8 @@ const Province: NextPage = () => {
                   <Row>
                     <Col sm={18}>
                       {workJobOfProvince?.data?.length ? (
-                        workJobOfProvince.data.map((job) => (
-                          <>
+                        <>
+                          {workJobOfProvince.data.map((job) => (
                             <JobItem
                               companySlug={job.company.slug}
                               slug={job.slug}
@@ -94,16 +94,16 @@ const Province: NextPage = () => {
                               logoUrl={job.company.logo}
                               updatedAt={job.updated_at}
                             />
-                            <Pagination
-                              total={workJobOfProvince?.paginatorInfo.total}
-                              pageSize={10}
-                              current={page}
-                              itemRender={itemRender}
-                              className={style.pagination}
-                              onChange={changePagination}
-                            />
-                          </>
-                        ))
+                          ))}
+                          <Pagination
+                            total={workJobOfProvince?.paginatorInfo.total}
+                            pageSize={10}
+                            current={page}
+                            itemRender={itemRender}
+                            className={style.pagination}
+                            onChange={changePagination}
+                          />
+                        </>
                       ) : (
                         <NotFoundJob />
                       )}

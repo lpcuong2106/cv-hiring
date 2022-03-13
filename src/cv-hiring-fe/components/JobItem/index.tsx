@@ -51,7 +51,7 @@ function JobItem({
               <a>{companyName}</a>
             </Link>
           </p>
-          <Tag color="success">{salary}</Tag>
+          <Tag color="success">{salary} (tr/tháng)</Tag>
           <Tag color="orange">{provinceName}</Tag>
           <Tag color="magenta">
             {formatDistance(

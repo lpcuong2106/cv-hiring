@@ -1,4 +1,4 @@
-import { Col, Row, Card, Button, Modal, Tabs, Tooltip } from "antd";
+import { Col, Row, Button, Tabs, Tooltip } from "antd";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Container } from "react-bootstrap";
@@ -6,7 +6,6 @@ import Layout from "../../../components/layouts";
 import style from "./style.module.scss";
 import { TimeSlot } from "@styled-icons/entypo/TimeSlot";
 import { Clock } from "@styled-icons/bootstrap/Clock";
-import { Eye } from "@styled-icons/bootstrap/Eye";
 import { JobInfoRequirement } from "../../../components/JobInfoRequirement";
 import { useQuery } from "@apollo/client";
 import {
@@ -20,10 +19,9 @@ import { useRouter } from "next/router";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import { FacebookShareButton, FacebookShareCount } from "react-share";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import ApplyCVModal from "../../../components/ApplyCVModal";
 import Link from "next/link";
-import { AuthContext } from "../../../components/AuthProvider";
 import { formatTypeWorkJob } from "../../../utils/formatTypeWorkJob";
 import { useAppSelector } from "../../../store/hook";
 import NotFound from "../../../components/NotFound";
