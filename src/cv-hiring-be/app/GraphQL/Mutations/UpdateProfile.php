@@ -26,8 +26,11 @@ class UpdateProfile
             $avatar =  isset($args["input"]["avatar"]) ? $args["input"]["avatar"] : null;
 
             $userCurrent = Auth::user();
-            $path = Storage::putFile('public/avatars', $avatar);
 
+            if (isset($avatar)) {
+                $path = Storage::putFile('public/avatars', $avatar);
+                $userCurrent->avatar = $path;
+            }
             if (isset($userCurrent)) {
                 $userCurrent->lastname = $lastname;
                 $userCurrent->firstname = $firstname;
@@ -35,7 +38,7 @@ class UpdateProfile
                 $userCurrent->phone = $phone;
                 $userCurrent->birthday = $birthday;
                 $userCurrent->gender = $gender;
-                $userCurrent->avatar = $path;
+
 
                 $userCurrent->save();
             }
