@@ -21,6 +21,7 @@ class CreateSettingsTable extends Migration
             $table->string('fb_url');
             $table->string('youtube_url');
             $table->string('phone_contact');
+            $table->unsignedInteger('price_job')->default(0);
             $table->timestamps();
         });
     }

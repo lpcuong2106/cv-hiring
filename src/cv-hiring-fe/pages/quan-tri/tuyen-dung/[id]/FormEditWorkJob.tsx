@@ -60,7 +60,6 @@ const FormEditWorkJob = ({
         />
       </Col>
       <Col md={24}>
-        {/* @ts-ignore */}
         <AdminInput
           name="work_category_id"
           label="Ngành nghề & Lĩnh vực"

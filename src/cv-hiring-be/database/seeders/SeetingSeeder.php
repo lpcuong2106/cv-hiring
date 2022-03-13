@@ -21,6 +21,7 @@ class SeetingSeeder extends Seeder
             'fb_url' => 'https://www.facebook.com/sanketnoivieclam',
             'youtube_url' => 'https://www.youtube.com/channel/UCGKj3PgO2U4XGKdCPCiwraA',
             'phone_contact' => '0349265776',
+            'price_job' => 10
         ]);
     }
 }

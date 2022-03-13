@@ -18,6 +18,7 @@ class UpdateUser
             $id = $args['input']['id'];
             $role_id = isset($args["input"]["role_id"]) ? $args["input"]["role_id"] : null;
             $password =  isset($args["input"]["password"]) ? $args["input"]["password"] : null;
+            $coin =  isset($args["input"]["coin"]) ? $args["input"]["coin"] : null;
             $userCurrent = Auth::user()->id;
             if ($userCurrent == $id) {
                 return [
@@ -28,6 +29,7 @@ class UpdateUser
             // TODO implement the resolver
             $user = User::findOrFail($id);
             $user->role_id = $role_id;
+            $user->coin = $coin;
 
             if ($password) {
                 $user->password = bcrypt($password);

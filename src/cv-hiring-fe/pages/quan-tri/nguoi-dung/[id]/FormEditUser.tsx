@@ -13,6 +13,7 @@ interface FormValue {
   password: string;
   role_id: string;
   company_id: string;
+  coin: number;
 }
 interface Props {
   loadingSubmit: boolean;
@@ -76,6 +77,22 @@ const FormEditUser = ({ loadingSubmit, mode = "create", setMode }: Props) => {
               value: "2",
             },
           ]}
+        />
+      </Col>
+
+      <Col md={24}>
+        <AdminInput
+          label="Coin"
+          // @ts-ignore
+          type="number"
+          Icon={<EditSettings width={16} />}
+          name="coin"
+          mode="input"
+          min={0}
+          disabled={isView}
+          placeholder="Nhập số coin"
+          //   @ts-ignore
+          value={formikProps.values.coin}
         />
       </Col>
 

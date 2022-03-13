@@ -55,6 +55,18 @@ const FormEditSetting = ({
       </Col>
       <Col md={24}>
         <AdminInput
+          label="Chi phí coin/1 tin đăng tuyển dụng"
+          Icon={<EditSettings width={16} />}
+          name="price_job"
+          mode="number"
+          disabled={isView}
+          placeholder="Chi phí coin/1 tin đăng tuyển dụng"
+          //   @ts-ignore
+          value={formikProps.values.price_job}
+        />
+      </Col>
+      <Col md={24}>
+        <AdminInput
           label="Logo website"
           Icon={<EditSettings width={16} />}
           name="logo_url"

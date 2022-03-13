@@ -24,6 +24,9 @@ const validationSchemaUser = Yup.object().shape({
   id: Yup.number().required(),
   password: Yup.string().min(8, "Mật khẩu ít nhất 8 kí tự"),
   role_id: Yup.number().required("Vui lòng chọn vai trò"),
+  coin: Yup.number()
+    .min(0, "Số coin tối thiểu là 0")
+    .required("Vui lòng nhập coin"),
 });
 
 const ManageUserDetail = () => {
@@ -63,6 +66,7 @@ const ManageUserDetail = () => {
                       password: "",
                       role_id: user.role.id,
                       company_id: user.company?.id,
+                      coin: user.coin,
                     }}
                     validationSchema={validationSchemaUser}
                     onSubmit={async (values) => {
@@ -71,6 +75,7 @@ const ManageUserDetail = () => {
                           id: values.id,
                           password: values.password || null,
                           role_id: values.role_id,
+                          coin: values.coin,
                         },
                       });
 

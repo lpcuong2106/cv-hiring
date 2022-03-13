@@ -75,6 +75,7 @@ export type User = {
   address: string;
   email: string;
   phone: string;
+  coin: number;
   birthday: string;
   created_at: string;
   gender: "male" | "female";
@@ -96,4 +97,5 @@ export type Setting = {
   fb_url: string;
   youtube_url: string;
   phone_contact: string;
+  price_job: number;
 };

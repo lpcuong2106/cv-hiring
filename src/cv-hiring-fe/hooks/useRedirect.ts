@@ -39,6 +39,7 @@ export const useRedirect = () => {
   const role = userLoggedIn.user?.role.name as RoleEnum;
   const { pathname } = useRouter();
   const [shouldRedirect, setShoudRedirect] = useState(false);
+
   useEffect(() => {
     const routeWithRule = RedirectRules.find((rule) =>
       pathname.includes(rule.route.path)

@@ -9,6 +9,7 @@ export const UPDATE_SETTING = gql`
     $fb_url: String
     $youtube_url: String
     $phone_contact: String
+    $price_job: Int
   ) {
     updateSetting(
       input: {
@@ -19,6 +20,7 @@ export const UPDATE_SETTING = gql`
         fb_url: $fb_url
         youtube_url: $youtube_url
         phone_contact: $phone_contact
+        price_job: $price_job
       }
     ) {
       status

@@ -1,6 +1,6 @@
 import React from "react";
 import LayoutAdmin from "../../components/layouts/LayoutAdmin";
-import { Row, Col, Card, Statistic } from "antd";
+import { Row, Col, Card, Statistic, Tag } from "antd";
 import style from "./style.module.scss";
 import Head from "next/head";
 import { useQuery } from "@apollo/client";
@@ -87,24 +87,32 @@ const ManageDashboard = () => {
 
             <Col span={12} className={style.statistic}>
               <Card className={style.profile}>
-                <img
-                  src={userLoggedIn?.avatar || "/avatarDefault.png"}
-                  onError={({ currentTarget }) => {
-                    currentTarget.onerror = null; // prevents looping
-                    currentTarget.src = "/avatarDefault.png";
-                  }}
-                />
-                <div>
-                  <p>
-                    <b>
-                      {userLoggedIn?.lastname + " " + userLoggedIn?.firstname}
-                    </b>
-                  </p>
-                  {userLoggedIn?.role.name !== "admin" && (
-                    <span>Mã DN: #ID_{userLoggedIn?.company?.id} |</span>
-                  )}{" "}
-                  {userLoggedIn?.email} |
-                  <p>SĐT: {userLoggedIn?.phone || "Chưa có thông tin"}</p>
+                <div className={style.info}>
+                  <img
+                    src={userLoggedIn?.avatar || "/avatarDefault.png"}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src = "/avatarDefault.png";
+                    }}
+                  />
+                  <div>
+                    <p>
+                      <b>
+                        {userLoggedIn?.lastname + " " + userLoggedIn?.firstname}
+                      </b>
+                    </p>
+                    {userLoggedIn?.role.name !== "admin" && (
+                      <span>Mã DN: #ID_{userLoggedIn?.company?.id} |</span>
+                    )}{" "}
+                    {userLoggedIn?.email} |
+                    <p>SĐT: {userLoggedIn?.phone || "Chưa có thông tin"}</p>
+                  </div>
+                </div>
+                <div className={style.analystCoin}>
+                  <p>Số lượng coin (C)</p>
+                  <Tag style={{ marginTop: 10 }} color="yellow">
+                    Hiện có: {userLoggedIn?.coin} C
+                  </Tag>
                 </div>
               </Card>
             </Col>

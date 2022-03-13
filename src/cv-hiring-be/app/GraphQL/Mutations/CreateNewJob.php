@@ -2,8 +2,10 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\Setting;
 use App\Models\WorkJob;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class CreateNewJob
@@ -32,32 +34,49 @@ class CreateNewJob
             $province_id = $args["input"]["province_id"];
             $company_id = $args["input"]["company_id"];
             $work_category_id = $args["input"]["work_category_id"];
+            $user = Auth::user();
+            $setting = Setting::first();
+            if (isset($user)) {
 
-            WorkJob::create([
-                "slug"  => Str::slug($name) . rand(10, 1000),
-                "name" => $name,
-                "description" => $description,
-                "benefit" => $benefit,
-                "requirement" => $requirement,
-                "requirement_exp" => $requirement_exp,
-                "requirement_gender" => $requirement_gender,
-                "requirement_age" => $requirement_age,
-                "amount_hiring" => $amount_hiring,
-                "address_work" => $address_work,
-                "salary" => $salary,
-                "type" => $type,
-                "is_open"   => 1,
-                "amount_apply"  => 0,
-                "amount_accept" => 0,
-                "expired_date_hiring" => $expired_date_hiring,
-                "province_id" => $province_id,
-                "company_id" => $company_id,
-                "work_category_id" => $work_category_id,
-            ]);
+                if ($user->coin < $setting->price_job) {
+                    return [
+                        'status' => 'ERROR',
+                        'message'   => 'Bạn không đủ coin để thực hiện giao dịch này. Vui lòng liên hệ admin để nạp thêm coin'
+                    ];
+                }
 
+                WorkJob::create([
+                    "slug"  => Str::slug($name) . rand(10, 1000),
+                    "name" => $name,
+                    "description" => $description,
+                    "benefit" => $benefit,
+                    "requirement" => $requirement,
+                    "requirement_exp" => $requirement_exp,
+                    "requirement_gender" => $requirement_gender,
+                    "requirement_age" => $requirement_age,
+                    "amount_hiring" => $amount_hiring,
+                    "address_work" => $address_work,
+                    "salary" => $salary,
+                    "type" => $type,
+                    "is_open"   => 1,
+                    "amount_apply"  => 0,
+                    "amount_accept" => 0,
+                    "expired_date_hiring" => $expired_date_hiring,
+                    "province_id" => $province_id,
+                    "company_id" => $company_id,
+                    "work_category_id" => $work_category_id,
+                ]);
+                $user->coin -= $setting->price_job;
+                $user->save();
+
+                return [
+                    'status' => 'OK',
+                    'message'   => 'Tạo thành công'
+                ];
+            }
             return [
-                'status' => 'OK',
-                'message'   => 'Tạo thành công'
+                'status' => 'ERROR',
+                'message'   => 'Bạn chưa đăng nhập'
             ];
         } catch (Exception $e) {
             return [

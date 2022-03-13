@@ -16,5 +16,6 @@ class Setting extends Model
         'fb_url',
         'youtube_url',
         'phone_contact',
+        'price_job'
     ];
 }

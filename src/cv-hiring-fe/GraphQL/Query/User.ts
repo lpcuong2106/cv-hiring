@@ -54,7 +54,7 @@ export const FETCH_USER_DETAIL_MANAGER = gql`
       birthday
       gender
       avatar
-
+      coin
       role {
         id
         name

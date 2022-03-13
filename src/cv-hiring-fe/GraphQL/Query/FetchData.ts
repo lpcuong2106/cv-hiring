@@ -12,6 +12,7 @@ export const FETCH_USER_LOGIN = gql`
       birthday
       address
       gender
+      coin
       role {
         id
         name
@@ -38,6 +39,7 @@ export const FETCH_USER_LOGIN = gql`
       fb_url
       youtube_url
       phone_contact
+      price_job
     }
   }
 `;
@@ -47,6 +49,7 @@ export const FETCH_PROFILE = gql`
       id
       email
       lastname
+      coin
       firstname
       avatar
       birthday

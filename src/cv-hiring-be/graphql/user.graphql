@@ -29,6 +29,7 @@ type User implements Modal {
     updated_at: DateTime!
     role: Role! @belongsTo
     company: Company @hasOne
+    coin: Int
 }
 
 type UserPaginator {
@@ -49,6 +50,7 @@ input UserUpdateInput {
     id: ID!
     password: String
     role_id: ID!
+    coin: Int
 }
 
 input UserProfileInput {

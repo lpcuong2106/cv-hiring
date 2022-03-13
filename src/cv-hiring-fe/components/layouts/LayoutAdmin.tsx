@@ -1,5 +1,7 @@
+import { Alert } from "antd";
 import Layout, { Content } from "antd/lib/layout/layout";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
+import { useAppSelector } from "../../store/hook";
 import SidebarAdmin from "./SidebarAdmin";
 
 interface Props {
@@ -7,6 +9,8 @@ interface Props {
 }
 
 const LayoutAdmin = ({ children }: Props) => {
+  const userLoggedIn = useAppSelector((state) => state.user);
+
   return (
     <Layout>
       <SidebarAdmin />
@@ -18,11 +22,16 @@ const LayoutAdmin = ({ children }: Props) => {
           minHeight: 280,
         }}
       >
-        {/* <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>
-            <Link href={"/quan-tri"}>Trang chủ</Link>
-          </Breadcrumb.Item>
-        </Breadcrumb> */}
+        {userLoggedIn.user?.role.name === "hr" && (
+          <Alert
+            message="Giá dịch vụ"
+            description={`Chi phí coin/lượt đăng tin tuyển dụng hiện tại là: ${userLoggedIn?.setting?.price_job} C`}
+            type="info"
+            showIcon
+            closable
+          />
+        )}
+
         <div>{children}</div>
       </Content>
     </Layout>

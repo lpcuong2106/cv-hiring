@@ -25,7 +25,6 @@ class CreateCompaniesTable extends Migration
             $table->string('gg_map')->nullable();
             $table->string('logo')->nullable();
             $table->string('banner')->nullable();
-
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

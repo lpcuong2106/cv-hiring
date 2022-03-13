@@ -26,9 +26,18 @@ export const userSlider = createSlice({
     setSettingWebsite: (state, action: PayloadAction<Setting>) => {
       state.setting = action.payload;
     },
+    setCoinRemain: (state) => {
+      if (state.user && state.setting) {
+        state.user.coin -= state.setting.price_job;
+      }
+    },
   },
 });
 
-export const { setUserLoggedIn, setLoggedIn, setSettingWebsite } =
-  userSlider.actions;
+export const {
+  setUserLoggedIn,
+  setLoggedIn,
+  setSettingWebsite,
+  setCoinRemain,
+} = userSlider.actions;
 export default userSlider.reducer;

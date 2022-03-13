@@ -115,6 +115,7 @@ type Setting implements Modal {
     fb_url: String
     youtube_url: String
     phone_contact: String
+    price_job: Int
 }
 
 input SettingInput {
@@ -125,6 +126,7 @@ input SettingInput {
     fb_url: String
     youtube_url: String
     phone_contact: String
+    price_job: Int
 }
 
 type ResponseExecute {

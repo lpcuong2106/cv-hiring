@@ -32,6 +32,7 @@ export const FETCH_SETTING = gql`
       fb_url
       youtube_url
       phone_contact
+      price_job
     }
   }
 `;

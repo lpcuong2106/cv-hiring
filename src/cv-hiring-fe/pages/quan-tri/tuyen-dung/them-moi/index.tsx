@@ -13,7 +13,8 @@ import { Province, WorkCategory } from "../../../../data";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
 import FormEditWorkJob from "../[id]/FormEditWorkJob";
-import { useAppSelector } from "../../../../store/hook";
+import { useAppDispatch, useAppSelector } from "../../../../store/hook";
+import { setCoinRemain } from "../../../../store/features/userSlideder";
 interface DataQuery {
   workCategories: WorkCategory[];
   provinces: Province[];
@@ -38,17 +39,23 @@ export const validationSchemaWorkJob = Yup.object().shape({
   requirement_gender: Yup.string()
     .typeError("Vui lòng chọn yêu cầu giới tính")
     .required("Yêu cầu giới tính là bắt buộc"),
-  requirement_age: Yup.string().required("Yêu cầu độ tuổi là bắt buộc"),
+  requirement_age: Yup.string()
+    .required("Yêu cầu độ tuổi là bắt buộc")
+    .typeError("Yêu cầu độ tuổi là bắt buộc"),
   amount_hiring: Yup.number()
     .typeError("Vui lòng nhập đúng định dạng số lượng tuyển")
     .min(1)
     .required("Số lượng tuyển dụng là bắt buộc"),
   address_work: Yup.string().required("Địa chỉ làm việc là bắt buộc"),
-  salary: Yup.string().required("Chọn lương là bắt buộc"),
+  salary: Yup.string()
+    .required("Lương là bắt buộc")
+    .typeError("Lương là bắt buộc"),
   type: Yup.string()
     .typeError("Vui lòng chọn loại công việc")
     .required("Vui lòng chọn loại công việc"),
-  expired_date_hiring: Yup.string().required("Chọn ngày hết hạn là bắt buộc"),
+  expired_date_hiring: Yup.string()
+    .required("Chọn ngày hết hạn là bắt buộc")
+    .typeError("Chọn ngày hết hạn là bắt buộc"),
   work_category_id: Yup.number()
     .typeError("Vui lòng chọn lĩnh vực")
     .required("Tên công việc là bắt buộc"),
@@ -64,7 +71,7 @@ const AppliedCVAdd = () => {
   const provinces = data?.provinces;
   const router = useRouter();
   const userLoggedIn = useAppSelector((state) => state.user.user);
-
+  const dispatch = useAppDispatch();
   const [createNewJob, { loading: loadingSubmit }] =
     useMutation(CREATE_WORKJOB);
 
@@ -87,6 +94,7 @@ const AppliedCVAdd = () => {
                     name: "",
                     benefit: "",
                     requirement: "",
+                    description: "",
                     requirement_exp: null,
                     requirement_gender: null,
                     requirement_age: null,
@@ -105,9 +113,10 @@ const AppliedCVAdd = () => {
                       variables: values,
                     });
                     if (data.createNewJob.status === "ERROR") {
-                      message.error(data.message);
+                      message.error(data.createNewJob.message);
                       return;
                     }
+                    dispatch(setCoinRemain());
                     message.success("Tạo mới việc làm thành công!");
                     router.replace("/quan-tri/tuyen-dung");
                     return;

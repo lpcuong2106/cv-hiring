@@ -21,7 +21,7 @@ class UpdateSetting
             $fb_url =  isset($args["input"]["fb_url"]) ? $args["input"]["fb_url"] : null;
             $youtube_url =  isset($args["input"]["youtube_url"]) ? $args["input"]["youtube_url"] : null;
             $phone_contact =  isset($args["input"]["phone_contact"]) ? $args["input"]["phone_contact"] : null;
-
+            $price_job = isset($args["input"]["price_job"]) ? $args["input"]["price_job"] : null;
             $isAdmin = Auth::user()->isAdmin();
             if ($isAdmin == false) {
                 return [
@@ -37,6 +37,7 @@ class UpdateSetting
             $setting->fb_url = $fb_url;
             $setting->youtube_url = $youtube_url;
             $setting->phone_contact = $phone_contact;
+            $setting->price_job = $price_job;
 
             $setting->save();
 

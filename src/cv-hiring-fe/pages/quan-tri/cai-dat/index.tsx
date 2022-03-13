@@ -34,6 +34,7 @@ export const validationSchemaCompany = Yup.object().shape({
   fb_url: Yup.string(),
   youtube_url: Yup.string(),
   phone_contact: Yup.string(),
+  price_job: Yup.number().required("Chi phí coin/1 tin đăng tuyển dụng"),
 });
 
 const Setting = () => {
@@ -72,6 +73,7 @@ const Setting = () => {
                       fb_url: settingWebsite.fb_url,
                       youtube_url: settingWebsite.youtube_url,
                       phone_contact: settingWebsite.phone_contact,
+                      price_job: settingWebsite.price_job,
                     }}
                     validationSchema={validationSchemaCompany}
                     onSubmit={async (values) => {

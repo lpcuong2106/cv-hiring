@@ -42,6 +42,7 @@ const validationSchemaUser = Yup.object().shape({
 
 const ManageUserAdd = () => {
   const userLoggedIn = useAppSelector((state) => state.user.user);
+  const setting = useAppSelector((state) => state.user.setting);
   const router = useRouter();
 
   const [createUser, { loading: loadingSubmit }] =
@@ -79,6 +80,7 @@ const ManageUserAdd = () => {
                     if (data?.createUser.status === "ERROR") {
                       message.error(data.createUser.message);
                     } else {
+                      message.info("-" + setting?.price_job);
                       message.success(data?.createUser.message);
                       router.push("/quan-tri/nguoi-dung");
                     }

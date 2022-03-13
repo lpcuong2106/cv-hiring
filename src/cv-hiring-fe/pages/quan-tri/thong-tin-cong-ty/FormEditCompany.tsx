@@ -201,6 +201,10 @@ const FormEditCompany = ({
             <img
               src={formikProps.values.logo || "/company-default.svg"}
               className={style.logoImage}
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = "/company-default.svg";
+              }}
             />
           </div>
         ) : (
@@ -227,6 +231,10 @@ const FormEditCompany = ({
             <img
               src={formikProps.values.banner || "/company-default-banner.jpg"}
               className={style.logoImage}
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = "/company-default-banner.jpg";
+              }}
             />
           </div>
         ) : (
