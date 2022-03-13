@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import FormEditWorkJob from "../[id]/FormEditWorkJob";
 import { useAppDispatch, useAppSelector } from "../../../../store/hook";
 import { setCoinRemain } from "../../../../store/features/userSlideder";
+import moment from "moment";
 interface DataQuery {
   workCategories: WorkCategory[];
   provinces: Province[];
@@ -103,7 +104,7 @@ const AppliedCVAdd = () => {
                     address_work: "",
                     salary: null,
                     type: null,
-                    expired_date_hiring: null,
+                    expired_date_hiring: moment().add(1, "day"),
                     work_category_id: null,
                     company_id: userLoggedIn?.company?.id,
                     province_id: null,
