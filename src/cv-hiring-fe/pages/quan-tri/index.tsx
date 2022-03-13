@@ -7,6 +7,7 @@ import { useQuery } from "@apollo/client";
 import { ANALYST_ADMIN } from "../../GraphQL/Query/Analyst";
 import { LoadingApp } from "../../components/LoadingApp";
 import { useAppSelector } from "../../store/hook";
+import LogCoinHistory from "../../components/LogCoinHistory";
 
 interface AnalystQuery {
   analystWorkJob: {
@@ -41,82 +42,96 @@ const ManageDashboard = () => {
         {loading || !analystWorkJob ? (
           <LoadingApp />
         ) : (
-          <Row gutter={16}>
-            <Col span={12} className={style.statistic}>
-              <Card>
-                <Row>
-                  <Col md={12}>
-                    <Card className={style.blockStatistic3}>
-                      <Statistic
-                        title="Tổng tin đăng"
-                        value={analystWorkJob.total_work_job}
-                        valueStyle={{ color: "#4285f4" }}
-                      />
-                    </Card>
-                  </Col>
-                  <Col md={12}>
-                    <Card className={style.blockStatistic4}>
-                      <Statistic
-                        title="Công việc đang tuyển"
-                        value={analystWorkJob.total_work_job_hiring}
-                        valueStyle={{ color: "#ffc107" }}
-                      />
-                    </Card>
-                  </Col>
-                  <Col md={12}>
-                    <Card className={style.blockStatistic2}>
-                      <Statistic
-                        title="CV ứng tuyển mới"
-                        value={analystWorkJob.total_cv_new_applied}
-                        valueStyle={{ color: "#cf1322" }}
-                      />
-                    </Card>
-                  </Col>
-                  <Col md={12}>
-                    <Card className={style.blockStatistic}>
-                      <Statistic
-                        title="CV đã nhận"
-                        value={analystWorkJob.total_cv_applied}
-                        valueStyle={{ color: "#3f8600" }}
-                      />
-                    </Card>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
+          <>
+            <Row gutter={16}>
+              <Col span={12} className={style.statistic}>
+                <Card>
+                  <Row>
+                    <Col md={12}>
+                      <Card className={style.blockStatistic3}>
+                        <Statistic
+                          title="Tổng tin đăng"
+                          value={analystWorkJob.total_work_job}
+                          valueStyle={{ color: "#4285f4" }}
+                        />
+                      </Card>
+                    </Col>
+                    <Col md={12}>
+                      <Card className={style.blockStatistic4}>
+                        <Statistic
+                          title="Công việc đang tuyển"
+                          value={analystWorkJob.total_work_job_hiring}
+                          valueStyle={{ color: "#ffc107" }}
+                        />
+                      </Card>
+                    </Col>
+                    <Col md={12}>
+                      <Card className={style.blockStatistic2}>
+                        <Statistic
+                          title="CV ứng tuyển mới"
+                          value={analystWorkJob.total_cv_new_applied}
+                          valueStyle={{ color: "#cf1322" }}
+                        />
+                      </Card>
+                    </Col>
+                    <Col md={12}>
+                      <Card className={style.blockStatistic}>
+                        <Statistic
+                          title="CV đã nhận"
+                          value={analystWorkJob.total_cv_applied}
+                          valueStyle={{ color: "#3f8600" }}
+                        />
+                      </Card>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
 
-            <Col span={12} className={style.statistic}>
-              <Card className={style.profile}>
-                <div className={style.info}>
-                  <img
-                    src={userLoggedIn?.avatar || "/avatarDefault.png"}
-                    onError={({ currentTarget }) => {
-                      currentTarget.onerror = null; // prevents looping
-                      currentTarget.src = "/avatarDefault.png";
-                    }}
-                  />
-                  <div>
-                    <p>
-                      <b>
-                        {userLoggedIn?.lastname + " " + userLoggedIn?.firstname}
-                      </b>
-                    </p>
-                    {userLoggedIn?.role.name !== "admin" && (
-                      <span>Mã DN: #ID_{userLoggedIn?.company?.id} |</span>
-                    )}{" "}
-                    {userLoggedIn?.email} |
-                    <p>SĐT: {userLoggedIn?.phone || "Chưa có thông tin"}</p>
+              <Col span={12} className={style.statistic}>
+                <Card className={style.profile}>
+                  <div className={style.info}>
+                    <img
+                      src={userLoggedIn?.avatar || "/avatarDefault.png"}
+                      onError={({ currentTarget }) => {
+                        currentTarget.onerror = null; // prevents looping
+                        currentTarget.src = "/avatarDefault.png";
+                      }}
+                    />
+                    <div>
+                      <p>
+                        <b>
+                          {userLoggedIn?.lastname +
+                            " " +
+                            userLoggedIn?.firstname}
+                        </b>
+                      </p>
+                      {userLoggedIn?.role.name !== "admin" && (
+                        <span>Mã DN: #ID_{userLoggedIn?.company?.id} |</span>
+                      )}{" "}
+                      {userLoggedIn?.email} |
+                      <p>SĐT: {userLoggedIn?.phone || "Chưa có thông tin"}</p>
+                    </div>
                   </div>
-                </div>
-                <div className={style.analystCoin}>
-                  <p>Số lượng coin (C)</p>
-                  <Tag style={{ marginTop: 10 }} color="yellow">
-                    Hiện có: {userLoggedIn?.coin} C
-                  </Tag>
-                </div>
-              </Card>
-            </Col>
-          </Row>
+                  <div className={style.analystCoin}>
+                    <p>Số lượng coin (C)</p>
+                    <Tag style={{ marginTop: 10 }} color="yellow">
+                      Hiện có: {userLoggedIn?.coin} C
+                    </Tag>
+                  </div>
+                </Card>
+              </Col>
+            </Row>
+            {userLoggedIn?.role.name == "hr" && (
+              <Row>
+                <Col md={24}>
+                  <h4 className={style.historyTransactionCoin}>
+                    Lịch sử giao dịch
+                  </h4>
+                  <LogCoinHistory />
+                </Col>
+              </Row>
+            )}
+          </>
         )}
       </div>
     </LayoutAdmin>

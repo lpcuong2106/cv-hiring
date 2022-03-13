@@ -36,3 +36,26 @@ export const FETCH_SETTING = gql`
     }
   }
 `;
+
+export const FETCH_HISTORY_COIN = gql`
+  query fetch_history_coin($id: ID!, $page: Int) {
+    historyCoin(user_id: $id, page: $page) {
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
+      }
+      data {
+        user_id
+        coin_used
+        message
+        created_at
+      }
+    }
+  }
+`;

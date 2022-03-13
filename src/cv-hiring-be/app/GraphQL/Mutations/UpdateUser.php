@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\LogCoinHistory;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -26,8 +27,15 @@ class UpdateUser
                     'message'   => 'Không được cập nhật cho chính bạn'
                 ];
             }
-            // TODO implement the resolver
+
             $user = User::findOrFail($id);
+            if ($user->coin != $coin) {
+                LogCoinHistory::create([
+                    'user_id'   => $user->id,
+                    'coin_used' => $coin - $user->coin,
+                    'message'   => 'Admin điều chỉnh coin'
+                ]);
+            }
             $user->role_id = $role_id;
             $user->coin = $coin;
 

@@ -4,3 +4,15 @@ type AnalystWorkJob {
     total_cv_applied: Int!
     total_cv_new_applied: Int!
 }
+
+type LogHistoryCoin {
+    user_id: ID
+    coin_used: Int
+    message: String
+    created_at: String
+}
+
+type LogHistoryCoinPaginator {
+    paginatorInfo: PaginatorInfo!
+    data: [LogHistoryCoin!]!
+}
