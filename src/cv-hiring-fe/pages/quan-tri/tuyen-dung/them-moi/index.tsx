@@ -71,6 +71,7 @@ const AppliedCVAdd = () => {
   const provinces = data?.provinces;
   const router = useRouter();
   const userLoggedIn = useAppSelector((state) => state.user.user);
+  const setting = useAppSelector((state) => state.user.setting);
   const dispatch = useAppDispatch();
   const [createNewJob, { loading: loadingSubmit }] =
     useMutation(CREATE_WORKJOB);
@@ -117,6 +118,7 @@ const AppliedCVAdd = () => {
                       return;
                     }
                     dispatch(setCoinRemain());
+                    message.warn("-" + setting?.price_job + " coin");
                     message.success("Tạo mới việc làm thành công!");
                     router.replace("/quan-tri/tuyen-dung");
                     return;

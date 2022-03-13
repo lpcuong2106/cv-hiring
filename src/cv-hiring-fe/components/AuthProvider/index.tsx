@@ -38,8 +38,10 @@ export const AuthProvider = ({ children }: AuxProps) => {
     const token = localStorage.getItem("token");
     if (token && data?.me) {
       dispatch(setUserLoggedIn(data.me));
-      dispatch(setSettingWebsite(data.settingWebsite));
       dispatch(setLoggedIn(true));
+    }
+    if (data?.settingWebsite) {
+      dispatch(setSettingWebsite(data.settingWebsite));
     }
   }, [data]);
   useAuth();
