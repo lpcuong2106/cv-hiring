@@ -122,17 +122,19 @@ const ManageCompany = () => {
       key: "name",
       render: (name: string, record: Company) => {
         return (
-          <div className={style.logoItem}>
-            <img
-              src={record.logo}
-              onError={({ currentTarget }) => {
-                console.log("chay error");
-                currentTarget.onerror = null; // prevents looping
-                currentTarget.src = "/company-default.svg";
-              }}
-            />
-            {name}
-          </div>
+          <a href={"/cong-ty/" + record.slug} target="_blank">
+            <div className={style.logoItem}>
+              <img
+                src={record.logo}
+                onError={({ currentTarget }) => {
+                  console.log("chay error");
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src = "/company-default.svg";
+                }}
+              />
+              {name}
+            </div>
+          </a>
         );
       },
     },

@@ -27,14 +27,16 @@ export const validationSchemaCompany = Yup.object().shape({
     .min(8, "Mô tả công ty ít nhất 8 kí tự")
     .required("Mô tả công ty là bắt buộc")
     .typeError("Mô tả công ty là bắt buộc"),
-  amount_employee: Yup.string(),
-  website: Yup.string().typeError("Website công ty là bắt buộc"),
-  fanpage: Yup.string().typeError("Fanpage công ty là bắt buộc"),
+  amount_employee: Yup.string().nullable(),
+  website: Yup.string(),
+  fanpage: Yup.string(),
   address: Yup.string(),
-  gg_map: Yup.string().typeError("GoogleMap là bắt buộc"),
-  logo: Yup.mixed(),
-  banner: Yup.mixed(),
-  user_id: Yup.number().required("Vui lòng chọn người quản trị"),
+  gg_map: Yup.string(),
+  logo: Yup.mixed().required("Vui lòng upload logo"),
+  banner: Yup.mixed().required("Vui lòng upload banner"),
+  user_id: Yup.number()
+    .required("Vui lòng chọn người quản trị")
+    .typeError("Vui lòng chọn người quản trị"),
 });
 
 export type ModeView = "edit" | "create" | "view";
@@ -57,7 +59,7 @@ const ManageCompany = () => {
     useMutation(UPDATE_COMPANY);
   const [mode, setMode] = useState<ModeView>("view");
   const companyDetail = data?.companyDetail;
-  const router = useRouter();
+
   return (
     <LayoutAdmin>
       <Head>

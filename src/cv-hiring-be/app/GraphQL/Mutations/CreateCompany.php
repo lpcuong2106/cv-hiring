@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\Company;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CreateCompany
@@ -31,6 +32,14 @@ class CreateCompany
             if ($companyExist > 0) {
                 $slug = $slug . rand(1, 1000);
             }
+            $pathLogo = "";
+            $pathBanner = "";
+            if (isset($logo) && $logo->isValid()) {
+                $pathLogo = Storage::putFile('public/avatars', $logo);
+            }
+            if (isset($banner) && $banner->isValid()) {
+                $pathBanner = Storage::putFile('public/avatars', $banner);
+            }
 
             // TODO implement the resolver
             Company::create([
@@ -42,8 +51,8 @@ class CreateCompany
                 'fanpage'   => $fanpage,
                 'address' => $address,
                 'gg_map' => $gg_map,
-                'logo' => $logo,
-                'banner' => $banner,
+                'logo' => $pathLogo,
+                'banner' => $pathBanner,
                 'user_id'   => $user_id,
             ]);
 

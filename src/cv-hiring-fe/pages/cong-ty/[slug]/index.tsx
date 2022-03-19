@@ -93,12 +93,6 @@ const Company: NextPage = () => {
                           <div className={style.boxListMenu}>
                             <ul>
                               <li>
-                                <Location width={16} />
-                                <Link href="/">
-                                  <a className={style.locationText}>Hà Nội</a>
-                                </Link>
-                              </li>
-                              <li>
                                 <FirefoxBrowser width={16} />
                                 <a
                                   className={style.locationText}
@@ -109,15 +103,17 @@ const Company: NextPage = () => {
                                 </a>
                               </li>
                             </ul>
-                            <p>
-                              {company?.address + " "}
-                              <a
-                                href={`https://www.google.com/maps?q=${company?.address}`}
-                                target={"_blank"}
-                              >
-                                Xem bản đồ
-                              </a>
-                            </p>
+                            {company?.address && (
+                              <p>
+                                {company?.address + " "}
+                                <a
+                                  href={`https://www.google.com/maps?q=${company?.address}`}
+                                  target={"_blank"}
+                                >
+                                  Xem bản đồ
+                                </a>
+                              </p>
+                            )}
 
                             <FacebookShareButton
                               url={window.location.href}

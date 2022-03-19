@@ -30,14 +30,16 @@ const validationSchemaCompany = Yup.object().shape({
   description: Yup.string()
     .min(8, "Mô tả công ty ít nhất 8 kí tự")
     .required("Mô tả công ty là bắt buộc"),
-  amount_employee: Yup.string(),
+  amount_employee: Yup.string().nullable(),
   website: Yup.string(),
   fanpage: Yup.string(),
   address: Yup.string(),
   gg_map: Yup.string(),
-  logo: Yup.string().url("Logo nên là giá trị đường dẫn"),
-  user_id: Yup.number().required(),
-  banner: Yup.string().url("Banner nên là giá trị đường dẫn"),
+  logo: Yup.mixed().required("Vui lòng upload logo"),
+  banner: Yup.mixed().required("Vui lòng upload banner"),
+  user_id: Yup.number()
+    .required("Vui lòng chọn người quản trị")
+    .typeError("Vui lòng chọn người quản trị"),
 });
 
 const ManageCompanyAdd = () => {

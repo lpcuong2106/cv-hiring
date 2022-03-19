@@ -5,13 +5,13 @@ export const UPDATE_COMPANY = gql`
     $id: ID!
     $name: String!
     $description: String!
-    $amount_employee: String!
-    $website: String!
-    $fanpage: String!
-    $address: String!
-    $gg_map: String!
-    $logo: Upload
-    $banner: Upload
+    $amount_employee: String
+    $website: String
+    $fanpage: String
+    $address: String
+    $gg_map: String
+    $logo: Upload!
+    $banner: Upload!
     $user_id: ID!
   ) {
     updateCompany(
@@ -39,13 +39,13 @@ export const CREATE_COMPANY = gql`
   mutation createCompany(
     $name: String!
     $description: String!
-    $amount_employee: String!
-    $website: String!
-    $fanpage: String!
-    $address: String!
-    $gg_map: String!
-    $logo: String!
-    $banner: String!
+    $amount_employee: String
+    $website: String
+    $fanpage: String
+    $address: String
+    $gg_map: String
+    $logo: Upload!
+    $banner: Upload!
     $user_id: ID!
   ) {
     createCompany(
