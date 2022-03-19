@@ -140,7 +140,15 @@ function ApplyCVModal({
       okText="Nộp CV"
     >
       <div className={style.companyInfo}>
-        <img src={companyLogo} alt="" className="img-fluid" />
+        <img
+          src={companyLogo}
+          alt=""
+          className="img-fluid"
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src = "/company-default.svg";
+          }}
+        />
 
         <div className={style.info}>
           <b>{jobName}</b>
