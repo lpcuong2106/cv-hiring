@@ -25,10 +25,11 @@ const LayoutAdmin = ({ children }: Props) => {
         {userLoggedIn.user?.role.name === "hr" && (
           <Alert
             message="Giá dịch vụ"
-            description={`Chi phí coin/lượt đăng tin tuyển dụng hiện tại là: ${userLoggedIn?.setting?.price_job} C`}
+            description={`Chi phí coin/lượt đăng tin tuyển dụng hiện tại là: ${userLoggedIn?.setting?.price_job} C (1C = 1000 VNĐ)`}
             type="info"
             showIcon
             closable
+            style={{ marginBottom: 10 }}
           />
         )}
 
