@@ -1,4 +1,4 @@
-import { Tag } from "antd";
+import { Rate, Tag } from "antd";
 import Link from "next/link";
 import React from "react";
 import style from "./style.module.scss";
@@ -15,6 +15,7 @@ interface Props {
   slug: string;
   updatedAt: string;
   companySlug: string;
+  avgReview?: number;
 }
 
 function JobItem({
@@ -27,6 +28,7 @@ function JobItem({
   updatedAt,
   companySlug,
   slug,
+  avgReview,
 }: Props) {
   return (
     <div className={style.jobItem}>
@@ -51,6 +53,11 @@ function JobItem({
               <a>{companyName}</a>
             </Link>
           </p>
+
+          <p className={style.rating}>
+            <Rate value={avgReview ?? 0} disabled />
+          </p>
+
           <Tag color="success">{salary} (tr/tháng)</Tag>
           <Tag color="orange">{provinceName}</Tag>
           <Tag color="magenta">

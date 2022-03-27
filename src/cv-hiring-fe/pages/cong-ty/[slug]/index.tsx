@@ -1,28 +1,32 @@
-import { Button, Col, Row, Tabs } from "antd";
+import { Button, Col, Rate, Row, Tabs } from "antd";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Container } from "react-bootstrap";
 import Layout from "../../../components/layouts";
 import style from "./style.module.scss";
-import { EyeShow } from "@styled-icons/fluentui-system-filled/EyeShow";
 import { Share } from "@styled-icons/heroicons-outline/Share";
-import { Location } from "@styled-icons/entypo/Location";
 import { FirefoxBrowser } from "@styled-icons/fa-brands/FirefoxBrowser";
-import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import { FETCH_COMPANY_DETAIL } from "../../../GraphQL/Query/Comapany";
 import { LoadingApp } from "../../../components/LoadingApp";
-import { Company, WorkJob } from "../../../data";
+import { Company, PaginatorInfo, Review, WorkJob } from "../../../data";
 import { useRouter } from "next/router";
 import BreadcrumbCus from "../../../components/BreadcrumbCus";
 import { FacebookShareButton, FacebookShareCount } from "react-share";
 import JobItem from "../../../components/JobItem";
 import { FETCH_WORK_JOB_HIRING_COMPANY } from "../../../GraphQL/Query/WorkJob";
 import NotFound from "../../404";
+import CommentList from "../../../components/CommentList";
+import { useAppSelector } from "../../../store/hook";
+
 const { TabPane } = Tabs;
 
 interface DataQuery {
   companyDetail: Company;
+  companyReview: {
+    data: Review[];
+    paginatorInfo: PaginatorInfo;
+  };
 }
 interface DataWorkJobQuery {
   workJobHiringOfCompany: WorkJob[];
@@ -32,13 +36,14 @@ const Company: NextPage = () => {
   const router = useRouter();
   const { slug } = router.query;
 
-  const { data, loading } = useQuery<DataQuery>(FETCH_COMPANY_DETAIL, {
+  const { data, loading, refetch } = useQuery<DataQuery>(FETCH_COMPANY_DETAIL, {
     variables: {
       slug,
+      page: 1,
     },
   });
   const company = data?.companyDetail;
-
+  const userLoggedIn = useAppSelector((state) => state.user);
   const { data: workJobs } = useQuery<DataWorkJobQuery>(
     FETCH_WORK_JOB_HIRING_COMPANY,
     {
@@ -89,7 +94,33 @@ const Company: NextPage = () => {
                           }}
                         />
                         <div className={style.introCompany}>
-                          <h1>{company?.name}</h1>
+                          <h1>{company?.name} </h1>
+                          <p>
+                            Xếp hạng công ty:{" "}
+                            <Rate
+                              value={company.avgReview}
+                              allowHalf
+                              disabled
+                              style={{ marginRight: 10 }}
+                            />{" "}
+                            <FacebookShareButton
+                              url={window.location.href}
+                              quote="hihi"
+                              hashtag="ihih"
+                            >
+                              <Button type="primary">
+                                <Share width={16} />
+                                Chia sẻ
+                                <FacebookShareCount url={router.asPath}>
+                                  {(shareCount) => (
+                                    <span className="myShareCountWrapper">
+                                      {shareCount}
+                                    </span>
+                                  )}
+                                </FacebookShareCount>
+                              </Button>
+                            </FacebookShareButton>
+                          </p>
                           <div className={style.boxListMenu}>
                             <ul>
                               <li>
@@ -114,24 +145,6 @@ const Company: NextPage = () => {
                                 </a>
                               </p>
                             )}
-
-                            <FacebookShareButton
-                              url={window.location.href}
-                              quote="hihi"
-                              hashtag="ihih"
-                            >
-                              <Button type="primary">
-                                <Share width={16} />
-                                Chia sẻ
-                                <FacebookShareCount url={router.asPath}>
-                                  {(shareCount) => (
-                                    <span className="myShareCountWrapper">
-                                      {shareCount}
-                                    </span>
-                                  )}
-                                </FacebookShareCount>
-                              </Button>
-                            </FacebookShareButton>
                           </div>
                         </div>
                       </div>
@@ -160,9 +173,19 @@ const Company: NextPage = () => {
                           companyName={company?.name}
                           title={job.name}
                           logoUrl={company?.logo}
+                          avgReview={company.avgReview}
                           updatedAt={job.updated_at}
                         />
                       ))}
+                    </TabPane>
+                    <TabPane tab="Bình luận" key="3">
+                      <CommentList
+                        refetchComment={refetch}
+                        loadingData={loading}
+                        comments={data.companyReview}
+                        userId={userLoggedIn.user?.id ?? 0}
+                        companyId={company.id}
+                      />
                     </TabPane>
                   </Tabs>
                 </div>

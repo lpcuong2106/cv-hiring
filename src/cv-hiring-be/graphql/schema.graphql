@@ -26,7 +26,7 @@ type Query {
 
     getAllCompany(page: Int): CompanyPaginator
     companyDetail(slug: String @eq, id: ID @eq): Company @find
-
+    companyReview(slug: String, page: Int): ReviewPaginator
     workJobHiringOfCompany(companyId: ID!): [WorkJob!]!
     workJobAppliedByUser(userId: ID!): WorkAppliedPaginator @guard
     workJobOfProvince(provinceId: ID!): WorkJobPaginator
@@ -95,6 +95,13 @@ type Mutation {
     createWorkCategory(name: String!): ResponseExecute
     removeCategory(id: ID!): ResponseExecute
     updateWorkCategory(id: ID!, name: String!): ResponseExecute
+
+    addReviewCompany(
+        companyId: ID!
+        userId: ID!
+        review: String!
+        rating: Int!
+    ): ResponseExecute
 
     updateSetting(input: SettingInput): ResponseExecute
 }

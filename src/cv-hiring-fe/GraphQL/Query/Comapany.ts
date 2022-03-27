@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const FETCH_COMPANY_DETAIL = gql`
-  query CompanyQuery($slug: String, $id: ID) {
+  query CompanyQuery($slug: String, $id: ID, $page: Int) {
     companyDetail(slug: $slug, id: $id) {
       id
       name
@@ -15,8 +15,31 @@ export const FETCH_COMPANY_DETAIL = gql`
       fanpage
       address
       gg_map
+      avgReview
       user {
         id
+      }
+    }
+    companyReview(slug: $slug, page: $page) {
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
+      }
+      data {
+        title
+        rating
+        review
+        author {
+          email
+          avatar
+        }
+        created_at
       }
     }
   }

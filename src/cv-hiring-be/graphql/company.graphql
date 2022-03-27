@@ -10,9 +10,18 @@ type Company {
     gg_map: String
     logo: String
     banner: String
+    avgReview: Float
     amount_job_hiring: Int
     work_jobs: [WorkJob!]! @hasMany
     user: User @belongsTo
+}
+
+type Review {
+    title: String
+    rating: Int
+    review: String
+    author: User
+    created_at: String
 }
 
 input CompanyInput {
@@ -32,4 +41,9 @@ input CompanyInput {
 type CompanyPaginator {
     paginatorInfo: PaginatorInfo!
     data: [Company!]!
+}
+
+type ReviewPaginator {
+    paginatorInfo: PaginatorInfo!
+    data: [Review!]!
 }

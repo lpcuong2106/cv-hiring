@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Company;
+use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
@@ -37,6 +38,8 @@ class UpdateCompany
             $company->address = $address;
             $company->fanpage = $fanpage;
             $company->gg_map = $gg_map;
+
+
             if (isset($logo) && $logo->isValid()) {
                 $path = Storage::putFile('public/avatars', $logo);
                 $company->logo = $path;

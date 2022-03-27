@@ -1,4 +1,4 @@
-import { Col, Row, Button, Tabs, Tooltip } from "antd";
+import { Col, Row, Button, Tabs, Tooltip, Rate } from "antd";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Container } from "react-bootstrap";
@@ -118,7 +118,14 @@ const WorkJob: NextPage = () => {
                       <h3 className={style.workJobTitle}>{workJob?.name}</h3>
                       <div className={style.companyTitle}>
                         <Link href={"/cong-ty/" + workJob?.company.slug}>
-                          <a>{workJob?.company.name}</a>
+                          <a>
+                            {workJob?.company.name}{" "}
+                            <Rate
+                              value={workJob.company.avgReview ?? 0}
+                              disabled
+                              style={{ marginLeft: 10 }}
+                            />
+                          </a>
                         </Link>
                       </div>
                       <div className={style.info}>
@@ -261,6 +268,18 @@ const WorkJob: NextPage = () => {
                           <CompanyBox
                             content={workJob?.company.address ?? ""}
                             lable="Địa điểm"
+                            icon="https://www.topcv.vn/v4/image/job-detail/icon/10.svg"
+                          />
+                          <CompanyBox
+                            // @ts-ignore
+                            content={
+                              <Rate
+                                value={workJob.company.avgReview ?? 0}
+                                disabled
+                                style={{ marginLeft: 10 }}
+                              />
+                            }
+                            lable="Đánh giá công ty"
                             icon="https://www.topcv.vn/v4/image/job-detail/icon/10.svg"
                           />
                         </div>

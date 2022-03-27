@@ -39,6 +39,7 @@ export const FETCH_WORKJOB_QUERY = gql`
         address
         description
         amount_employee
+        avgReview
       }
       province {
         name
@@ -80,6 +81,7 @@ export const FETCH_ALL_JOB_SEARCH = gql`
           logo
           name
           slug
+          avgReview
         }
         province {
           name

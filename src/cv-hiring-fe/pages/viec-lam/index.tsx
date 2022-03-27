@@ -95,6 +95,7 @@ const WorkJobs: NextPage = () => {
                               deadlineDate={job.expired_date_hiring}
                               companyName={job.company.name}
                               title={job.name}
+                              avgReview={job.company.avgReview}
                               logoUrl={job.company.logo}
                               updatedAt={job.updated_at}
                             />

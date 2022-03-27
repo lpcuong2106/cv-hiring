@@ -17,11 +17,19 @@ export type Company = {
   fanpage: string;
   address: string;
   gg_map: string;
+  avgReview: number;
   logo: string;
   banner: string;
   amount_job_hiring: number;
   work_jobs: WorkJob[];
   user?: User;
+};
+export type Review = {
+  title: string;
+  rating: number;
+  review: string;
+  author: User;
+  created_at: string;
 };
 export type WorkJob = {
   id: int;

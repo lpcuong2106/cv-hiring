@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Digikraaft\ReviewRating\Traits\HasReviewRating;
 use HoangPhi\VietnamMap\Models\Province;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

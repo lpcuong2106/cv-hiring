@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Digikraaft\ReviewRating\Traits\HasReviewRating;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class Company extends Model
 {
     use HasFactory;
+    use HasReviewRating;
 
     protected $fillable = [
         'slug',
@@ -53,6 +55,11 @@ class Company extends Model
         $workHiring = $this->work_jobs->where('is_open', 1)->where('expired_date_hiring', '>=', now())
             ->count();
         return $workHiring;
+    }
+
+    public function getAvgReviewAttribute()
+    {
+        return $this->averageRating();
     }
 
     public function user()
