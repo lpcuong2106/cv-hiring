@@ -1,4 +1,9 @@
 .searchInput {
   margin-right: 20px;
-  width: 200px;
+  width: 90%;
+}
+.searchWrapper {
+  :global(.ant-col) {
+    margin-bottom: 20px;
+  }
 }

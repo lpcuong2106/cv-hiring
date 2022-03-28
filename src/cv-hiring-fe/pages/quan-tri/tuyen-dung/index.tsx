@@ -95,13 +95,13 @@ const AppliedCVManage = () => {
         const date = formatStringToDate(record.expired_date_hiring);
         return (
           <div>
-            {!isBefore(date, new Date()) && record.is_open == 1 ? (
-              <a href={"/viec-lam/" + record.slug} target="_blank">
-                <b>{record.name}</b>
-              </a>
-            ) : (
+            {/* {!isBefore(date, new Date()) && record.is_open == 1 ? ( */}
+            <a href={"/viec-lam/" + record.slug} target="_blank">
               <b>{record.name}</b>
-            )}
+            </a>
+            {/* ) : (
+              <b>{record.name}</b>
+            )} */}
 
             <p>#ID_{record.id}</p>
           </div>

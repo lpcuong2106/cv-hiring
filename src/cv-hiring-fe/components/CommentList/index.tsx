@@ -6,6 +6,7 @@ import { useState } from "react";
 import { PaginatorInfo, Review } from "../../data";
 import { ADD_REVIEW_COMPANY } from "../../GraphQL/Mutation/AddReview";
 import * as Yup from "yup";
+import { useAppSelector } from "../../store/hook";
 
 const { TextArea } = Input;
 interface Props {
@@ -37,7 +38,7 @@ const CommentList = ({
   loadingData,
 }: Props) => {
   const [addReviewCompany, { loading }] = useMutation(ADD_REVIEW_COMPANY);
-
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
   const form = useFormik({
     initialValues: {
       companyId: companyId,
@@ -89,29 +90,31 @@ const CommentList = ({
           />
         )}
       />
-      <div>
-        <h4>Bình luận về công ty</h4>
-        <form onSubmit={form.handleSubmit}>
-          <Form.Item label="Nội dung bình luận">
-            <TextArea
-              rows={4}
-              value={form.values.review}
-              onChange={(e) => form.setFieldValue("review", e.target.value)}
-            />
-          </Form.Item>
-          <Form.Item label="Mức độ hài lòng">
-            <Rate
-              value={form.values.rating}
-              onChange={(value) => form.setFieldValue("rating", value)}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit" loading={loading} type="primary">
-              Thêm bình luận
-            </Button>
-          </Form.Item>
-        </form>
-      </div>
+      {isLoggedIn && (
+        <div>
+          <h4>Bình luận về công ty</h4>
+          <form onSubmit={form.handleSubmit}>
+            <Form.Item label="Nội dung bình luận">
+              <TextArea
+                rows={4}
+                value={form.values.review}
+                onChange={(e) => form.setFieldValue("review", e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item label="Mức độ hài lòng">
+              <Rate
+                value={form.values.rating}
+                onChange={(value) => form.setFieldValue("rating", value)}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Button htmlType="submit" loading={loading} type="primary">
+                Thêm bình luận
+              </Button>
+            </Form.Item>
+          </form>
+        </div>
+      )}
     </>
   );
 };

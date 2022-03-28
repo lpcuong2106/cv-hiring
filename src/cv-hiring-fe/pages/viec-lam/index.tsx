@@ -69,11 +69,15 @@ const WorkJobs: NextPage = () => {
                     <Tag color="success">Phúc lợi hấp dẫn</Tag>
                     <Tag color="success">Môi trường chuyên nghiệp</Tag>
                   </div>
-                  <div className={style.searchJob}>
-                    <SearchJobForm onSearch={refetch} />
-                  </div>
+                  <div className={style.searchJob}></div>
 
                   <Row>
+                    <Col sm={6}>
+                      <aside className={style.sidebarListJob}>
+                        <h6>Tìm kiếm: </h6>
+                        <SearchJobForm onSearch={refetch} />
+                      </aside>
+                    </Col>
                     <Col sm={18}>
                       {loading && <LoadingApp />}
                       {listJob?.data?.length ? (
@@ -112,21 +116,6 @@ const WorkJobs: NextPage = () => {
                       ) : (
                         <NotFoundJob />
                       )}
-                    </Col>
-                    <Col sm={6}>
-                      <aside className={style.sidebarListJob}>
-                        <p>
-                          <b>Có thể bạn quan tâm</b>
-                        </p>
-                        <a target="_blank" href="https://www.topcv.vn/mau-cv">
-                          <img
-                            src="https://static.topcv.vn/manual/cv-tim-viec-topcv.png"
-                            alt="Apply việc gì cũng dễ"
-                            title="Apply việc gì cũng dễ"
-                            className=""
-                          />
-                        </a>
-                      </aside>
                     </Col>
                   </Row>
                 </Card>
