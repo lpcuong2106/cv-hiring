@@ -34,6 +34,8 @@ const WorkJobs: NextPage = () => {
   const [page, setPage] = useState(1);
   const { data, loading, refetch } = useQuery<DataQuery>(FETCH_ALL_JOB_SEARCH, {
     variables: { page: page },
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-and-network",
   });
 
   const listJob = data?.getAllWorkJob;
@@ -75,12 +77,17 @@ const WorkJobs: NextPage = () => {
                     <Col sm={6}>
                       <aside className={style.sidebarListJob}>
                         <h6>Tìm kiếm: </h6>
-                        <SearchJobForm onSearch={refetch} />
+                        <SearchJobForm
+                          onSearch={refetch}
+                          loadingSubmit={loading}
+                        />
                       </aside>
                     </Col>
+
                     <Col sm={18}>
-                      {loading && <LoadingApp />}
-                      {listJob?.data?.length ? (
+                      {loading ? (
+                        <LoadingApp />
+                      ) : listJob?.data?.length ? (
                         <>
                           <p>
                             Tìm thấy{" "}

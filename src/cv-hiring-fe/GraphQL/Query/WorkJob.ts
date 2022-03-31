@@ -53,10 +53,20 @@ export const FETCH_ALL_JOB_SEARCH = gql`
     $name: String
     $categoryId: ID
     $provinceId: ID
+    $rating: String
+    $type: String
+    $requirementGender: String
   ) {
     getAllWorkJob(
       page: $page
-      input: { name: $name, provinceId: $provinceId, categoryId: $categoryId }
+      input: {
+        name: $name
+        provinceId: $provinceId
+        categoryId: $categoryId
+        rating: $rating
+        requirementGender: $requirementGender
+        type: $type
+      }
     ) {
       paginatorInfo {
         total

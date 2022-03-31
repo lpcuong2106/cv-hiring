@@ -14,15 +14,18 @@ interface DataQuery {
 }
 interface Props {
   onSearch: (variables: any) => Promise<any>;
+  loadingSubmit: boolean;
 }
 
-function SearchJobForm({ onSearch }: Props) {
+function SearchJobForm({ onSearch, loadingSubmit }: Props) {
   const { data, loading } = useQuery<DataQuery>(FETCH_ALL_PROVINCE_CATEGORY);
   const [search, setSearch] = useState({
     name: "",
     provinceId: "",
     categoryId: "",
     rating: "",
+    requirementGender: "",
+    type: "",
   });
 
   const handleSearch = () => {
@@ -31,6 +34,8 @@ function SearchJobForm({ onSearch }: Props) {
       provinceId: search.provinceId,
       categoryId: search.categoryId,
       rating: search.rating,
+      type: search.type,
+      requirementGender: search.requirementGender,
       page: 1,
     });
   };
@@ -56,6 +61,18 @@ function SearchJobForm({ onSearch }: Props) {
     setSearch({
       ...search,
       rating: value,
+    });
+  };
+  const changeRequirementGender = (value: string) => {
+    setSearch({
+      ...search,
+      requirementGender: value,
+    });
+  };
+  const changeType = (value: string) => {
+    setSearch({
+      ...search,
+      type: value,
     });
   };
   if (loading) {
@@ -104,7 +121,6 @@ function SearchJobForm({ onSearch }: Props) {
       </Col>
       <Col md={24}>
         <Select
-          // style={{ width: 200 }}
           showSearch
           placeholder="Chọn tỉnh thành"
           onChange={changeProvince}
@@ -134,8 +150,6 @@ function SearchJobForm({ onSearch }: Props) {
       </Col>
       <Col md={24}>
         <Select
-          // style={{ width: 200 }}
-          showSearch
           placeholder="Sắp xếp theo đánh giá"
           onChange={changeRating}
           value={search.rating}
@@ -149,33 +163,29 @@ function SearchJobForm({ onSearch }: Props) {
       </Col>
       <Col md={24}>
         <Select
-          // style={{ width: 200 }}
           showSearch
           placeholder="Hình thức làm việc"
-          onChange={changeRating}
-          value={search.rating}
+          onChange={changeType}
+          value={search.type}
           size="large"
           className={style.searchInput}
         >
           <Option value="">Hình thức làm việc</Option>
-          <Option value="desc">Từ cao đến thấp</Option>
-          <Option value="asc">Từ thấp đến cao</Option>
+          <Option value="full-time">Toàn thời gian</Option>
+          <Option value="part-time">Bán thời gian</Option>
         </Select>
       </Col>
       <Col md={24}>
         <Select
-          // style={{ width: 200 }}
-          showSearch
           placeholder="Yêu cầu giới tính"
-          onChange={changeRating}
-          value={search.rating}
+          onChange={changeRequirementGender}
+          value={search.requirementGender}
           size="large"
           className={style.searchInput}
         >
           <Option value="">Yêu cầu giới tính</Option>
-          <Option value="desc">Không yêu cầu</Option>
-          <Option value="desc">Nam</Option>
-          <Option value="asc">Nữ</Option>
+          <Option value="Yêu cầu giới tính nam">Nam</Option>
+          <Option value="Yêu cầu giới tính nữ">Nữ</Option>
         </Select>
       </Col>
       <Col md={24}>
@@ -184,6 +194,7 @@ function SearchJobForm({ onSearch }: Props) {
           type="primary"
           style={{ width: "90%" }}
           onClick={handleSearch}
+          loading={loadingSubmit}
         >
           Tìm kiếm
         </Button>

@@ -68,6 +68,9 @@ input WorkJobSearchInput {
     name: String
     provinceId: ID
     categoryId: ID
+    rating: String
+    requirementGender: String
+    type: String
 }
 
 type WorkJobPaginator {
