@@ -19,6 +19,22 @@ export const RedirectRules: IRedirectRules[] = [
     route: { path: "/quan-tri/tuyen-dung/them-moi" },
     only: [RoleEnum.HR],
   },
+  {
+    route: { path: "/quan-tri/cai-dat" },
+    only: [RoleEnum.ADMIN],
+  },
+  {
+    route: { path: "/quan-tri/cong-ty" },
+    only: [RoleEnum.ADMIN],
+  },
+  {
+    route: { path: "/quan-tri/nguoi-dung" },
+    only: [RoleEnum.ADMIN],
+  },
+  {
+    route: { path: "/quan-tri/nganh-nghe" },
+    only: [RoleEnum.ADMIN],
+  },
   { route: { path: "/quan-tri" }, only: [RoleEnum.HR, RoleEnum.ADMIN] },
   {
     route: { path: "/ca-nhan" },
