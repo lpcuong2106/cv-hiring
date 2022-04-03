@@ -12,8 +12,8 @@ export const FETCH_USER_ROLE_HR_UNMANAGE = gql`
 `;
 
 export const FETCH_ALL_USER_MANAGE = gql`
-  query users($page: Int!) {
-    getAllUsers(page: $page) {
+  query users($page: Int!, $role: String, $name: String) {
+    getAllUsers(page: $page, role: $role, name: $name) {
       paginatorInfo {
         count
         currentPage

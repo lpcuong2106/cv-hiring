@@ -1,16 +1,22 @@
-import React, { useState } from "react";
-import { Row, Col, message, Table, Button, Space, Tooltip } from "antd";
+import React, { useCallback, useState } from "react";
+import {
+  Row,
+  Col,
+  message,
+  Table,
+  Button,
+  Space,
+  Tooltip,
+  Input,
+  Select,
+} from "antd";
 import style from "./style.module.scss";
 import Head from "next/head";
 import { useMutation, useQuery } from "@apollo/client";
-import * as Yup from "yup";
 import LayoutAdmin from "../../../components/layouts/LayoutAdmin";
-import { LoadingApp } from "../../../components/LoadingApp";
 import Link from "next/link";
-import { Company, PaginatorInfo, User } from "../../../data";
+import { PaginatorInfo, User } from "../../../data";
 import { ColumnsType } from "antd/lib/table";
-import { RESUME_HIRING_JOB } from "../../../GraphQL/Mutation/StatusHiringWorkJob";
-import { useAppSelector } from "../../../store/hook";
 import { FETCH_ALL_USER_MANAGE } from "../../../GraphQL/Query/User";
 import { Edit } from "styled-icons/boxicons-regular";
 import { Trash } from "styled-icons/bootstrap";
@@ -62,15 +68,20 @@ interface DataQuery {
 // });
 
 const ManageUser = () => {
-  const [page, setPage] = useState(1);
   const [idRemove, setIdRemove] = useState<null | number>();
-  const userLoggedIn = useAppSelector((state) => state.user.user);
 
+  const [search, setSearch] = useState({
+    name: "",
+    role: "",
+    page: 1,
+  });
   const { data, loading, refetch } = useQuery<DataQuery>(
     FETCH_ALL_USER_MANAGE,
     {
       variables: {
-        page: page,
+        page: search.page,
+        name: search.name,
+        role: search.role,
       },
       fetchPolicy: "network-only",
       nextFetchPolicy: "cache-and-network",
@@ -106,7 +117,10 @@ const ManageUser = () => {
   const companies = data?.getAllUsers;
 
   const handleChangePaginate = (page: number) => {
-    setPage(page);
+    setSearch({
+      ...search,
+      page: page,
+    });
   };
 
   const columns: ColumnsType<User> = [
@@ -181,37 +195,80 @@ const ManageUser = () => {
       },
     },
   ];
+  const changeCategory = (value: string) => {
+    setSearch({
+      ...search,
+      role: value,
+      page: 1,
+    });
+  };
+  const handleSearchField = useCallback((value: string) => {
+    setSearch({
+      ...search,
+      name: value,
+      page: 1,
+    });
+  }, []);
   return (
     <LayoutAdmin>
       <Head>
         <title>Kết nối lao động việt | Quản trị </title>
       </Head>
-      {loading || !companies ? (
-        <LoadingApp />
-      ) : (
-        <div className="site-statistic-demo-card">
-          <h1>Quản lý người dùng</h1>
-          <div className={style.actionAdd}>
-            <Link href={"/quan-tri/nguoi-dung/them-moi"}>
-              <Button type="primary">Thêm mới</Button>
-            </Link>
-          </div>
 
-          <Row gutter={16}>
-            <Col span={24} className={style.statistic}>
-              <Table<User>
-                columns={columns}
-                dataSource={companies.data}
-                pagination={{
-                  current: companies.paginatorInfo.currentPage,
-                  total: companies.paginatorInfo.total,
-                  onChange: handleChangePaginate,
-                }}
-              />
-            </Col>
-          </Row>
+      <div className="site-statistic-demo-card">
+        <h1>Quản lý người dùng</h1>
+        <div className={style.actionAdd}>
+          <Link href={"/quan-tri/nguoi-dung/them-moi"}>
+            <Button type="primary">Thêm mới</Button>
+          </Link>
         </div>
-      )}
+
+        <Row gutter={16}>
+          <Col span={24} className={style.statistic}>
+            <Table<User>
+              columns={columns}
+              loading={loading || !companies}
+              dataSource={companies?.data}
+              title={() => {
+                return (
+                  <Row className={style.searchWrapper}>
+                    <Col md={6}>
+                      <Input
+                        placeholder="Nhập Email..."
+                        onChange={(e) => handleSearchField(e.target.value)}
+                        size="large"
+                        value={search.name}
+                        className={style.searchInput}
+                        style={{ width: 300 }}
+                      />
+                    </Col>
+                    <Col md={6}>
+                      <Select
+                        className={style.searchInput}
+                        placeholder="Chọn vai trò"
+                        onChange={changeCategory}
+                        value={search.role}
+                        size="large"
+                        style={{ marginLeft: 20 }}
+                      >
+                        <Select.Option value="">Vai trò</Select.Option>
+                        <Select.Option value="user">Người dùng</Select.Option>
+                        <Select.Option value="hr">HR</Select.Option>
+                        <Select.Option value="admin">Admin</Select.Option>
+                      </Select>
+                    </Col>
+                  </Row>
+                );
+              }}
+              pagination={{
+                current: companies?.paginatorInfo.currentPage,
+                total: companies?.paginatorInfo.total,
+                onChange: handleChangePaginate,
+              }}
+            />
+          </Col>
+        </Row>
+      </div>
     </LayoutAdmin>
   );
 };

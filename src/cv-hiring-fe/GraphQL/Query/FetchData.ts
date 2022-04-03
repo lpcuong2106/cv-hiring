@@ -74,8 +74,8 @@ export const FETCH_ALL_PROVINCE_CATEGORY = gql`
 `;
 
 export const FETCH_ALL_CATEGORY = gql`
-  query FetchAllCategory {
-    workCategories {
+  query FetchAllCategory($name: String) {
+    workCategories(name: $name) {
       id
       name
       workJob {

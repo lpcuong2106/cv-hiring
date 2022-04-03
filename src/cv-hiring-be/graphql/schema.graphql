@@ -34,14 +34,14 @@ type Query {
     getWorkJobBySlug(slug: String! @eq): WorkJob @find
     getWorkJobById(id: ID! @eq): WorkJob @find
 
-    workCategories: [WorkCategory!]! @all
+    workCategories(name: String): [WorkCategory!]!
     categoryDetail(id: ID! @eq): WorkCategory @find
     workJobOfCategory(categoryId: ID!): WorkJobPaginator
 
     userAppliedWorkJob(user_id: ID! @eq, work_job_id: ID! @eq): UserAppliedJob
         @find(model: "App\\Models\\WorkApply")
     allCvApplied(companyId: ID, page: Int): WorkAppliedPaginator @guard
-    getAllUsers(page: Int!): UserPaginator @guard
+    getAllUsers(page: Int!, name: String, role: String): UserPaginator @guard
     getAllWorkJob(
         page: Int!
         input: WorkJobSearchInput @spread

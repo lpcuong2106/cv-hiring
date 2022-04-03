@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Row, Col, Table, Button, Space, Tooltip, message, Select } from "antd";
+import React, { useCallback, useState } from "react";
+import { Row, Col, Table, Button, Space, Tooltip, message, Input } from "antd";
 import style from "./style.module.scss";
 import Head from "next/head";
 import { useMutation, useQuery } from "@apollo/client";
@@ -16,20 +16,19 @@ import { REMOVE_WORKCATEGORY } from "../../../GraphQL/Mutation/RemoveCategory";
 interface DataQuery {
   workCategories: WorkCategory[];
 }
-interface DataUserDetail {
-  user: User;
-}
-
-const { Option } = Select;
 
 const ManageWorkCategory = () => {
-  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState({
+    name: "",
+    page: 1,
+  });
   const userLoggedIn = useAppSelector((state) => state.user.user);
 
   const { data, loading, refetch } = useQuery<DataQuery>(FETCH_ALL_CATEGORY, {
     variables: {
       companyId: userLoggedIn?.company?.id,
-      page: page,
+      name: search.name,
+      page: search.page,
     },
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-and-network",
@@ -118,6 +117,14 @@ const ManageWorkCategory = () => {
       },
     },
   ];
+  const handleSearchField = useCallback((value: string) => {
+    setSearch({
+      ...search,
+      name: value,
+      page: 1,
+    });
+  }, []);
+
   return (
     <LayoutAdmin>
       <Head>
@@ -131,20 +138,32 @@ const ManageWorkCategory = () => {
             <Button type="primary">Thêm mới</Button>
           </Link>
         </div>
-        {loading || !workCategories ? (
-          <LoadingApp />
-        ) : (
-          <>
-            <Row gutter={16}>
-              <Col span={24} className={style.statistic}>
-                <Table<WorkCategory>
-                  columns={columns}
-                  dataSource={workCategories}
-                />
-              </Col>
-            </Row>
-          </>
-        )}
+
+        <Row gutter={16}>
+          <Col span={24} className={style.statistic}>
+            <Table<WorkCategory>
+              columns={columns}
+              dataSource={workCategories}
+              loading={loading || !workCategories}
+              title={() => {
+                return (
+                  <Row className={style.searchWrapper}>
+                    <Col md={6}>
+                      <Input
+                        placeholder="Nhập tên ngành nghề..."
+                        onChange={(e) => handleSearchField(e.target.value)}
+                        size="large"
+                        value={search.name}
+                        className={style.searchInput}
+                        style={{ width: 300 }}
+                      />
+                    </Col>
+                  </Row>
+                );
+              }}
+            />
+          </Col>
+        </Row>
       </div>
     </LayoutAdmin>
   );
