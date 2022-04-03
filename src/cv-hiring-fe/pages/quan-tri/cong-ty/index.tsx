@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Row, Col, message, Table, Button, Space, Tooltip } from "antd";
+import React, { useCallback, useState } from "react";
+import { Row, Col, message, Table, Button, Space, Tooltip, Input } from "antd";
 import style from "./style.module.scss";
 import Head from "next/head";
 import { useMutation, useQuery } from "@apollo/client";
@@ -60,13 +60,16 @@ export const validationSchemaWorkJob = Yup.object().shape({
 });
 
 const ManageCompany = () => {
-  const [page, setPage] = useState(1);
-
+  const [search, setSearch] = useState({
+    name: "",
+    page: 1,
+  });
   const { data, loading, refetch } = useQuery<DataQuery>(
     FETCH_ALL_COMPANY_MANAGE,
     {
       variables: {
-        page: page,
+        page: search.page,
+        name: search.name,
       },
       fetchPolicy: "network-only",
       nextFetchPolicy: "cache-and-network",
@@ -99,7 +102,10 @@ const ManageCompany = () => {
   const companies = data?.getAllCompany;
 
   const handleChangePaginate = (page: number) => {
-    setPage(page);
+    setSearch({
+      ...search,
+      page: page,
+    });
   };
 
   const columns: ColumnsType<Company> = [
@@ -176,38 +182,61 @@ const ManageCompany = () => {
       },
     },
   ];
+
+  const handleSearchField = useCallback((value: string) => {
+    setSearch({
+      ...search,
+      name: value,
+      page: 1,
+    });
+  }, []);
+
   return (
     <LayoutAdmin>
       <Head>
         <title>Kết nối lao động việt | Quản trị </title>
       </Head>
-      {loading || !companies ? (
-        <LoadingApp />
-      ) : (
-        <div className="site-statistic-demo-card">
-          <h1>Danh sách công ty</h1>
 
-          <div className={style.actionAdd}>
-            <Link href={"/quan-tri/cong-ty/them-moi"}>
-              <Button type="primary">Thêm mới</Button>
-            </Link>
-          </div>
+      <div className="site-statistic-demo-card">
+        <h1>Danh sách công ty</h1>
 
-          <Row gutter={16}>
-            <Col span={24} className={style.statistic}>
-              <Table<Company>
-                columns={columns}
-                dataSource={companies.data}
-                pagination={{
-                  current: companies.paginatorInfo.currentPage,
-                  total: companies.paginatorInfo.total,
-                  onChange: handleChangePaginate,
-                }}
-              />
-            </Col>
-          </Row>
+        <div className={style.actionAdd}>
+          <Link href={"/quan-tri/cong-ty/them-moi"}>
+            <Button type="primary">Thêm mới</Button>
+          </Link>
         </div>
-      )}
+
+        <Row gutter={16}>
+          <Col span={24} className={style.statistic}>
+            <Table<Company>
+              columns={columns}
+              loading={loading || !companies}
+              dataSource={companies?.data}
+              title={() => {
+                return (
+                  <Row className={style.searchWrapper}>
+                    <Col md={6}>
+                      <Input
+                        placeholder="Nhập tên công ty..."
+                        onChange={(e) => handleSearchField(e.target.value)}
+                        size="large"
+                        value={search.name}
+                        className={style.searchInput}
+                        style={{ width: 300 }}
+                      />
+                    </Col>
+                  </Row>
+                );
+              }}
+              pagination={{
+                current: companies?.paginatorInfo.currentPage,
+                total: companies?.paginatorInfo.total,
+                onChange: handleChangePaginate,
+              }}
+            />
+          </Col>
+        </Row>
+      </div>
     </LayoutAdmin>
   );
 };

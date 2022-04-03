@@ -46,8 +46,8 @@ export const FETCH_COMPANY_DETAIL = gql`
 `;
 
 export const FETCH_ALL_COMPANY_MANAGE = gql`
-  query getAllCompany($page: Int) {
-    getAllCompany(page: $page) {
+  query getAllCompany($page: Int, $name: String) {
+    getAllCompany(page: $page, name: $name) {
       paginatorInfo {
         count
         currentPage

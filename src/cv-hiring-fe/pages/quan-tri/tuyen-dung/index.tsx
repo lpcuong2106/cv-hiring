@@ -228,6 +228,7 @@ const AppliedCVManage = () => {
       page: 1,
     });
   }, []);
+
   const changeCategory = (value: string) => {
     setSearch({
       ...search,

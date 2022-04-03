@@ -14,8 +14,11 @@ class GetAllCompany
     public function __invoke($_, array $args)
     {
         $page = $args['page'];
+        $name = isset($args['name']) ? $args['name'] : null;
 
-        $companies = Company::paginate(10, ['*'], 'page', $page);
+        $companies = Company::when($name, function ($query, $name) {
+            return $query->where('name', 'like', '%' . $name . '%');
+        })->paginate(10, ['*'], 'page', $page);
 
         $pagination = [
             'total' => $companies->total(),

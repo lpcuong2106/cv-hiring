@@ -24,7 +24,7 @@ type Query {
     me: User @auth(guard: "api")
     topCompany(amount: Int!): [Company!]!
 
-    getAllCompany(page: Int): CompanyPaginator
+    getAllCompany(page: Int, name: String): CompanyPaginator
     companyDetail(slug: String @eq, id: ID @eq): Company @find
     companyReview(slug: String, page: Int): ReviewPaginator
     workJobHiringOfCompany(companyId: ID!): [WorkJob!]!
@@ -51,7 +51,12 @@ type Query {
     analystWorkJob(companyId: ID): AnalystWorkJob @guard
     analystTrend: AnalystTrend
     historyCoin(user_id: ID, page: Int): LogHistoryCoinPaginator @guard
-    workJobByCompany(companyId: ID, name: String, status: String, page: Int): WorkJobPaginator @guard
+    workJobByCompany(
+        companyId: ID
+        name: String
+        status: String
+        page: Int
+    ): WorkJobPaginator @guard
     hrUnManage: [User!]! @guard
     settingWebsite: Setting @first
 }
