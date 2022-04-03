@@ -51,7 +51,7 @@ type Query {
     analystWorkJob(companyId: ID): AnalystWorkJob @guard
     analystTrend: AnalystTrend
     historyCoin(user_id: ID, page: Int): LogHistoryCoinPaginator @guard
-    workJobByCompany(companyId: ID, page: Int): WorkJobPaginator @guard
+    workJobByCompany(companyId: ID, name: String, status: String, page: Int): WorkJobPaginator @guard
     hrUnManage: [User!]! @guard
     settingWebsite: Setting @first
 }

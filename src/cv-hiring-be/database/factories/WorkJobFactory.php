@@ -29,7 +29,7 @@ class WorkJobFactory extends Factory
             'amount_accept'         => $this->faker->numerify('###'),
             'address_work'          => $this->faker->address(),
             'salary'                => $this->faker->numerify('###'),
-            'type'                  => 'partime',
+            'type'                  => 'part-time',
             'is_open'               => rand(0, 1),
             'expired_date_hiring'   => now(),
             'province_id'           => rand(1, 63),

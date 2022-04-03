@@ -51,15 +51,30 @@ class WorkJob extends Model
         return $this->belongsTo(WorkCategory::class, 'work_category_id', 'id');
     }
 
-
     public function scopeJobHiring($query)
     {
         return $query->where('is_open', '=', 1)
             ->where('expired_date_hiring', '>=', now());
     }
 
+    public function scopeStopJobHiring($query)
+    {
+        return $query->where('is_open', '=', 0)->where('expired_date_hiring', '>=', now());
+    }
+
+    public function scopeExpiredJobHiring($query)
+    {
+        return $query->where('expired_date_hiring', '<', now());
+    }
+
+
     public function work_applies()
     {
         return $this->hasMany(WorkApply::class);
+    }
+
+    public function orderByReviewCompany()
+    {
+        return $this->belongsTo(Company::class, 'company_id', 'id')->reviews();
     }
 }

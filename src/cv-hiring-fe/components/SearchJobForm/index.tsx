@@ -75,9 +75,6 @@ function SearchJobForm({ onSearch, loadingSubmit }: Props) {
       type: value,
     });
   };
-  if (loading) {
-    return <LoadingApp />;
-  }
 
   return (
     <Row className={style.searchWrapper}>

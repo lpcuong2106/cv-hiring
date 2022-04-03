@@ -263,8 +263,18 @@ export const FETCH_WORK_JOB_EDIT = gql`
 `;
 
 export const FETCH_ALL_WORKJOB_MANAGE = gql`
-  query workJobByCompany($companyId: ID, $page: Int) {
-    workJobByCompany(companyId: $companyId, page: $page) {
+  query workJobByCompany(
+    $companyId: ID
+    $page: Int
+    $name: String
+    $status: String
+  ) {
+    workJobByCompany(
+      companyId: $companyId
+      name: $name
+      status: $status
+      page: $page
+    ) {
       paginatorInfo {
         count
         currentPage

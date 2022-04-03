@@ -18,7 +18,6 @@ export const TopCompanyItem = ({ companyTop }: Props) => {
               <div className={style.companyBox}>
                 <img
                   src={company.logo}
-                  style={{ width: "63px", objectFit: "contain" }}
                   onError={({ currentTarget }) => {
                     currentTarget.onerror = null; // prevents looping
                     currentTarget.src = "/company-default.svg";

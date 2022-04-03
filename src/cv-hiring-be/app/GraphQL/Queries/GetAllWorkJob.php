@@ -20,7 +20,7 @@ class GetAllWorkJob
         $requirementGender =  isset($args['requirementGender']) ? $args['requirementGender'] : null;
         $type =  isset($args['type']) ? $args['type'] : null;
 
-        $workJob = WorkJob::jobHiring()
+        $workJobs = WorkJob::jobHiring()
             ->when($nameJob, function ($query, $nameJob) {
                 return $query->where('name', 'like', '%' . $nameJob . '%');
             })
@@ -33,34 +33,45 @@ class GetAllWorkJob
             ->when($type,  function ($query, $type) {
                 return $query->where('type',  $type);
             })
-            ->when($rating, function ($query, $rating) {
-                return $query->join('companies', 'companies.id', '=', 'work_jobs.company_id')
-                    ->leftJoin('reviews', function ($join) {
-                        return $join->on('reviews.model_id', '=', 'companies.id')
-                            ->where('reviews.model_type', '=', 'App\Models\Company');
-                    });
-            })
+            // ->when($rating, function ($query, $rating) {
+            //     return $query->join('companies', 'companies.id', '=', 'work_jobs.company_id')
+            //         ->leftJoin('reviews', function ($join) {
+            //             return $join->on('reviews.model_id', '=', 'companies.id')
+            //                 ->where('reviews.model_type', '=', 'App\Models\Company');
+            //             // ->groupBy('companies.id', 'work_jobs.id')
+            //             // ->avg('reviews.rating')->orderBy('reviews.rating');
+            //         });
+            // })
             ->when($requirementGender, function ($query, $requirementGender) {
                 return $query->where('requirement_gender', $requirementGender);
             })
-            ->groupBy('companies.id', 'work_jobs.id')
-            ->avg('reviews.rating', 'reviews_avg')
+            // ->whereHas('company', function ($query) {
+            //     // dd($query);
+            //     return $query->whereHas('reviews')->avg('reviews.rating');
+            //     // $query->where('approved', 1)->orderBy('name');
+            // });
+
+
+            // $companies = $workJobs->company();
+            // ->groupBy('companies.id', 'work_jobs.id')
+            // ->avg('reviews.rating');
             ->paginate(10, ['*'], 'page', $page);
 
-        // ;
+        // dd($workJobs->get());
 
         $pagination = [
-            'total' => $workJob->total(),
-            'lastItem'  => $workJob->lastItem(),
-            'firstItem' => $workJob->firstItem(),
-            'perPage'   =>  $workJob->perPage(),
-            'currentPage'   => $workJob->currentPage(),
-            'lastPage'  => $workJob->lastPage(),
-            'count'     => $workJob->count(),
+            'total' => $workJobs->total(),
+            'lastItem'  => $workJobs->lastItem(),
+            'firstItem' => $workJobs->firstItem(),
+            'perPage'   =>  $workJobs->perPage(),
+            'currentPage'   => $workJobs->currentPage(),
+            'hasMorePages'  => $workJobs->hasMorePages(),
+            'lastPage'  => $workJobs->lastPage(),
+            'count'     => $workJobs->count(),
         ];
         return [
             'paginatorInfo' => $pagination,
-            'data' => $workJob
+            'data' => $workJobs
         ];
     }
 }

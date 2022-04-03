@@ -4,5 +4,11 @@
     p {
       color: black;
     }
+    img {
+      width: 63px;
+      height: 63px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
   }
 }

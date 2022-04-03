@@ -1,5 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Table, Button, Tag, Space, Tooltip, message } from "antd";
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  Row,
+  Col,
+  Table,
+  Button,
+  Tag,
+  Space,
+  Tooltip,
+  message,
+  Select,
+  Input,
+} from "antd";
 import style from "./style.module.scss";
 import LayoutAdmin from "../../../components/layouts/LayoutAdmin";
 import Head from "next/head";
@@ -22,6 +33,7 @@ import {
 } from "../../../GraphQL/Mutation/StatusHiringWorkJob";
 import { useAppSelector } from "../../../store/hook";
 import moment from "moment";
+import { useDebouncedCallback } from "use-debounce";
 
 type PropsMutation = {
   pauseHiring: {
@@ -30,13 +42,18 @@ type PropsMutation = {
   };
 };
 const AppliedCVManage = () => {
-  const [page, setPage] = useState(1);
   const userLoggedIn = useAppSelector((state) => state.user.user);
-
+  const [search, setSearch] = useState({
+    name: "",
+    status: "",
+    page: 1,
+  });
   const { data, loading, refetch } = useQuery(FETCH_ALL_WORKJOB_MANAGE, {
     variables: {
       companyId: userLoggedIn?.company?.id,
-      page: page,
+      name: search.name,
+      status: search.status,
+      page: search.page,
     },
     skip: !userLoggedIn?.company?.id && userLoggedIn?.role.name !== "admin",
     fetchPolicy: "network-only",
@@ -52,8 +69,11 @@ const AppliedCVManage = () => {
 
   const workJobByCompany = data?.workJobByCompany;
 
-  const handleChangePaginate = (page: number) => {
-    setPage(page);
+  const handleChangePaginate = async (page: number) => {
+    setSearch({
+      ...search,
+      page: page,
+    });
   };
 
   const handleStopHiring = async (id: number) => {
@@ -200,39 +220,91 @@ const AppliedCVManage = () => {
       },
     },
   ];
+
+  const handleSearchField = useCallback((value: string) => {
+    setSearch({
+      ...search,
+      name: value,
+      page: 1,
+    });
+  }, []);
+  const changeCategory = (value: string) => {
+    setSearch({
+      ...search,
+      status: value,
+      page: 1,
+    });
+  };
+
   return (
     <LayoutAdmin>
       <Head>
         <title>Kết nối lao động việt | Quản trị </title>
       </Head>
-      {loading || !workJobByCompany ? (
-        <LoadingApp />
-      ) : (
-        <div className="site-statistic-demo-card">
-          <h1>Tin tuyển dụng</h1>
-          {userLoggedIn?.role.name !== "admin" && (
-            <div className={style.actionAdd}>
-              <Link href={"/quan-tri/tuyen-dung/them-moi"}>
-                <Button type="primary">Thêm mới</Button>
-              </Link>
-            </div>
-          )}
 
-          <Row gutter={16}>
-            <Col span={24} className={style.statistic}>
-              <Table<WorkJob>
-                columns={columns}
-                dataSource={workJobByCompany.data}
-                pagination={{
-                  current: workJobByCompany.paginatorInfo.currentPage,
-                  total: workJobByCompany.paginatorInfo.total,
-                  onChange: handleChangePaginate,
-                }}
-              />
-            </Col>
-          </Row>
-        </div>
-      )}
+      <div className="site-statistic-demo-card">
+        <h1>Tin tuyển dụng</h1>
+        {userLoggedIn?.role.name !== "admin" && (
+          <div className={style.actionAdd}>
+            <Link href={"/quan-tri/tuyen-dung/them-moi"}>
+              <Button type="primary">Thêm mới</Button>
+            </Link>
+          </div>
+        )}
+
+        <Row gutter={16}>
+          <Col span={24} className={style.statistic}>
+            <Table<WorkJob>
+              columns={columns}
+              loading={loading || !workJobByCompany}
+              dataSource={workJobByCompany?.data}
+              title={() => {
+                return (
+                  <Row className={style.searchWrapper}>
+                    <Col md={6}>
+                      <Input
+                        placeholder="Nhập tên công việc..."
+                        onChange={(e) => handleSearchField(e.target.value)}
+                        size="large"
+                        value={search.name}
+                        className={style.searchInput}
+                        style={{ width: 300 }}
+                      />
+                    </Col>
+                    <Col md={6}>
+                      <Select
+                        className={style.searchInput}
+                        placeholder="Trạng thái đăng tuyển"
+                        onChange={changeCategory}
+                        value={search.status}
+                        size="large"
+                      >
+                        <Select.Option value="">
+                          Trạng thái đăng tuyển
+                        </Select.Option>
+                        <Select.Option value="stopHiring">
+                          Dừng đăng tuyển
+                        </Select.Option>
+                        <Select.Option value="hiring">
+                          Đang đăng tuyển
+                        </Select.Option>
+                        <Select.Option value="expire_hiring">
+                          Hết hạn tuyển dụng
+                        </Select.Option>
+                      </Select>
+                    </Col>
+                  </Row>
+                );
+              }}
+              pagination={{
+                current: workJobByCompany?.paginatorInfo.currentPage,
+                total: workJobByCompany?.paginatorInfo.total,
+                onChange: handleChangePaginate,
+              }}
+            />
+          </Col>
+        </Row>
+      </div>
     </LayoutAdmin>
   );
 };
