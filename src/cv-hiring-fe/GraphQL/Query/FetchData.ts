@@ -94,7 +94,7 @@ export const FETCH_HOME_PAGE = gql`
       id
       name
     }
-    newWorkJob(amount: 16) {
+    newWorkJob(amount: 9) {
       id
       name
       slug

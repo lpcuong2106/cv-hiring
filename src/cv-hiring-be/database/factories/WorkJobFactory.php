@@ -30,10 +30,10 @@ class WorkJobFactory extends Factory
             'address_work'          => $this->faker->address(),
             'salary'                => $this->faker->numerify('###'),
             'type'                  => 'part-time',
-            'is_open'               => rand(0, 1),
-            'expired_date_hiring'   => now(),
-            'province_id'           => rand(1, 63),
-            'work_category_id'      => rand(1, 20)
+            'is_open'               => 1,
+            'expired_date_hiring'   => $this->faker->dateTimeBetween('+1 days', '+30 days'),
+            'province_id'           => 1,
+            'work_category_id'      => 1
         ];
     }
 }

@@ -13,7 +13,11 @@ class WorkJobOfProvince
     public function __invoke($_, array $args)
     {
         $provinceId = $args['provinceId'];
-        $workJob = WorkJob::where('province_id', $provinceId)->jobHiring()->paginate();
+        $page = isset($args['page']) ? $args['page'] : 1;
+
+        $workJob = WorkJob::where('province_id', $provinceId)
+            ->jobHiring()
+            ->paginate(10, ['*'], 'page', $page);
         $pagination = [
             'total' => $workJob->total(),
             'lastItem'  => $workJob->lastItem(),

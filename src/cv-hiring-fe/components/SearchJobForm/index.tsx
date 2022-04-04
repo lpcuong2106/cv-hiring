@@ -12,21 +12,23 @@ interface DataQuery {
   provinces: Province[];
   workCategories: WorkCategory[];
 }
+type Search = {
+  name: string;
+  provinceId: string;
+  categoryId: string;
+  rating: string;
+  requirementGender: string;
+  type: string;
+};
 interface Props {
   onSearch: (variables: any) => Promise<any>;
   loadingSubmit: boolean;
+  search: Search;
+  setSearch: any;
 }
 
-function SearchJobForm({ onSearch, loadingSubmit }: Props) {
+function SearchJobForm({ onSearch, loadingSubmit, search, setSearch }: Props) {
   const { data, loading } = useQuery<DataQuery>(FETCH_ALL_PROVINCE_CATEGORY);
-  const [search, setSearch] = useState({
-    name: "",
-    provinceId: "",
-    categoryId: "",
-    rating: "",
-    requirementGender: "",
-    type: "",
-  });
 
   const handleSearch = () => {
     onSearch({
@@ -84,7 +86,6 @@ function SearchJobForm({ onSearch, loadingSubmit }: Props) {
           onChange={handleSearchField}
           size="large"
           className={style.searchInput}
-          // style={{ width: 300 }}
         />
       </Col>
       <Col md={24}>

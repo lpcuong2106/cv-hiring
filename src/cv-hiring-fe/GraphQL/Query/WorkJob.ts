@@ -118,11 +118,11 @@ export const FETCH_WORK_JOB_HIRING_COMPANY = gql`
   }
 `;
 export const FETCH_WORK_JOB_PROVINCE = gql`
-  query workJobOfProvince($provinceId: ID!) {
+  query workJobOfProvince($provinceId: ID!, $page: Int) {
     provinceDetail(id: $provinceId) {
       name
     }
-    workJobOfProvince(provinceId: $provinceId) {
+    workJobOfProvince(provinceId: $provinceId, page: $page) {
       paginatorInfo {
         total
         perPage

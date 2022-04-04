@@ -39,6 +39,7 @@ const Province: NextPage = () => {
   const { data, loading } = useQuery<DataQuery>(FETCH_WORK_JOB_PROVINCE, {
     variables: {
       provinceId: id,
+      page: page,
     },
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-and-network",
@@ -53,10 +54,6 @@ const Province: NextPage = () => {
     });
     setPage(page);
   };
-
-  if (loading) {
-    return <LoadingApp />;
-  }
 
   return (
     <Layout>
@@ -80,7 +77,9 @@ const Province: NextPage = () => {
 
                   <Row>
                     <Col sm={18}>
-                      {workJobOfProvince?.data?.length ? (
+                      {loading ? (
+                        <LoadingApp />
+                      ) : workJobOfProvince?.data?.length ? (
                         <>
                           {workJobOfProvince.data.map((job) => (
                             <JobItem

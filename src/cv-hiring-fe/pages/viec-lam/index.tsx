@@ -32,23 +32,35 @@ function itemRender(current: any, type: any, originalElement: any) {
 }
 const WorkJobs: NextPage = () => {
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState({
+    name: "",
+    provinceId: "",
+    categoryId: "",
+    rating: "",
+    requirementGender: "",
+    type: "",
+  });
   const { data, loading, refetch } = useQuery<DataQuery>(FETCH_ALL_JOB_SEARCH, {
     variables: { page: page },
-    fetchPolicy: "network-only",
-    nextFetchPolicy: "cache-and-network",
+    // fetchPolicy: "network-only",
+    nextFetchPolicy: "network-only",
   });
 
   const listJob = data?.getAllWorkJob;
 
-  const changePagination = (page: number, _: number) => {
+  const changePagination = async (page: number, _: number) => {
     window.scroll({
       top: 0,
       left: 0,
       behavior: "smooth",
     });
     setPage(page);
+    await refetch({
+      ...search,
+      page: page,
+    });
   };
-
+  console.log(listJob);
   return (
     <Layout>
       <div>
@@ -78,6 +90,8 @@ const WorkJobs: NextPage = () => {
                       <aside className={style.sidebarListJob}>
                         <h6>Tìm kiếm: </h6>
                         <SearchJobForm
+                          search={search}
+                          setSearch={setSearch}
                           onSearch={refetch}
                           loadingSubmit={loading}
                         />
@@ -85,9 +99,8 @@ const WorkJobs: NextPage = () => {
                     </Col>
 
                     <Col sm={18}>
-                      {loading ? (
-                        <LoadingApp />
-                      ) : listJob?.data?.length ? (
+                      {loading && <LoadingApp />}
+                      {listJob && listJob.data.length > 0 ? (
                         <>
                           <p>
                             Tìm thấy{" "}
@@ -113,7 +126,7 @@ const WorkJobs: NextPage = () => {
                           ))}
                           <Pagination
                             total={listJob?.paginatorInfo.total}
-                            pageSize={10}
+                            pageSize={listJob?.paginatorInfo.perPage}
                             current={listJob?.paginatorInfo.currentPage}
                             itemRender={itemRender}
                             className={style.pagination}
