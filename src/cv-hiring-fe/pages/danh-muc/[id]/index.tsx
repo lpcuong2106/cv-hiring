@@ -39,6 +39,7 @@ const CategoryList: NextPage = () => {
   const { data, loading } = useQuery<DataQuery>(FETCH_WORK_JOB_CATEGORY, {
     variables: {
       categoryId: id,
+      page: page,
     },
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-and-network",
@@ -53,10 +54,6 @@ const CategoryList: NextPage = () => {
     });
     setPage(page);
   };
-
-  if (loading) {
-    return <LoadingApp />;
-  }
 
   return (
     <Layout>
@@ -80,10 +77,13 @@ const CategoryList: NextPage = () => {
 
                   <Row>
                     <Col sm={18}>
-                      {workJobOfProvince?.data?.length ? (
-                        workJobOfProvince.data.map((job) => (
-                          <>
+                      {loading ? (
+                        <LoadingApp />
+                      ) : workJobOfProvince?.data?.length ? (
+                        <>
+                          {workJobOfProvince.data.map((job) => (
                             <JobItem
+                              key={job.id}
                               companySlug={job.company.slug}
                               slug={job.slug}
                               provinceName={job.province.name}
@@ -94,16 +94,16 @@ const CategoryList: NextPage = () => {
                               logoUrl={job.company.logo}
                               updatedAt={job.updated_at}
                             />
-                            <Pagination
-                              total={workJobOfProvince?.paginatorInfo.total}
-                              pageSize={10}
-                              current={page}
-                              itemRender={itemRender}
-                              className={style.pagination}
-                              onChange={changePagination}
-                            />
-                          </>
-                        ))
+                          ))}
+                          <Pagination
+                            total={workJobOfProvince?.paginatorInfo.total}
+                            pageSize={10}
+                            current={page}
+                            itemRender={itemRender}
+                            className={style.pagination}
+                            onChange={changePagination}
+                          />
+                        </>
                       ) : (
                         <NotFoundJob />
                       )}
@@ -113,7 +113,11 @@ const CategoryList: NextPage = () => {
                         <p>
                           <b>Có thể bạn quan tâm</b>
                         </p>
-                        <a target="_blank" href="https://www.topcv.vn/mau-cv">
+                        <a
+                          target="_blank"
+                          href="https://www.topcv.vn/mau-cv"
+                          rel="noreferrer"
+                        >
                           <img
                             src="https://static.topcv.vn/manual/cv-tim-viec-topcv.png"
                             alt="Apply việc gì cũng dễ"

@@ -116,7 +116,11 @@ const AppliedCVManage = () => {
         return (
           <div>
             {/* {!isBefore(date, new Date()) && record.is_open == 1 ? ( */}
-            <a href={"/viec-lam/" + record.slug} target="_blank">
+            <a
+              href={"/viec-lam/" + record.slug}
+              target="_blank"
+              rel="noreferrer"
+            >
               <b>{record.name}</b>
             </a>
             {/* ) : (

@@ -36,7 +36,7 @@ type Query {
 
     workCategories(name: String): [WorkCategory!]!
     categoryDetail(id: ID! @eq): WorkCategory @find
-    workJobOfCategory(categoryId: ID!): WorkJobPaginator
+    workJobOfCategory(categoryId: ID!, page: Int): WorkJobPaginator
 
     userAppliedWorkJob(user_id: ID! @eq, work_job_id: ID! @eq): UserAppliedJob
         @find(model: "App\\Models\\WorkApply")

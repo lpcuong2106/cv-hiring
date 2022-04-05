@@ -86,7 +86,7 @@ const Home: NextPage = () => {
                   </div>
                   <Row>
                     {data?.newWorkJob.map((job) => (
-                      <Col md={8}>
+                      <Col md={8} key={job.id}>
                         <NewWorkJobItem
                           companySlug={job.company.slug}
                           slug={job.slug}

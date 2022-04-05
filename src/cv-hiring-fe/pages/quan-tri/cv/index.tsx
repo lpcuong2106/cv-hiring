@@ -144,6 +144,7 @@ const ManageCV = () => {
         return (
           <a
             target={"_blank"}
+            rel="noreferrer"
             href={window.location.origin + "/viec-lam/" + record.work_job.slug}
           >
             {record.work_job.name}
@@ -229,6 +230,7 @@ const ManageCV = () => {
             )}
 
             <a
+              rel="noreferrer"
               target="_blank"
               href={`http://localhost:8000/${record.cv_url.replace(
                 "public/",

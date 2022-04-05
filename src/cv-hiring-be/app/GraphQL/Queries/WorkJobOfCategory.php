@@ -13,7 +13,11 @@ class WorkJobOfCategory
     public function __invoke($_, array $args)
     {
         $workCategoryId = $args['categoryId'];
-        $workJob = WorkJob::where('work_category_id', $workCategoryId)->jobHiring()->paginate();
+        $page = isset($args['page']) ? $args['page'] : 1;
+
+        $workJob = WorkJob::where('work_category_id', $workCategoryId)
+            ->jobHiring()
+            ->paginate(10, ['*'], 'page', $page);
         $pagination = [
             'total' => $workJob->total(),
             'lastItem'  => $workJob->lastItem(),

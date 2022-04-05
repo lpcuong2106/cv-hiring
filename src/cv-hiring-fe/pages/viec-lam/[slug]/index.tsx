@@ -238,6 +238,15 @@ const WorkJob: NextPage = () => {
                         label="Hình thức làm việc"
                         value={formatTypeWorkJob(workJob?.type ?? "")}
                       />
+                      <JobInfoRequirement
+                        label="Ngành"
+                        value={
+                          // @ts-ignore
+                          <a href={`/danh-muc/${workJob?.work_category.id}`}>
+                            {workJob?.work_category.name ?? ""}
+                          </a>
+                        }
+                      />
                     </Row>
                   </div>
                 </div>

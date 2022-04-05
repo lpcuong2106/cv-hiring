@@ -83,6 +83,7 @@ const Province: NextPage = () => {
                         <>
                           {workJobOfProvince.data.map((job) => (
                             <JobItem
+                              key={job.id}
                               companySlug={job.company.slug}
                               slug={job.slug}
                               provinceName={job.province.name}
@@ -112,7 +113,11 @@ const Province: NextPage = () => {
                         <p>
                           <b>Có thể bạn quan tâm</b>
                         </p>
-                        <a target="_blank" href="https://www.topcv.vn/mau-cv">
+                        <a
+                          rel="noreferrer"
+                          target="_blank"
+                          href="https://www.topcv.vn/mau-cv"
+                        >
                           <img
                             src="https://static.topcv.vn/manual/cv-tim-viec-topcv.png"
                             alt="Apply việc gì cũng dễ"

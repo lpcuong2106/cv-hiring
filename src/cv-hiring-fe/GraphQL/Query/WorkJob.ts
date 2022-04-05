@@ -30,6 +30,7 @@ export const FETCH_WORKJOB_QUERY = gql`
       updated_at
       created_at
       work_category {
+        id
         name
       }
       company {
@@ -154,11 +155,11 @@ export const FETCH_WORK_JOB_PROVINCE = gql`
   }
 `;
 export const FETCH_WORK_JOB_CATEGORY = gql`
-  query workJobOfCategory($categoryId: ID!) {
+  query workJobOfCategory($categoryId: ID!, $page: Int) {
     categoryDetail(id: $categoryId) {
       name
     }
-    workJobOfCategory(categoryId: $categoryId) {
+    workJobOfCategory(categoryId: $categoryId, page: $page) {
       paginatorInfo {
         total
         perPage

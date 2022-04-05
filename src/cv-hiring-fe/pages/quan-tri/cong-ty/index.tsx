@@ -128,7 +128,7 @@ const ManageCompany = () => {
       key: "name",
       render: (name: string, record: Company) => {
         return (
-          <a href={"/cong-ty/" + record.slug} target="_blank">
+          <a href={"/cong-ty/" + record.slug} rel="noreferrer" target="_blank">
             <div className={style.logoItem}>
               <img
                 src={record.logo}

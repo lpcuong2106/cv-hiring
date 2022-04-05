@@ -113,7 +113,9 @@ function SearchJobForm({ onSearch, loadingSubmit, search, setSearch }: Props) {
         >
           <Option value="">Chọn ngành nghề</Option>
           {data?.workCategories.map((category) => (
-            <Option value={category.id}>{category.name}</Option>
+            <Option value={category.id} key={category.id}>
+              {category.name}
+            </Option>
           ))}
         </Select>
       </Col>
@@ -142,7 +144,9 @@ function SearchJobForm({ onSearch, loadingSubmit, search, setSearch }: Props) {
         >
           <Option value="">Chọn tỉnh thành</Option>
           {data?.provinces.map((province) => (
-            <Option value={province.id}>{province.name}</Option>
+            <Option value={province.id} key={province.id}>
+              {province.name}
+            </Option>
           ))}
         </Select>
       </Col>

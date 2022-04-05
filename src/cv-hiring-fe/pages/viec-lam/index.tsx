@@ -112,6 +112,7 @@ const WorkJobs: NextPage = () => {
 
                           {listJob.data.map((job) => (
                             <JobItem
+                              key={job.id}
                               companySlug={job.company.slug}
                               slug={job.slug}
                               provinceName={job.province.name}

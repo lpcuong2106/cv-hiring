@@ -129,6 +129,7 @@ const Company: NextPage = () => {
                                   className={style.locationText}
                                   href={company?.website}
                                   target="_blank"
+                                  rel="noreferrer"
                                 >
                                   {company?.website}
                                 </a>
@@ -140,6 +141,7 @@ const Company: NextPage = () => {
                                 <a
                                   href={`https://www.google.com/maps?q=${company?.address}`}
                                   target={"_blank"}
+                                  rel="noreferrer"
                                 >
                                   Xem bản đồ
                                 </a>
@@ -165,6 +167,7 @@ const Company: NextPage = () => {
                     <TabPane tab="Việc làm" key="2">
                       {workJobs?.workJobHiringOfCompany?.map((job) => (
                         <JobItem
+                          key={job.id}
                           companySlug={company?.slug}
                           slug={job.slug}
                           provinceName={job.province.name}
