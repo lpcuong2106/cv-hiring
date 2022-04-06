@@ -30,9 +30,12 @@ class TopCompany
             ->offset($offset)
             ->limit($perPage)
             ->pluck('companies.id')->toArray();
-        // dd($companieIds);
+
+        $tempStr = implode(',', $companieIds);
+
         //query company theo id đó
         $companies = Company::whereIn('id', $companieIds)
+            ->orderByRaw(DB::raw("FIELD(id, $tempStr)"))
             ->get();
 
         return $companies;
