@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\WorkJob;
+use Illuminate\Support\Facades\DB;
 
 class GetAllWorkJob
 {
@@ -12,14 +13,30 @@ class GetAllWorkJob
      */
     public function __invoke($_, array $args)
     {
-        $page = $args['page'];
+        $page = isset($args['page']) ? $args['page'] : 1;
+        $perPage = 10;
+
         $nameJob = isset($args['name']) ? $args['name'] : null;
         $provinceId =  isset($args['provinceId']) ? $args['provinceId'] : null;
         $categoryId =  isset($args['categoryId']) ? $args['categoryId'] : null;
         $rating =  isset($args['rating']) ? $args['rating'] : null;
         $requirementGender =  isset($args['requirementGender']) ? $args['requirementGender'] : null;
         $type =  isset($args['type']) ? $args['type'] : null;
-
+        $workJobOrderByRating = null;
+        if ($rating) {
+            $workJobOrderByRating = DB::table('work_jobs')
+                ->selectRaw('work_jobs.id , companies.id as company_id, avg(reviews.rating) as avg_rating')
+                ->join('companies', function ($join) {
+                    return $join->on('companies.id', '=', 'work_jobs.company_id');
+                })
+                ->leftJoin('reviews', function ($join) {
+                    return $join->on('companies.id', '=', 'reviews.model_id')
+                        ->where('model_type', 'App\Models\Company');
+                })
+                ->groupBy('work_jobs.id', 'companies.id')
+                ->orderBy('avg_rating', $rating)
+                ->pluck('companies.id')->toArray();
+        }
         $workJobs = WorkJob::jobHiring()
             ->when($nameJob, function ($query, $nameJob) {
                 return $query->where('name', 'like', '%' . $nameJob . '%');
@@ -33,31 +50,16 @@ class GetAllWorkJob
             ->when($type,  function ($query, $type) {
                 return $query->where('type',  $type);
             })
-            // ->when($rating, function ($query, $rating) {
-            //     return $query->join('companies', 'companies.id', '=', 'work_jobs.company_id')
-            //         ->leftJoin('reviews', function ($join) {
-            //             return $join->on('reviews.model_id', '=', 'companies.id')
-            //                 ->where('reviews.model_type', '=', 'App\Models\Company');
-            //             // ->groupBy('companies.id', 'work_jobs.id')
-            //             // ->avg('reviews.rating')->orderBy('reviews.rating');
-            //         });
-            // })
+            ->when($workJobOrderByRating, function ($query, $workJobOrderByRating) {
+                $tempStr = implode(',', $workJobOrderByRating);
+                return $query->whereIn('id', $workJobOrderByRating)
+                    ->orderByRaw(DB::raw("FIELD(id, $tempStr)"));
+            })
             ->when($requirementGender, function ($query, $requirementGender) {
                 return $query->where('requirement_gender', $requirementGender);
             })
-            // ->whereHas('company', function ($query) {
-            //     // dd($query);
-            //     return $query->whereHas('reviews')->avg('reviews.rating');
-            //     // $query->where('approved', 1)->orderBy('name');
-            // });
+            ->paginate($perPage, ['*'], 'page', $page);
 
-
-            // $companies = $workJobs->company();
-            // ->groupBy('companies.id', 'work_jobs.id')
-            // ->avg('reviews.rating');
-            ->paginate(10, ['*'], 'page', $page);
-
-        // dd($workJobs->get());
 
         $pagination = [
             'total' => $workJobs->total(),

@@ -42,7 +42,7 @@ const WorkJobs: NextPage = () => {
   });
   const { data, loading, refetch } = useQuery<DataQuery>(FETCH_ALL_JOB_SEARCH, {
     variables: { page: page },
-    // fetchPolicy: "network-only",
+    fetchPolicy: "cache-first",
     nextFetchPolicy: "network-only",
   });
 
@@ -55,7 +55,7 @@ const WorkJobs: NextPage = () => {
       behavior: "smooth",
     });
     setPage(page);
-    await refetch({
+    refetch({
       ...search,
       page: page,
     });
