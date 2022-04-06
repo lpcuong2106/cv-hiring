@@ -123,6 +123,7 @@ export const FETCH_HOME_PAGE = gql`
       logo
       banner
       amount_job_hiring
+      avgReview
     }
   }
 `;

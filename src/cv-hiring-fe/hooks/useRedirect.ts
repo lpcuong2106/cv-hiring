@@ -63,11 +63,7 @@ export const useRedirect = () => {
 
     const shoudRedirect =
       routeWithRule?.only && routeWithRule.only?.indexOf(role) == -1;
-    console.log(
-      routeWithRule,
-      routeWithRule?.only?.indexOf(role),
-      shoudRedirect
-    );
+
     if (shoudRedirect) {
       setShoudRedirect(true);
     } else {

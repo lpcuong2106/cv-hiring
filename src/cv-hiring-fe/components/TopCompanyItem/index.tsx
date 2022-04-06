@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Col, Rate, Row } from "antd";
 import Link from "next/link";
 import React from "react";
 import { Company } from "../../data";
@@ -23,8 +23,11 @@ export const TopCompanyItem = ({ companyTop }: Props) => {
                     currentTarget.src = "/company-default.svg";
                   }}
                 />
-                <p>{company.name}</p>
-                <p>{company.amount_job_hiring} vị trí đang tuyển</p>
+                <div>
+                  <Rate value={company.avgReview} disabled allowHalf />
+                  <p>{company.name}</p>
+                  <p>{company.amount_job_hiring} vị trí đang tuyển</p>
+                </div>
               </div>
             </a>
           </Link>

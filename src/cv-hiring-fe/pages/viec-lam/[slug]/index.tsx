@@ -240,8 +240,8 @@ const WorkJob: NextPage = () => {
                       />
                       <JobInfoRequirement
                         label="Ngành"
+                        // @ts-ignore
                         value={
-                          // @ts-ignore
                           <a href={`/danh-muc/${workJob?.work_category.id}`}>
                             {workJob?.work_category.name ?? ""}
                           </a>

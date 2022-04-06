@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Button, Col, Dropdown, message, Row } from "antd";
 import { Menu } from "antd";
 
@@ -14,11 +14,18 @@ import {
 } from "../../store/features/userSlideder";
 
 function HeaderNav() {
-  // const auth = useAuth();
+  const [activeMenu, setActiveMenu] = useState(["4"]);
   const userLoggedIn = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  useEffect(() => {
+    switch (router.asPath) {
+      case "/xu-huong":
+        setActiveMenu(["5"]);
+        break;
+    }
+  }, []);
   const handleLogout = () => {
     localStorage.removeItem("token");
     // @ts-ignore
@@ -79,14 +86,15 @@ function HeaderNav() {
               theme="light"
               mode="horizontal"
               defaultSelectedKeys={["1"]}
+              selectedKeys={activeMenu}
               className={styles.menu}
             >
-              <Menu.Item key="1">
+              <Menu.Item key="4">
                 <Link href={"/viec-lam"}>
                   <a>Việc làm</a>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3">
+              <Menu.Item key="5">
                 <Link href={"/xu-huong"}>
                   <a>Xu hướng tuyển dụng</a>
                 </Link>
