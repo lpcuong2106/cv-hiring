@@ -7,6 +7,7 @@ import style from "./style.module.scss";
 import SalaryBanner from "./salary_banner.gif";
 import NguyenKimBanner from "./nguyenkim_banner.png";
 import NguyenKim2Banner from "./shoppe_banner.png";
+import BannerMobile from "./BannerMobile.jpg";
 import Image from "next/image";
 import Banner from "./banner.png";
 import classNames from "classnames";
@@ -56,13 +57,7 @@ const Home: NextPage = () => {
               <Col md={12}>
                 <Carousel className={style.slide}>
                   <div className={style.slideItem}>
-                    <Image src={SalaryBanner} />
-                  </div>
-                  <div className={style.slideItem}>
-                    <Image src={NguyenKimBanner} />
-                  </div>
-                  <div className={style.slideItem}>
-                    <Image src={NguyenKim2Banner} />
+                    <Image src={BannerMobile} />
                   </div>
                 </Carousel>
               </Col>
