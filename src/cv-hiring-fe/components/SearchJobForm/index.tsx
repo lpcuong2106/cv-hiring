@@ -21,60 +21,53 @@ type Search = {
   type: string;
 };
 interface Props {
-  onSearch: (variables: any) => Promise<any>;
-  loadingSubmit: boolean;
   search: Search;
   setSearch: any;
 }
 
-function SearchJobForm({ onSearch, loadingSubmit, search, setSearch }: Props) {
-  const { data, loading } = useQuery<DataQuery>(FETCH_ALL_PROVINCE_CATEGORY);
+function SearchJobForm({ search, setSearch }: Props) {
+  const { data } = useQuery<DataQuery>(FETCH_ALL_PROVINCE_CATEGORY);
 
-  const handleSearch = () => {
-    onSearch({
-      name: search.name,
-      provinceId: search.provinceId,
-      categoryId: search.categoryId,
-      rating: search.rating,
-      type: search.type,
-      requirementGender: search.requirementGender,
-      page: 1,
-    });
-  };
   const handleSearchField = (e: any) => {
     setSearch({
       ...search,
       name: e.target.value,
+      page: 1,
     });
   };
   const changeProvince = (value: string) => {
     setSearch({
       ...search,
       provinceId: value,
+      page: 1,
     });
   };
   const changeCategory = (value: string) => {
     setSearch({
       ...search,
       categoryId: value,
+      page: 1,
     });
   };
   const changeRating = (value: string) => {
     setSearch({
       ...search,
       rating: value,
+      page: 1,
     });
   };
   const changeRequirementGender = (value: string) => {
     setSearch({
       ...search,
       requirementGender: value,
+      page: 1,
     });
   };
   const changeType = (value: string) => {
     setSearch({
       ...search,
       type: value,
+      page: 1,
     });
   };
 
@@ -189,17 +182,6 @@ function SearchJobForm({ onSearch, loadingSubmit, search, setSearch }: Props) {
           <Option value="Yêu cầu giới tính nam">Nam</Option>
           <Option value="Yêu cầu giới tính nữ">Nữ</Option>
         </Select>
-      </Col>
-      <Col md={24}>
-        <Button
-          size="large"
-          type="primary"
-          style={{ width: "90%" }}
-          onClick={handleSearch}
-          loading={loadingSubmit}
-        >
-          Tìm kiếm
-        </Button>
       </Col>
     </Row>
   );

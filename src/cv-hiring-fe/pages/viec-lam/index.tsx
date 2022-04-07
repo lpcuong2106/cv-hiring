@@ -31,7 +31,6 @@ function itemRender(current: any, type: any, originalElement: any) {
   return originalElement;
 }
 const WorkJobs: NextPage = () => {
-  const [page, setPage] = useState(1);
   const [search, setSearch] = useState({
     name: "",
     provinceId: "",
@@ -39,10 +38,11 @@ const WorkJobs: NextPage = () => {
     rating: "",
     requirementGender: "",
     type: "",
+    page: 1,
   });
-  const { data, loading, refetch } = useQuery<DataQuery>(FETCH_ALL_JOB_SEARCH, {
-    variables: { page: page },
-    fetchPolicy: "cache-first",
+  const { data, loading } = useQuery<DataQuery>(FETCH_ALL_JOB_SEARCH, {
+    variables: search,
+    fetchPolicy: "network-only",
     nextFetchPolicy: "network-only",
   });
 
@@ -54,8 +54,8 @@ const WorkJobs: NextPage = () => {
       left: 0,
       behavior: "smooth",
     });
-    setPage(page);
-    refetch({
+
+    setSearch({
       ...search,
       page: page,
     });
@@ -89,18 +89,13 @@ const WorkJobs: NextPage = () => {
                     <Col sm={6}>
                       <aside className={style.sidebarListJob}>
                         <h6>Tìm kiếm: </h6>
-                        <SearchJobForm
-                          search={search}
-                          setSearch={setSearch}
-                          onSearch={refetch}
-                          loadingSubmit={loading}
-                        />
+                        <SearchJobForm search={search} setSearch={setSearch} />
                       </aside>
                     </Col>
 
                     <Col sm={18}>
                       {loading && <LoadingApp />}
-                      {listJob && listJob.data.length > 0 ? (
+                      {listJob && listJob.data.length > 0 && (
                         <>
                           <p>
                             Tìm thấy{" "}
@@ -134,9 +129,8 @@ const WorkJobs: NextPage = () => {
                             onChange={changePagination}
                           />
                         </>
-                      ) : (
-                        <NotFoundJob />
                       )}
+                      {!loading && !listJob?.data.length && <NotFoundJob />}
                     </Col>
                   </Row>
                 </Card>
