@@ -10,7 +10,6 @@ import { FETCH_PROFILE, FETCH_USER_LOGIN } from "../../GraphQL/Query/FetchData";
 import { User } from "../../data";
 import { LoadingApp } from "../../components/LoadingApp";
 import { UPDATE_PROFILE } from "../../GraphQL/Mutation/UpdateProfile";
-import { useRouter } from "next/router";
 import * as Yup from "yup";
 import style from "./style.module.scss";
 import { useAppDispatch } from "../../store/hook";
@@ -45,6 +44,10 @@ const validationSchemaProfile = Yup.object().shape({
   phone: Yup.string()
     .min(10, "Số điện thoại bắt buộc 10 kí tự")
     .max(10, "Số điện thoại bắt buộc 10 kí tự")
+    .matches(
+      /(84|0[3|5|7|8|9])+([0-9]{8})\b/,
+      "Vui lòng nhập đúng định dạng số điện thoại"
+    )
     .required("Vui lòng nhập thông tin số điện thoại")
     .typeError("Vui lòng nhập thông tin số điện thoại"),
 });
@@ -68,7 +71,7 @@ function Profile() {
   const { refetch } = useQuery(FETCH_USER_LOGIN);
   const [avatarFile, setAvatar] = useState();
   const dispatch = useAppDispatch();
-  const router = useRouter();
+
   const profile = data?.me;
   const hiddenFileInput = React.useRef(null);
   const form = React.useRef<FormikProps<FormValues>>(null);

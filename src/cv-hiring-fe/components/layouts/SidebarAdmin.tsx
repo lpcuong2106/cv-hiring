@@ -14,6 +14,8 @@ import { Sketch } from "@styled-icons/boxicons-logos/Sketch";
 import { News } from "@styled-icons/boxicons-regular/News";
 import { Dashboard } from "@styled-icons/material/Dashboard";
 import { LayerGroup } from "@styled-icons/fa-solid/LayerGroup";
+import { FileText } from "@styled-icons/evaicons-solid/FileText";
+
 const SidebarAdmin = () => {
   const [collapsed, setColappsed] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState(["1"]);
@@ -133,7 +135,7 @@ const SidebarAdmin = () => {
                   <a type="link">Thông tin công ty</a>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="6" icon={<UploadOutlined />}>
+              <Menu.Item key="6" icon={<FileText width={14} />}>
                 <Link href="/quan-tri/cv">
                   <a type="link">Quản lý CV</a>
                 </Link>

@@ -75,7 +75,7 @@ function SearchJobForm({ search, setSearch }: Props) {
     <Row className={style.searchWrapper}>
       <Col md={24}>
         <Input
-          placeholder="Nhập tên công việc, vị trí, kĩ năng"
+          placeholder="Nhập tên công việc"
           onChange={handleSearchField}
           size="large"
           className={style.searchInput}

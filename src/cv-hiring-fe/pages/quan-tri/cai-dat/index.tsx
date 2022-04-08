@@ -5,13 +5,9 @@ import Head from "next/head";
 import { useMutation, useQuery } from "@apollo/client";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { useRouter } from "next/router";
 import LayoutAdmin from "../../../components/layouts/LayoutAdmin";
 import { LoadingApp } from "../../../components/LoadingApp";
-import { FETCH_COMPANY_DETAIL } from "../../../GraphQL/Query/Comapany";
-import { Company, Setting } from "../../../data";
-import { useAppSelector } from "../../../store/hook";
-import { UPDATE_COMPANY } from "../../../GraphQL/Mutation/UpdateCompany";
+import { Setting } from "../../../data";
 import { ModeView } from "../thong-tin-cong-ty";
 import FormEditSetting from "./FormEditSetting";
 import { FETCH_SETTING } from "../../../GraphQL/Query/Analyst";
@@ -33,7 +29,12 @@ export const validationSchemaCompany = Yup.object().shape({
   logo_url: Yup.string().required("Logo website là bắt buộc"),
   fb_url: Yup.string(),
   youtube_url: Yup.string(),
-  phone_contact: Yup.string(),
+  phone_contact: Yup.string()
+    .matches(
+      /(84|0[3|5|7|8|9])+([0-9]{8})\b/,
+      "Vui lòng nhập đúng định dạng số điện thoại"
+    )
+    .required("Vui lòng nhập số điện thoại"),
   price_job: Yup.number().required("Chi phí coin/1 tin đăng tuyển dụng"),
 });
 

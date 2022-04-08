@@ -4,7 +4,6 @@ import { EditSettings } from "@styled-icons/fluentui-system-filled/EditSettings"
 
 import { useFormikContext } from "formik";
 import { ModeView } from "../thong-tin-cong-ty";
-import { useAppSelector } from "../../../store/hook";
 import AdminInput from "../../../components/AdminInput";
 import { Setting } from "../../../data";
 
@@ -21,7 +20,6 @@ const FormEditSetting = ({
 }: Props) => {
   const formikProps = useFormikContext<Setting>();
   const isView = mode === "view";
-  const userLoggedIn = useAppSelector((state) => state.user.user);
 
   const handleModeView = (mode: ModeView) => {
     setMode(mode);

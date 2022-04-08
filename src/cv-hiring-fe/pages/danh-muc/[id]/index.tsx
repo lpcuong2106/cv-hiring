@@ -68,7 +68,7 @@ const CategoryList: NextPage = () => {
               <Col md={24}>
                 <Card>
                   <div className={style.headerCard}>
-                    <h1>Việc làm tại {provinceDetail?.name}</h1>
+                    <h1>Việc làm ngành {provinceDetail?.name.toLowerCase()}</h1>
                     <p>
                       Tìm kiếm công việc mơ ước từ những cơ hội việc làm tốt
                       nhất

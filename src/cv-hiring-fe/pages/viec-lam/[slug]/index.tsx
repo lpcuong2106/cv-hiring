@@ -19,12 +19,13 @@ import { useRouter } from "next/router";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import { FacebookShareButton, FacebookShareCount } from "react-share";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import ApplyCVModal from "../../../components/ApplyCVModal";
 import Link from "next/link";
 import { formatTypeWorkJob } from "../../../utils/formatTypeWorkJob";
 import { useAppSelector } from "../../../store/hook";
 import NotFound from "../../../components/NotFound";
+import moment from "moment";
 
 interface DataQuery {
   getWorkJobBySlug: WorkJob;
@@ -74,6 +75,71 @@ const WorkJob: NextPage = () => {
   });
 
   const workJob = data?.getWorkJobBySlug;
+
+  const renderButtonApply = useCallback(() => {
+    if (!userLoggedIn.isLoggedIn) {
+      return (
+        <Link href="/login">
+          <Button type="dashed" size="large">
+            Vui lòng đăng nhập để ứng tuyển
+          </Button>
+        </Link>
+      );
+    }
+    if (userLoggedIn.user?.role.name === "user") {
+      if (userAppliedWorkJob?.userAppliedWorkJob?.id) {
+        return (
+          <Tooltip
+            placement="topRight"
+            title="Click vào để xem trạng thái xử lý"
+          >
+            <Link href="/viec-lam/ung-tuyen">
+              <Button type="dashed" size="large">
+                Bạn đã nộp vào vị trí này rồi
+              </Button>
+            </Link>
+          </Tooltip>
+        );
+      }
+
+      if (
+        moment(data?.getWorkJobBySlug.expired_date_hiring).isBefore(moment())
+      ) {
+        return (
+          <Tooltip title="Công việc này đã hết hạn tuyển dụng">
+            <Button disabled type="primary" size="large">
+              Nộp hồ sơ ngay
+            </Button>
+          </Tooltip>
+        );
+      }
+
+      if (data?.getWorkJobBySlug.is_open == 0) {
+        return (
+          <Tooltip title="Công việc này đã dừng tuyển dụng">
+            <Button disabled type="primary" size="large">
+              Nộp hồ sơ ngay
+            </Button>
+          </Tooltip>
+        );
+      }
+      if (
+        data?.getWorkJobBySlug.is_open == 1 &&
+        moment(data?.getWorkJobBySlug.expired_date_hiring).isAfter(moment())
+      ) {
+        return (
+          <Button
+            loading={userApplyLoading}
+            type="primary"
+            size="large"
+            onClick={() => setIsShowApply(true)}
+          >
+            Nộp hồ sơ ngay
+          </Button>
+        );
+      }
+    }
+  }, [data, userLoggedIn, userAppliedWorkJob, userApplyLoading]);
 
   if (loading) {
     return <LoadingApp />;
@@ -163,30 +229,7 @@ const WorkJob: NextPage = () => {
                       </div>
                     </div>
                     <div className={style.btnAction}>
-                      {!userApplyLoading &&
-                      userAppliedWorkJob?.userAppliedWorkJob?.id ? (
-                        <Tooltip
-                          placement="topRight"
-                          title="Click vào để xem trạng thái xử lý"
-                        >
-                          <Link href="/viec-lam/ung-tuyen">
-                            <Button type="dashed" size="large">
-                              Bạn đã nộp vào vị trí này rồi
-                            </Button>
-                          </Link>
-                        </Tooltip>
-                      ) : (
-                        userLoggedIn.user?.role.name === "user" && (
-                          <Button
-                            loading={userApplyLoading}
-                            type="primary"
-                            size="large"
-                            onClick={() => setIsShowApply(true)}
-                          >
-                            Nộp hồ sơ ngay
-                          </Button>
-                        )
-                      )}
+                      {renderButtonApply()}
 
                       <FacebookShareButton
                         url={window.location.href}

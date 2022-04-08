@@ -112,6 +112,7 @@ export const FETCH_WORK_JOB_HIRING_COMPANY = gql`
       work_category {
         name
       }
+      salary
       province {
         name
       }
@@ -141,6 +142,7 @@ export const FETCH_WORK_JOB_PROVINCE = gql`
 
         salary
         company {
+          name
           slug
           logo
         }
@@ -177,6 +179,7 @@ export const FETCH_WORK_JOB_CATEGORY = gql`
 
         salary
         company {
+          name
           slug
           logo
         }
