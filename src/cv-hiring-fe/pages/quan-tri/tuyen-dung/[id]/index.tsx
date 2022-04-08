@@ -42,7 +42,7 @@ const AppliedCVEdit = () => {
 
   const [updateNewJob, { loading: loadingSubmit }] =
     useMutation(UPDATE_WORKJOB);
-
+  console.log(workJob?.expired_date_hiring);
   return (
     <LayoutAdmin>
       <Head>
@@ -81,7 +81,7 @@ const AppliedCVEdit = () => {
                     province_id: workJob.province.id,
                   }}
                   validationSchema={validationSchemaWorkJob}
-                  onSubmit={async (values, actions) => {
+                  onSubmit={async (values) => {
                     const { data } = await updateNewJob({
                       variables: values,
                     });

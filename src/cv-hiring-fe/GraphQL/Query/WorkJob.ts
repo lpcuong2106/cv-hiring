@@ -85,6 +85,7 @@ export const FETCH_ALL_JOB_SEARCH = gql`
         salary
         expired_date_hiring
         updated_at
+        created_at
         work_category {
           name
         }

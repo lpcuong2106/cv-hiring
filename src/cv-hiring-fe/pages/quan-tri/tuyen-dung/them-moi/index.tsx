@@ -104,7 +104,9 @@ const AppliedCVAdd = () => {
                     address_work: "",
                     salary: null,
                     type: null,
-                    expired_date_hiring: moment().add(1, "day"),
+                    expired_date_hiring: moment()
+                      .add(1, "day")
+                      .format("YYYY-MM-DD HH:mm:ss"),
                     work_category_id: null,
                     company_id: userLoggedIn?.company?.id,
                     province_id: null,

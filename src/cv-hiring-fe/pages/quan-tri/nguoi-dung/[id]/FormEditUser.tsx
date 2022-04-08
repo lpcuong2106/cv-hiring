@@ -89,6 +89,7 @@ const FormEditUser = ({ loadingSubmit, mode = "create", setMode }: Props) => {
           name="coin"
           mode="input"
           min={0}
+          max={2147483640}
           disabled={isView}
           placeholder="Nhập số coin"
           //   @ts-ignore

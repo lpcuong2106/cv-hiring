@@ -117,7 +117,7 @@ const WorkJobs: NextPage = () => {
                               title={job.name}
                               avgReview={job.company.avgReview}
                               logoUrl={job.company.logo}
-                              updatedAt={job.updated_at}
+                              updatedAt={job.created_at}
                             />
                           ))}
                           <Pagination

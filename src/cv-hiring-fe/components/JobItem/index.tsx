@@ -30,6 +30,7 @@ function JobItem({
   slug,
   avgReview,
 }: Props) {
+  console.log(updatedAt);
   return (
     <div className={style.jobItem}>
       <div className={style.avatar}>
@@ -60,16 +61,6 @@ function JobItem({
 
           <Tag color="success">{salary} (tr/tháng)</Tag>
           <Tag color="orange">{provinceName}</Tag>
-          <Tag color="magenta">
-            {formatDistance(
-              parse(updatedAt, "yyyy-MM-dd", new Date()),
-              new Date(),
-              {
-                addSuffix: true,
-                locale: vi,
-              }
-            )}
-          </Tag>
         </div>
         <div className={style.action}>
           <p className={style.alignRight}>
@@ -79,9 +70,6 @@ function JobItem({
               "dd-MM-yyyy"
             )}
           </p>
-          {/* <button>
-            <Heart width={20} />
-          </button> */}
         </div>
       </div>
     </div>

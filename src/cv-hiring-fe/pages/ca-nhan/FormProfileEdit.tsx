@@ -4,7 +4,6 @@ import { EditSettings } from "@styled-icons/fluentui-system-filled/EditSettings"
 
 import { useFormikContext } from "formik";
 import { User } from "../../data";
-import { useAppSelector } from "../../store/hook";
 import AdminInput from "../../components/AdminInput";
 import moment from "moment";
 import style from "./style.module.scss";
@@ -30,8 +29,6 @@ interface PropsQuery {
 
 const FormEditProfileUser = ({ loadingSubmit }: Props) => {
   const formikProps = useFormikContext<FormValue>();
-
-  const userLoggedIn = useAppSelector((state) => state.user.user);
 
   function onChangeBirthday(_: any, dateString: any) {
     formikProps.setFieldValue("birthday", dateString);
@@ -131,10 +128,11 @@ const FormEditProfileUser = ({ loadingSubmit }: Props) => {
             <DatePicker
               size="large"
               name="birthday"
+              // @ts-ignore
               defaultValue={
                 formikProps.values.birthday
                   ? moment(formikProps.values.birthday)
-                  : moment().add("day", 1)
+                  : moment()
               }
               placeholder="Vui lòng ngày sinh"
               className={style.inputControl}

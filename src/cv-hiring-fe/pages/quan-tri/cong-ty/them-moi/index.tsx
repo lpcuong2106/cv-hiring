@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import { Row, Col, Card, message } from "antd";
 import style from "../../thong-tin-cong-ty/style.module.scss";
-import styles from "./style.module.scss";
 import Head from "next/head";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
 import { ModeView } from "../../thong-tin-cong-ty";
 import LayoutAdmin from "../../../../components/layouts/LayoutAdmin";
-import { LoadingApp } from "../../../../components/LoadingApp";
 import FormEditCompany from "../../thong-tin-cong-ty/FormEditCompany";
-import { Company } from "../../../../data";
 import { useAppSelector } from "../../../../store/hook";
-import { FETCH_COMPANY_DETAIL } from "../../../../GraphQL/Query/Comapany";
 import { CREATE_COMPANY } from "../../../../GraphQL/Mutation/UpdateCompany";
 import BackButton from "../../../../components/BackButton";
 

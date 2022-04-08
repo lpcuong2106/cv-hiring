@@ -15,7 +15,7 @@ import { News } from "@styled-icons/boxicons-regular/News";
 import { Dashboard } from "@styled-icons/material/Dashboard";
 import { LayerGroup } from "@styled-icons/fa-solid/LayerGroup";
 import { FileText } from "@styled-icons/evaicons-solid/FileText";
-
+import { SettingsOutline } from "@styled-icons/evaicons-outline/SettingsOutline";
 const SidebarAdmin = () => {
   const [collapsed, setColappsed] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState(["1"]);
@@ -120,7 +120,7 @@ const SidebarAdmin = () => {
                   <a type="link">Người dùng</a>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="9" icon={<UserOutlined />}>
+              <Menu.Item key="9" icon={<SettingsOutline width={14} />}>
                 <Link href="/quan-tri/cai-dat">
                   <a type="link">Cài đặt</a>
                 </Link>

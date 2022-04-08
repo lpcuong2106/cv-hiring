@@ -14,6 +14,7 @@ import * as Yup from "yup";
 import style from "./style.module.scss";
 import { useAppDispatch } from "../../store/hook";
 import { setUserLoggedIn } from "../../store/features/userSlideder";
+import moment from "moment";
 interface DataQuery {
   me: User;
 }
@@ -104,7 +105,9 @@ function Profile() {
                 email: profile.email,
                 firstname: profile.firstname,
                 lastname: profile.lastname,
-                birthday: profile.birthday,
+                birthday: profile.birthday
+                  ? profile.birthday
+                  : moment().format("YYYY-MM-DD HH:mm:ss"),
                 avatar: profile.avatar,
                 gender: profile.gender,
                 address: profile.address,

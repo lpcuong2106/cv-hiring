@@ -30,10 +30,15 @@ class ApplyCV
         }
         $job = WorkJob::findOrFail($jobId);
         $user = Auth::user();
+        $emailHr = $job->company->user->email;
 
         $path = Storage::putFile('public/avatars', $fileCV);
 
         dispatch(new SendEmailJob($user->email, $job, 'ApplyCV'));
+
+        if (isset($emailHr)) {
+            dispatch(new SendEmailJob($emailHr, $job, 'NewCVApply'));
+        }
 
         $workApply = WorkApply::create([
             'cv_url'    => $path,
