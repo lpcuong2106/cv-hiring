@@ -153,7 +153,7 @@ const WorkJob: NextPage = () => {
     <Layout>
       <div>
         <Head>
-          <title>Kết nối lao động việt | TimViec</title>
+          <title>{workJob?.name} | Kết nối lao động việt | TimViec</title>
         </Head>
         <main>
           <Container>

@@ -24,11 +24,11 @@ const SidebarAdmin = () => {
   const router = useRouter();
   const handleLogout = () => {
     localStorage.removeItem("token");
-    router.replace("/login");
     // @ts-ignore
     dispatch(setUserLoggedIn(null));
     dispatch(setLoggedIn(false));
     message.success("Đăng xuất thành công!");
+    router.replace("/login");
   };
 
   useEffect(() => {

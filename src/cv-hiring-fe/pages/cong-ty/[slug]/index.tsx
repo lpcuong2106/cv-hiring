@@ -64,12 +64,11 @@ const Company: NextPage = () => {
     <Layout>
       <div>
         <Head>
-          <title>Kết nối lao động việt | TimViec</title>
+          <title>{company?.name} | Kết nối lao động việt | TimViec</title>
         </Head>
 
         <main className={style.wrapCompanyDetail}>
           <Container>
-            <BreadcrumbCus />
             <Row>
               <Col md={24}>
                 <div className={style.banner}>
