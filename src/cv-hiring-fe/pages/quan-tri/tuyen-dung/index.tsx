@@ -43,6 +43,7 @@ type PropsMutation = {
 };
 const AppliedCVManage = () => {
   const userLoggedIn = useAppSelector((state) => state.user.user);
+  const [cancelWorkJobId, setCancelWorkJobId] = useState<number>();
   const [search, setSearch] = useState({
     name: "",
     status: "",
@@ -77,6 +78,7 @@ const AppliedCVManage = () => {
   };
 
   const handleStopHiring = async (id: number) => {
+    setCancelWorkJobId(id);
     const { data } = await pauseHiring({
       variables: {
         id: id,
@@ -89,9 +91,11 @@ const AppliedCVManage = () => {
       return;
     }
     message.error("Xảy ra lỗi không mong muốn");
+    setCancelWorkJobId(undefined);
   };
 
   const handleResumeHiring = async (id: number) => {
+    setCancelWorkJobId(id);
     const { data } = await resumeHiring({
       variables: {
         id: id,
@@ -104,6 +108,7 @@ const AppliedCVManage = () => {
       return;
     }
     message.error("Xảy ra lỗi không mong muốn");
+    setCancelWorkJobId(undefined);
   };
 
   const columns: ColumnsType<WorkJob> = [
@@ -200,7 +205,7 @@ const AppliedCVManage = () => {
                     danger
                     className={style.cancelApply}
                     onClick={() => handleStopHiring(record.id)}
-                    loading={loadingPause}
+                    loading={loadingPause && record.id == cancelWorkJobId}
                   >
                     <PauseFill width={16} />
                   </Button>
@@ -213,7 +218,7 @@ const AppliedCVManage = () => {
                     danger
                     className={style.cancelApply}
                     onClick={() => handleResumeHiring(record.id)}
-                    loading={loadingResume}
+                    loading={loadingResume && record.id == cancelWorkJobId}
                   >
                     <Play width={16} />
                   </Button>

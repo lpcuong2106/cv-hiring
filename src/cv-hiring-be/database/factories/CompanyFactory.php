@@ -15,7 +15,7 @@ class CompanyFactory extends Factory
     {
         return [
             'slug'  => $this->faker->slug(),
-            'name'  => $this->faker->name(),
+            'name'  => $this->faker->company(),
             'description'   => $this->faker->text(),
             'amount_employee'   => $this->faker->name(),
             'address'   => $this->faker->address(),

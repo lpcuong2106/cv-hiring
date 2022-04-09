@@ -15,10 +15,10 @@ class WorkJobFactory extends Factory
     public function definition()
     {
         return [
-            'name'          => $this->faker->name(),
+            'name'          => $this->faker->jobTitle(),
             'company_id'    => rand(1, 10),
             'slug'          => $this->faker->slug(),
-            'description'   => $this->faker->randomHtml(),
+            'description'   => $this->faker->realText(200,  2),
             'benefit'       => $this->faker->name(),
             'requirement'   => $this->faker->name(),
             'requirement_exp'       => 'Không yêu cầu kinh nghiệm',
@@ -32,8 +32,8 @@ class WorkJobFactory extends Factory
             'type'                  => 'part-time',
             'is_open'               => 1,
             'expired_date_hiring'   => $this->faker->dateTimeBetween('+1 days', '+30 days'),
-            'province_id'           => 1,
-            'work_category_id'      => 1
+            'province_id'           => rand(1, 63),
+            'work_category_id'      => rand(1, 25)
         ];
     }
 }

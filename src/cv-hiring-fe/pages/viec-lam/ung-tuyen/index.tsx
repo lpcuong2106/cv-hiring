@@ -16,7 +16,6 @@ const CvAppliedManagement: NextPage = () => {
         </Head>
         <main>
           <Container>
-            <BreadcrumbCus />
             <Row>
               <Col md={24}>
                 <div className={style.title}>

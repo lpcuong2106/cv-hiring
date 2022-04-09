@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Button, message, Table, Tag, Timeline } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { PaginatorInfo, WorkApply } from "../../data";
 import { FETCH_USER_APPLIED_JOB } from "../../GraphQL/Query/WorkJob";
 import { LoadingApp } from "../LoadingApp";
@@ -32,6 +32,7 @@ function AppliedCVTable() {
       nextFetchPolicy: "cache-and-network",
     }
   );
+  const [cancelWorkJobId, setCancelWorkJobId] = useState<number>();
   const [cancelWorkJob, { loading: loadingDelete }] =
     useMutation(SOFT_DELETE_WORKJOB);
 
@@ -186,7 +187,7 @@ function AppliedCVTable() {
           <Button
             danger
             className={style.cancelApply}
-            loading={loadingDelete}
+            loading={loadingDelete && record.id === cancelWorkJobId}
             onClick={() => handleCancelAppliedCv(record.id)}
           >
             <Trash width={16} />
@@ -200,6 +201,7 @@ function AppliedCVTable() {
   ];
 
   const handleCancelAppliedCv = async (id: number) => {
+    setCancelWorkJobId(id);
     const { data } = await cancelWorkJob({
       variables: {
         workAppliedId: id,
@@ -213,6 +215,7 @@ function AppliedCVTable() {
         "Hủy ứng tuyển thất bại" + data?.cancelAppliedWorkJob?.message
       );
     }
+    setCancelWorkJobId(undefined);
   };
 
   if (loading || !workJobsApplied) {
