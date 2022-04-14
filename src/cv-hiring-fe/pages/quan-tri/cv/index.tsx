@@ -16,7 +16,6 @@ import Head from "next/head";
 import { useMutation, useQuery } from "@apollo/client";
 import LayoutAdmin from "../../../components/layouts/LayoutAdmin";
 import { LoadingApp } from "../../../components/LoadingApp";
-import Link from "next/link";
 import { PaginatorInfo, User, WorkApply } from "../../../data";
 import { ColumnsType } from "antd/lib/table";
 import { useAppSelector } from "../../../store/hook";

@@ -1,8 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { Comment, List, Form, Button, Input, Rate, message } from "antd";
 import { useFormik } from "formik";
-import moment from "moment";
-import { useState } from "react";
 import { PaginatorInfo, Review } from "../../data";
 import { ADD_REVIEW_COMPANY } from "../../GraphQL/Mutation/AddReview";
 import * as Yup from "yup";

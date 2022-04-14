@@ -11,7 +11,6 @@ import { FETCH_COMPANY_DETAIL } from "../../../GraphQL/Query/Comapany";
 import { LoadingApp } from "../../../components/LoadingApp";
 import { Company, PaginatorInfo, Review, WorkJob } from "../../../data";
 import { useRouter } from "next/router";
-import BreadcrumbCus from "../../../components/BreadcrumbCus";
 import { FacebookShareButton, FacebookShareCount } from "react-share";
 import JobItem from "../../../components/JobItem";
 import { FETCH_WORK_JOB_HIRING_COMPANY } from "../../../GraphQL/Query/WorkJob";

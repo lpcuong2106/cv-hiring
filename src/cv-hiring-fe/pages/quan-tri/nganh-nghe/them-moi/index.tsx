@@ -7,7 +7,6 @@ import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import { ModeView } from "../../thong-tin-cong-ty";
 import LayoutAdmin from "../../../../components/layouts/LayoutAdmin";
-import { WorkCategory } from "../../../../data";
 
 import BackButton from "../../../../components/BackButton";
 import * as Yup from "yup";

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Row,
   Col,
@@ -16,10 +16,8 @@ import LayoutAdmin from "../../../components/layouts/LayoutAdmin";
 import Head from "next/head";
 import { useQuery, useMutation } from "@apollo/client";
 import { FETCH_ALL_WORKJOB_MANAGE } from "../../../GraphQL/Query/WorkJob";
-import { LoadingApp } from "../../../components/LoadingApp";
 import { WorkJob } from "../../../data";
 import { ColumnsType } from "antd/lib/table";
-import { Trash } from "styled-icons/boxicons-regular";
 import { Edit } from "@styled-icons/boxicons-regular/Edit";
 import Link from "next/link";
 import isBefore from "date-fns/isBefore";
@@ -33,7 +31,6 @@ import {
 } from "../../../GraphQL/Mutation/StatusHiringWorkJob";
 import { useAppSelector } from "../../../store/hook";
 import moment from "moment";
-import { useDebouncedCallback } from "use-debounce";
 
 type PropsMutation = {
   pauseHiring: {

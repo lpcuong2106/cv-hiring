@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { Button, Input, Select, Row, Col } from "antd";
+import React from "react";
+import { Input, Select, Row, Col } from "antd";
 import Search from "antd/lib/input/Search";
 import { Province, WorkCategory } from "../../data";
 import { useQuery } from "@apollo/client";
 import { FETCH_ALL_PROVINCE_CATEGORY } from "../../GraphQL/Query/FetchData";
-import { LoadingApp } from "../LoadingApp";
 import style from "./style.module.scss";
 const { Option } = Select;
 

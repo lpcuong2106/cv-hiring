@@ -1,4 +1,4 @@
-import { Carousel, Col, Row, Select } from "antd";
+import { Carousel, Col, Row } from "antd";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Container } from "react-bootstrap";

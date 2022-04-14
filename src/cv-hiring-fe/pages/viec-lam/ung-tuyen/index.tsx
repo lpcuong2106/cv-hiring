@@ -3,7 +3,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { Container } from "react-bootstrap";
 import AppliedCVTable from "../../../components/AppliedCVTable";
-import BreadcrumbCus from "../../../components/BreadcrumbCus";
 import Layout from "../../../components/layouts";
 import style from "./style.module.scss";
 

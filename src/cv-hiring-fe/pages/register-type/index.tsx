@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./style.module.scss";
 import Head from "next/head";
-import { useAuth } from "../../components/AuthProvider";
 import { Col, Container, Row } from "react-bootstrap";
 import { Button, Card } from "antd";
 import Layout from "../../components/layouts";
