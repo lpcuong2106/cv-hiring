@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'firstname' => 'admin',
             'avatar'    => 'https://yt3.ggpht.com/rV6TeGh8F5Jfjp8m6qeiTTykIC4E_fadF6m362not7PW23eBmltdzh5eigEoyRhyFJATzDNTt1k=s48-c-k-c0x00ffffff-no-rj',
             'email' => 'admin@gmail.com',
-            'gender'    =>  1,
+            'gender'    =>  0,
             'address'   => '15/11 dong',
             'phone'     => '0349265776',
             'birthday'  => now(),
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
             'firstname' => 'user',
             'avatar'    => 'https://yt3.ggpht.com/rV6TeGh8F5Jfjp8m6qeiTTykIC4E_fadF6m362not7PW23eBmltdzh5eigEoyRhyFJATzDNTt1k=s48-c-k-c0x00ffffff-no-rj',
             'email' => 'user@gmail.com',
-            'gender'    =>  1,
+            'gender'    =>  0,
             'address'   => '15/11 dong',
             'phone'     => '0349265776',
             'birthday'  => now(),
@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
             'role_id'   => 2,
         ]);
         User::create([
-            'lastname' => 'cuong',
+            'lastname' => 'huong',
             'firstname' => 'HR',
             'avatar'    => 'https://yt3.ggpht.com/rV6TeGh8F5Jfjp8m6qeiTTykIC4E_fadF6m362not7PW23eBmltdzh5eigEoyRhyFJATzDNTt1k=s48-c-k-c0x00ffffff-no-rj',
             'email' => 'hr@gmail.com',

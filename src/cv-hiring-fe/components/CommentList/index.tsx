@@ -27,7 +27,9 @@ export const validationSchema = Yup.object().shape({
     .min(8, "Bình luận ít nhất 8 kí tự")
     .required("Vui lòng nhập bình luận")
     .typeError("Vui lòng nhập bình luận"),
-  rating: Yup.number().required(),
+  rating: Yup.number()
+    .required("Vui chọn đánh giá")
+    .typeError("Vui chọn đánh giá"),
 });
 
 const CommentList = ({
@@ -44,14 +46,13 @@ const CommentList = ({
       companyId: companyId,
       userId: userId,
       review: "",
-      rating: 0,
+      rating: null,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const { data } = await addReviewCompany({
         variables: values,
       });
-      console.log(data);
       if (data.addReviewCompany?.status === "OK") {
         refetchComment();
         form.resetForm();
@@ -100,12 +101,14 @@ const CommentList = ({
                 value={form.values.review}
                 onChange={(e) => form.setFieldValue("review", e.target.value)}
               />
+              <p style={{ color: "red" }}>{form.errors.review}</p>
             </Form.Item>
             <Form.Item label="Mức độ hài lòng">
               <Rate
-                value={form.values.rating}
+                value={form.values.rating || 0}
                 onChange={(value) => form.setFieldValue("rating", value)}
               />
+              <p style={{ color: "red" }}>{form.errors.rating}</p>
             </Form.Item>
             <Form.Item>
               <Button htmlType="submit" loading={loading} type="primary">
