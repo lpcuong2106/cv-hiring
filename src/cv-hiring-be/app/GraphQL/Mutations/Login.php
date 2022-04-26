@@ -15,18 +15,28 @@ class Login
      */
     public function __invoke($_, array $args)
     {
-    
-        if (! $token = auth()->attempt($args)) {
+
+
+        if (!$token = auth()->attempt($args)) {
             return [
                 'token' => null,
-                'user'  => null
+                'user'  => null,
+                'message' => 'Sai tài khoản hoặc mật khẩu'
             ];
         }
-       
+        // prevent HR don't have company
+        $user = Auth::user();
+        if ($user->isHr() && !isset($user->company)) {
+            return [
+                'token' => null,
+                'user'  => null,
+                'message'   => "Người dùng này đã bị khóa tài khoản do công ty đã bị xóa"
+            ];
+        }
         return [
             'token' => $token,
-            'user'  => Auth::user()
+            'user'  => Auth::user(),
+            'message' => "Đăng nhập thành công"
         ];
-
     }
 }

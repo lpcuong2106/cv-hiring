@@ -44,11 +44,10 @@ const Login = () => {
         // auth.setIsLogged(true);
         dispatch(setUserLoggedIn(data.login.user));
         dispatch(setLoggedIn(true));
-        message.success("Đăng nhập thành công!");
+        message.success(data.login.message);
         Router.push("/");
-        return;
       }
-      message.error("Đăng nhập thất bại!");
+      message.error(data.login.message);
     },
   });
 

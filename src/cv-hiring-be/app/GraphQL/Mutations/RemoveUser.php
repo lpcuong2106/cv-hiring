@@ -28,14 +28,19 @@ class RemoveUser
                     ];
                 }
                 $user = User::findOrFail($id);
+
+                // remove company if user is HR
                 $company = $user->company;
-                $companyName = $company->name;
-                if ($company->amount_job_hiring > 0) {
-                    return [
-                        'status' => 'ERROR',
-                        'message'   => 'Công ty ' . $companyName . ' bạn đang làm chủ hiện đang có công việc đang tuyển dụng! Vui lòng ngừng ứng tuyển tất cả các công việc của công ty này'
-                    ];
+                if ($user->isHr() && isset($company)) {
+                    $companyName = $company->name;
+                    if ($company->amount_job_hiring > 0) {
+                        return [
+                            'status' => 'ERROR',
+                            'message'   => 'Công ty ' . $companyName . ' bạn đang làm chủ hiện đang có công việc đang tuyển dụng! Vui lòng ngừng ứng tuyển tất cả các công việc của công ty này'
+                        ];
+                    }
                 }
+
 
                 $email = $user->email;
                 $user->delete();
