@@ -5,12 +5,11 @@ import style from "./style.module.scss";
 import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
 import { Button, message } from "antd";
-import Router, { useRouter } from "next/router";
-import { REGISTER_USER } from "./RegisterData";
+import { useRouter } from "next/router";
+import { REGISTER_USER } from "../../../GraphQL/Mutation/RegisterData";
 import Head from "next/head";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { FormItemInput } from "../../../components/FormItem";
-import { useAuth } from "../../../components/AuthProvider";
 import {
   setLoggedIn,
   setUserLoggedIn,
