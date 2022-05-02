@@ -38,7 +38,7 @@ export const validationSchemaCompany = Yup.object().shape({
   price_job: Yup.number().required("Chi phí coin/1 tin đăng tuyển dụng"),
 });
 
-const Setting = () => {
+const SettingPage = () => {
   const {
     data,
     loading,
@@ -112,4 +112,4 @@ const Setting = () => {
   );
 };
 
-export default Setting;
+export default SettingPage;

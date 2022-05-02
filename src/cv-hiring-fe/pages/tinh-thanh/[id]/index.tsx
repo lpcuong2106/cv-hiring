@@ -31,7 +31,7 @@ function itemRender(current: any, type: any, originalElement: any) {
   return originalElement;
 }
 
-const Province: NextPage = () => {
+const ProvincePage: NextPage = () => {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const { id } = router.query;
@@ -138,4 +138,4 @@ const Province: NextPage = () => {
   );
 };
 
-export default Province;
+export default ProvincePage;
