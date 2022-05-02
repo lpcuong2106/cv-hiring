@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             WorkCategorySeeder::class,
             WorkJobSeeder::class,
-
+            ReviewSeeder::class,
         ]);
     }
 }
