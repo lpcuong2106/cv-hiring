@@ -6,17 +6,16 @@ import styles from "./style.module.scss";
 import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
 import { Button, Col, Form, message, Row, Select } from "antd";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { FormItemInput } from "../../../components/FormItem";
-import { useAuth } from "../../../components/AuthProvider";
 import {
   setLoggedIn,
   setUserLoggedIn,
 } from "../../../store/features/userSlideder";
 import { useAppDispatch } from "../../../store/hook";
-import { REGISTER_USER_HR } from "../register-employee/RegisterData";
+import { REGISTER_USER_HR } from "../../../GraphQL/Mutation/RegisterData";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
