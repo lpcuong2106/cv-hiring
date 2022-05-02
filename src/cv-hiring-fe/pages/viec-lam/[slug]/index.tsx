@@ -53,7 +53,7 @@ const CompanyBox = ({ content, lable, icon }: CompanyBoxProps) => {
   );
 };
 
-const WorkJob: NextPage = () => {
+const WorkJobPage: NextPage = () => {
   const router = useRouter();
   // const context = useContext(AuthContext);
   const userLoggedIn = useAppSelector((state) => state.user);
@@ -348,4 +348,4 @@ const WorkJob: NextPage = () => {
   );
 };
 
-export default WorkJob;
+export default WorkJobPage;

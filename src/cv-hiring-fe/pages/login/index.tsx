@@ -4,7 +4,6 @@ import React from "react";
 import style from "./style.module.scss";
 import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "./QueryData";
 import { Button, message } from "antd";
 import Router from "next/router";
 import Head from "next/head";
@@ -15,6 +14,7 @@ import {
   setLoggedIn,
   setUserLoggedIn,
 } from "../../store/features/userSlideder";
+import { LOGIN_USER } from "../../GraphQL/Mutation/Login";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()

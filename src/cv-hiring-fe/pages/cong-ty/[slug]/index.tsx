@@ -31,7 +31,7 @@ interface DataWorkJobQuery {
   workJobHiringOfCompany: WorkJob[];
 }
 
-const Company: NextPage = () => {
+const CompanyPage: NextPage = () => {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -199,4 +199,4 @@ const Company: NextPage = () => {
   );
 };
 
-export default Company;
+export default CompanyPage;
