@@ -164,10 +164,7 @@ const WorkJobPage: NextPage = () => {
             property="og:description"
             content="How much does culture influence creative thinking?"
           />
-          <meta
-            property="og:image"
-            content={workJob.company.logo || "/company-default.svg"}
-          />
+          <meta property="og:image" content={"/company-default.svg"} />
         </Head>
         <main>
           <Container>
