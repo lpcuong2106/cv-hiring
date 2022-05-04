@@ -3,7 +3,6 @@ module.exports = {
   env: {
     URL_API: process.env.URL_API,
   },
-  exportTrailingSlash: true,
   reactStrictMode: true,
   images: {
     domains: [],
