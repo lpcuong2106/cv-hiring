@@ -26,7 +26,7 @@ Vui lòng liên hệ công ty để biết thêm thông tin chi tiết từ nhà
 <br>
 Chúc bạn may mắn!
 
-@component('mail::button', ['url' => '{{ config('app.url') }}/viec-lam/'. $job->slug])
+@component('mail::button', ['url' => config('app.url') . '/viec-lam/'. $job->slug])
 Xem vị trí đã ứng tuyển
 @endcomponent
 
