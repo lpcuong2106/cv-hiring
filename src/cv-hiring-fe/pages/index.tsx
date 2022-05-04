@@ -4,12 +4,8 @@ import Head from "next/head";
 import { Container } from "react-bootstrap";
 import Layout from "../components/layouts";
 import style from "./style.module.scss";
-import SalaryBanner from "./salary_banner.gif";
-import NguyenKimBanner from "./nguyenkim_banner.png";
-import NguyenKim2Banner from "./shoppe_banner.png";
-import BannerMobile from "./BannerMobile.jpg";
+
 import Image from "next/image";
-import Banner from "./banner.png";
 import classNames from "classnames";
 import { TopCompanyItem } from "../components/TopCompanyItem";
 import { useQuery } from "@apollo/client";
@@ -47,7 +43,7 @@ const Home: NextPage = () => {
             <Row>
               <Col md={24}>
                 <div className={style.blockSearchWrap}>
-                  <Image src={Banner} />
+                  <Image src={"/banner.png"} layout="fill" />
                 </div>
               </Col>
             </Row>
@@ -57,7 +53,7 @@ const Home: NextPage = () => {
               <Col md={12}>
                 <Carousel className={style.slide}>
                   <div className={style.slideItem}>
-                    <Image src={BannerMobile} />
+                    <Image src={"/BannerMobile.jpg"} layout="fill" />
                   </div>
                 </Carousel>
               </Col>
@@ -119,13 +115,25 @@ const Home: NextPage = () => {
               <Col md={24}>
                 <Carousel className={style.slide}>
                   <div className={style.slideItem}>
-                    <Image src={SalaryBanner} />
+                    <Image
+                      src={"/salary_banner.gif"}
+                      width={940}
+                      height={250}
+                    />
                   </div>
                   <div className={style.slideItem}>
-                    <Image src={NguyenKimBanner} />
+                    <Image
+                      src={"/nguyenkim_banner.png"}
+                      width={940}
+                      height={250}
+                    />
                   </div>
                   <div className={style.slideItem}>
-                    <Image src={NguyenKim2Banner} />
+                    <Image
+                      src={"/shoppe_banner.png"}
+                      width={940}
+                      height={250}
+                    />
                   </div>
                 </Carousel>
               </Col>
