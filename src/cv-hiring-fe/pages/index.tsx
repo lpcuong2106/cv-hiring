@@ -5,7 +5,6 @@ import { Container } from "react-bootstrap";
 import Layout from "../components/layouts";
 import style from "./style.module.scss";
 
-import Image from "next/image";
 import classNames from "classnames";
 import { TopCompanyItem } from "../components/TopCompanyItem";
 import { useQuery } from "@apollo/client";
@@ -115,17 +114,28 @@ const Home: NextPage = () => {
               <Col md={24}>
                 <Carousel className={style.slide}>
                   <div className={style.slideItem}>
-                    <img src={"/salary_banner.gif"} width={940} height={250} />
-                  </div>
-                  <div className={style.slideItem}>
                     <img
-                      src={"/nguyenkim_banner.png"}
+                      src={"/salary_banner.gif"}
+                      alt=""
                       width={940}
                       height={250}
                     />
                   </div>
                   <div className={style.slideItem}>
-                    <img src={"/shoppe_banner.png"} width={940} height={250} />
+                    <img
+                      src={"/nguyenkim_banner.png"}
+                      alt=""
+                      width={940}
+                      height={250}
+                    />
+                  </div>
+                  <div className={style.slideItem}>
+                    <img
+                      src={"/shoppe_banner.png"}
+                      alt=""
+                      width={940}
+                      height={250}
+                    />
                   </div>
                 </Carousel>
               </Col>
