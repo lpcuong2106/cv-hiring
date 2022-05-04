@@ -46,8 +46,9 @@ const Login = () => {
         dispatch(setLoggedIn(true));
         message.success(data.login.message);
         Router.push("/");
+      } else {
+        message.error(data.login.message);
       }
-      message.error(data.login.message);
     },
   });
 
