@@ -20,6 +20,10 @@ export const RedirectRules: IRedirectRules[] = [
     only: [RoleEnum.HR],
   },
   {
+    route: { path: "/quan-tri/cv" },
+    only: [RoleEnum.HR],
+  },
+  {
     route: { path: "/quan-tri/cai-dat" },
     only: [RoleEnum.ADMIN],
   },
