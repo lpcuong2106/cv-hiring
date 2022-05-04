@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             <Row>
               <Col md={24}>
                 <div className={style.blockSearchWrap}>
-                  <img src={"/banner.png"} placeholder="blur" />
+                  <img src={"/banner.png"} />
                 </div>
               </Col>
             </Row>
