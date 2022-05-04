@@ -72,7 +72,7 @@ function HeaderNav() {
             <Link href={"/"}>
               <a>
                 <img
-                  src={userLoggedIn.setting?.logo_url}
+                  src={userLoggedIn.setting?.logo_url ?? "/logo.png"}
                   alt={userLoggedIn.setting?.title_web}
                   title={userLoggedIn.setting?.title_web}
                   width={100}

@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             <Row>
               <Col md={24}>
                 <div className={style.blockSearchWrap}>
-                  <Image src={"/banner.png"} layout="fill" />
+                  <img src={"/banner.png"} placeholder="blur" />
                 </div>
               </Col>
             </Row>
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
               <Col md={12}>
                 <Carousel className={style.slide}>
                   <div className={style.slideItem}>
-                    <Image src={"/BannerMobile.jpg"} layout="fill" />
+                    <img src={"/BannerMobile.jpg"} />
                   </div>
                 </Carousel>
               </Col>
@@ -115,25 +115,17 @@ const Home: NextPage = () => {
               <Col md={24}>
                 <Carousel className={style.slide}>
                   <div className={style.slideItem}>
-                    <Image
-                      src={"/salary_banner.gif"}
-                      width={940}
-                      height={250}
-                    />
+                    <img src={"/salary_banner.gif"} width={940} height={250} />
                   </div>
                   <div className={style.slideItem}>
-                    <Image
+                    <img
                       src={"/nguyenkim_banner.png"}
                       width={940}
                       height={250}
                     />
                   </div>
                   <div className={style.slideItem}>
-                    <Image
-                      src={"/shoppe_banner.png"}
-                      width={940}
-                      height={250}
-                    />
+                    <img src={"/shoppe_banner.png"} width={940} height={250} />
                   </div>
                 </Carousel>
               </Col>

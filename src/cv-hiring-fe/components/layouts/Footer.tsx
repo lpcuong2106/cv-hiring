@@ -65,7 +65,7 @@ function Footer() {
               )}
             </div>
             <img
-              src={setting?.logo_url}
+              src={setting?.logo_url ?? "/logo.png"}
               alt={setting?.title_web}
               title={setting?.title_web}
               width={100}
