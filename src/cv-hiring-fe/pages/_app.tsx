@@ -14,7 +14,7 @@ import createUploadLink from "apollo-upload-client/public/createUploadLink.js";
 import { Provider } from "react-redux";
 import { store } from "../store/index";
 
-const httpLink = createUploadLink({ uri: "http://127.0.0.1:8000/graphql" });
+const httpLink = createUploadLink({ uri: `${process.env.URL_API}/graphql` });
 
 const authLink = new ApolloLink((operation, forward) => {
   // Retrieve the authorization token from local storage.
