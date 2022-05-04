@@ -154,6 +154,20 @@ const WorkJobPage: NextPage = () => {
       <div>
         <Head>
           <title>{workJob?.name} | Kết nối lao động việt | TimViec</title>
+          <meta property="og:url" content={window.location.href} />
+          <meta property="og:type" content="article" />
+          <meta
+            property="og:title"
+            content={`${workJob?.name} | Kết nối lao động việt | TimViec`}
+          />
+          <meta
+            property="og:description"
+            content="How much does culture influence creative thinking?"
+          />
+          <meta
+            property="og:image"
+            content={workJob.company.logo || "/company-default.svg"}
+          />
         </Head>
         <main>
           <Container>
