@@ -231,7 +231,7 @@ const ManageCV = () => {
             <a
               rel="noreferrer"
               target="_blank"
-              href={`http://localhost:8000/${record.cv_url.replace(
+              href={`${process.env.URL_API}/${record.cv_url.replace(
                 "public/",
                 "storage/"
               )}`}
