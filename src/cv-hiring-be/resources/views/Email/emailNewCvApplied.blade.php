@@ -7,7 +7,7 @@ Vui lòng truy cập vào quản trị để biết thêm chi tiết.
 <br>
 Trân trọng!
 
-@component('mail::button', ['url' => 'http://localhost:3000/viec-lam/'. $job->slug])
+@component('mail::button', ['url' => '{{ config('app.url') }}/viec-lam/'. $job->slug])
 Xem việc làm
 @endcomponent
 

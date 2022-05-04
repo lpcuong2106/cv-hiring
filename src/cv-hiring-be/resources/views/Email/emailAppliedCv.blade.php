@@ -7,7 +7,7 @@ Vui lòng đợi thông tin duyệt hồ sơ từ nhà tuyển dụng.
 <br>
 Chúc bạn may mắn!
 
-@component('mail::button', ['url' => 'http://localhost:3000/viec-lam/'. $job->slug])
+@component('mail::button', ['url' => '{{ config('app.url') }}/viec-lam/'. $job->slug])
 Xem vị trí đã ứng tuyển
 @endcomponent
 

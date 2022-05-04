@@ -7,7 +7,7 @@ Cám ơn bạn đã sử dụng dịch vụ của chúng tôi. Nếu có bất k
 <br>
 Chúc bạn may mắn!
 
-@component('mail::button', ['url' => 'http://localhost:3000/viec-lam/'. $job->slug])
+@component('mail::button', ['url' => '{{ config('app.url') }}/viec-lam/'. $job->slug])
 Xem vị trí đã hủy ứng tuyển
 @endcomponent
 
