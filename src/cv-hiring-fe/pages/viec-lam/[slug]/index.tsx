@@ -181,7 +181,7 @@ const WorkJobPage: NextPage = () => {
             <Row>
               <Col md={24}>
                 <div className={style.boxContent}>
-                  <div style={{ display: "flex" }}>
+                  <div className={style.insight}>
                     <div className={style.companyLogo}>
                       <img
                         src={workJob?.company.logo || "/company-default.svg"}
