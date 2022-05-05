@@ -68,7 +68,7 @@ function HeaderNav() {
     <Container>
       <header>
         <Row gutter={[16, 16]}>
-          <Col span={4}>
+          <Col span={4} md={4} sm={24} xs={24} className={styles.logoContainer}>
             <Link href={"/"}>
               <a>
                 <img
@@ -81,7 +81,7 @@ function HeaderNav() {
               </a>
             </Link>
           </Col>
-          <Col span={14}>
+          <Col span={14} sm={24} md={12} xs={24}>
             <Menu
               theme="light"
               mode="horizontal"
@@ -101,7 +101,7 @@ function HeaderNav() {
               </Menu.Item>
             </Menu>
           </Col>
-          <Col span={6}>
+          <Col sm={24} md={8} xs={24}>
             <Menu
               theme="light"
               mode="horizontal"

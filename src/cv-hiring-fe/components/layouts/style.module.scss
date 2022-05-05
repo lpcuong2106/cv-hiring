@@ -17,6 +17,9 @@
   height: 100%;
   display: flex;
   justify-content: flex-end;
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+  }
   li {
     &::after {
       border: none !important;
@@ -50,9 +53,19 @@
   height: 100vh;
   flex-direction: column;
 }
+.logoContainer {
+  @media (max-width: 768px) {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+  }
+}
 .logoImg {
   height: 46px;
   object-fit: cover;
+  @media (max-width: 576px) {
+    text-align: center;
+  }
 }
 .logoImageFooter {
   mix-blend-mode: darken;
