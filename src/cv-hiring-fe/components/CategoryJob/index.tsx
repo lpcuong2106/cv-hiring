@@ -22,7 +22,7 @@ export const CategoryJobList = ({ data, label, type }: Props) => {
       <ul className={style.listCarrier}>
         <Row>
           {data.map((item) => (
-            <Col md={8} key={parseInt(item.id.toString())}>
+            <Col md={8} sm={12} xs={24} key={parseInt(item.id.toString())}>
               <li>
                 <Link href={url + item.id}>
                   <a>

@@ -11,16 +11,16 @@ function Footer() {
     <footer className={style.footer}>
       <Container>
         <Row>
-          <Col span={8} md={8}>
+          <Col span={8} md={8} sm={12} xs={24}>
             <b>Về {setting?.title_web}</b>
             <p>{setting?.description}</p>
           </Col>
-          <Col md={4}></Col>
-          <Col span={6}>
+          <Col md={4} sm={12} xs={24}></Col>
+          <Col span={6} sm={12} xs={24}>
             <b>Liên hệ hỗ trợ/mua coin</b>
             <p>SĐT: {setting?.phone_contact}</p>
           </Col>
-          <Col span={6}>
+          <Col span={6} sm={12} xs={24}>
             <b>Kết nối với chúng tôi</b>
             <div className="flex">
               {setting?.fb_url && (
@@ -74,12 +74,12 @@ function Footer() {
           </Col>
 
           <hr />
-          <Col span={18}>
+          <Col span={18} sm={12} xs={24}>
             <p>
               ©2022 - <b>Le Phu Cuong B1805744</b>
             </p>
           </Col>
-          <Col span={6}></Col>
+          <Col span={6} sm={12} xs={24}></Col>
         </Row>
       </Container>
     </footer>

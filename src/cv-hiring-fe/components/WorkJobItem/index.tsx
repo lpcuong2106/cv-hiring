@@ -12,7 +12,7 @@ export const WorkJobItem = ({ companyTop }: Props) => {
   return (
     <Row className={style.topCompany}>
       {companyTop.map((company) => (
-        <Col md={8} key={company.id}>
+        <Col md={8} sm={12} xs={24} key={company.id}>
           <Link href={"/company/" + company.slug}>
             <a>
               <div className={style.companyBox}>

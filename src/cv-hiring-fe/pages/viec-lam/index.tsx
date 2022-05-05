@@ -60,7 +60,7 @@ const WorkJobs: NextPage = () => {
       page: page,
     });
   };
-  console.log(listJob);
+
   return (
     <Layout>
       <div>
@@ -86,14 +86,14 @@ const WorkJobs: NextPage = () => {
                   <div className={style.searchJob}></div>
 
                   <Row>
-                    <Col sm={6}>
+                    <Col lg={6} md={12} sm={24}>
                       <aside className={style.sidebarListJob}>
                         <h6>Tìm kiếm: </h6>
                         <SearchJobForm search={search} setSearch={setSearch} />
                       </aside>
                     </Col>
 
-                    <Col sm={18}>
+                    <Col lg={18} md={12} sm={24}>
                       {loading && <LoadingApp />}
                       {listJob && listJob.data.length > 0 && (
                         <>
@@ -127,6 +127,7 @@ const WorkJobs: NextPage = () => {
                             itemRender={itemRender}
                             className={style.pagination}
                             onChange={changePagination}
+                            showSizeChanger={false}
                           />
                         </>
                       )}

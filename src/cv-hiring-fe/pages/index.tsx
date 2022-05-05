@@ -49,14 +49,12 @@ const Home: NextPage = () => {
           </Container>
           <Container>
             <Row style={{ marginTop: "50px" }}>
-              <Col md={12}>
-                <Carousel className={style.slide}>
-                  <div className={style.slideItem}>
-                    <img src={"/BannerMobile.jpg"} />
-                  </div>
-                </Carousel>
+              <Col md={12} sm={24}>
+                <div className={style.bannerMobileImage}>
+                  <img src={"/BannerMobile.jpg"} />
+                </div>
               </Col>
-              <Col md={12}>
+              <Col md={12} sm={24}>
                 <div
                   className={classNames(
                     style.headerBoxList,
@@ -76,7 +74,7 @@ const Home: NextPage = () => {
                   </div>
                   <Row>
                     {data?.newWorkJob.map((job) => (
-                      <Col md={8} key={job.id}>
+                      <Col md={8} sm={12} xs={24} key={job.id}>
                         <NewWorkJobItem
                           companySlug={job.company.slug}
                           slug={job.slug}
@@ -117,7 +115,7 @@ const Home: NextPage = () => {
                     <img
                       src={"/salary_banner.gif"}
                       alt=""
-                      width={940}
+                      width={"100%"}
                       height={350}
                     />
                   </div>
@@ -125,7 +123,7 @@ const Home: NextPage = () => {
                     <img
                       src={"/nguyenkim_banner.png"}
                       alt=""
-                      width={940}
+                      width={"100%"}
                       height={350}
                     />
                   </div>
@@ -133,7 +131,7 @@ const Home: NextPage = () => {
                     <img
                       src={"/shoppe_banner.png"}
                       alt=""
-                      width={940}
+                      width={"100%"}
                       height={350}
                     />
                   </div>

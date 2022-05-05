@@ -4,6 +4,7 @@
     width: 100%;
     line-height: 160px;
     user-select: none;
+
     > span {
       width: 100% !important;
       height: 100% !important;
@@ -12,6 +13,12 @@
         object-fit: cover;
       }
     }
+  }
+}
+.bannerMobileImage {
+  > img {
+    max-width: 100%;
+    object-fit: cover;
   }
 }
 .blockSearchWrap {
