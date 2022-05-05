@@ -118,7 +118,7 @@ const Home: NextPage = () => {
                       src={"/salary_banner.gif"}
                       alt=""
                       width={940}
-                      height={250}
+                      height={350}
                     />
                   </div>
                   <div className={style.slideItem}>
@@ -126,7 +126,7 @@ const Home: NextPage = () => {
                       src={"/nguyenkim_banner.png"}
                       alt=""
                       width={940}
-                      height={250}
+                      height={350}
                     />
                   </div>
                   <div className={style.slideItem}>
@@ -134,7 +134,7 @@ const Home: NextPage = () => {
                       src={"/shoppe_banner.png"}
                       alt=""
                       width={940}
-                      height={250}
+                      height={350}
                     />
                   </div>
                 </Carousel>
