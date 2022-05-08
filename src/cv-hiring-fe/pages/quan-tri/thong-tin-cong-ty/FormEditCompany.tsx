@@ -90,6 +90,7 @@ const FormEditCompany = ({
           placeholder="Mô tả công ty"
           //   @ts-ignore
           value={formikProps.values.description}
+          maxLength={1000}
         />
       </Col>
       <Col md={8}>

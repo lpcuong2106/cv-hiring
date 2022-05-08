@@ -123,10 +123,10 @@ function AdminInput(props: Props) {
           <Input.TextArea
             size="large"
             {...field}
-            {...props}
             showCount
             maxLength={100}
             className={style.inputControl}
+            {...props}
           />
         )}
         {props.mode === "file" && (
