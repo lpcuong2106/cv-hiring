@@ -63,6 +63,7 @@
 .logoImg {
   height: 46px;
   object-fit: cover;
+  width: auto;
   @media (max-width: 576px) {
     text-align: center;
   }
