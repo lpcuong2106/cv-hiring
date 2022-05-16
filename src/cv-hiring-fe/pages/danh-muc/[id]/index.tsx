@@ -93,6 +93,7 @@ const CategoryList: NextPage = () => {
                               title={job.name}
                               logoUrl={job.company.logo}
                               updatedAt={job.updated_at}
+                              avgReview={job.company.avgReview}
                             />
                           ))}
                           <Pagination

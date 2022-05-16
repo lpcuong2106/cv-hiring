@@ -183,6 +183,7 @@ export const FETCH_WORK_JOB_CATEGORY = gql`
           name
           slug
           logo
+          avgReview
         }
         work_category {
           name
