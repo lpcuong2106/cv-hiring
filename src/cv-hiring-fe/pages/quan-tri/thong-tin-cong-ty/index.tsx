@@ -28,8 +28,8 @@ export const validationSchemaCompany = Yup.object().shape({
     .required("Mô tả công ty là bắt buộc")
     .typeError("Mô tả công ty là bắt buộc"),
   amount_employee: Yup.string().nullable(),
-  website: Yup.string(),
-  fanpage: Yup.string(),
+  website: Yup.string().nullable(),
+  fanpage: Yup.string().nullable(),
   address: Yup.string(),
   gg_map: Yup.string(),
   logo: Yup.mixed().required("Vui lòng upload logo"),

@@ -28,7 +28,6 @@ function JobItem({
   slug,
   avgReview,
 }: Props) {
-  console.log(updatedAt);
   return (
     <div className={style.jobItem}>
       <div className={style.avatar}>

@@ -196,8 +196,8 @@ export const FETCH_WORK_JOB_CATEGORY = gql`
   }
 `;
 export const FETCH_USER_APPLIED_JOB = gql`
-  query fetch_user_appied_job($userId: ID!) {
-    workJobAppliedByUser(userId: $userId) {
+  query fetch_user_appied_job($userId: ID!, $page: Int!) {
+    workJobAppliedByUser(userId: $userId, page: $page) {
       paginatorInfo {
         count
         currentPage

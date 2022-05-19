@@ -21,10 +21,15 @@ interface DataQuery {
 }
 function AppliedCVTable() {
   const userLoggedIn = useAppSelector((state) => state.user);
+  const [search, setSearch] = useState({
+    page: 1,
+  });
+
   const { data, loading, refetch } = useQuery<DataQuery>(
     FETCH_USER_APPLIED_JOB,
     {
       variables: {
+        page: search.page,
         userId: userLoggedIn?.user?.id,
       },
       skip: !userLoggedIn?.user?.id,
@@ -199,6 +204,12 @@ function AppliedCVTable() {
       },
     },
   ];
+  const handleChangePaginate = (page: number) => {
+    setSearch({
+      ...search,
+      page: page,
+    });
+  };
 
   const handleCancelAppliedCv = async (id: number) => {
     setCancelWorkJobId(id);
@@ -230,6 +241,7 @@ function AppliedCVTable() {
         pagination={{
           current: workJobsApplied.paginatorInfo.currentPage,
           total: workJobsApplied.paginatorInfo.total,
+          onChange: handleChangePaginate,
         }}
       />
     </div>

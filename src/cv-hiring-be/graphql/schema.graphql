@@ -28,7 +28,7 @@ type Query {
     companyDetail(slug: String @eq, id: ID @eq): Company @find
     companyReview(slug: String, page: Int): ReviewPaginator
     workJobHiringOfCompany(companyId: ID!): [WorkJob!]!
-    workJobAppliedByUser(userId: ID!): WorkAppliedPaginator @guard
+    workJobAppliedByUser(userId: ID!, page: Int): WorkAppliedPaginator @guard
     workJobOfProvince(provinceId: ID!, page: Int): WorkJobPaginator
     newWorkJob(amount: Int!): [WorkJob!]!
     getWorkJobBySlug(slug: String! @eq): WorkJob @find
