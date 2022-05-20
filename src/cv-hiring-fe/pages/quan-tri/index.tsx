@@ -74,7 +74,7 @@ const ManageDashboard = () => {
                         />
                       </Card>
                     </Col>
-                    <Col md={12}>
+                    {/* <Col md={12}>
                       <Card className={style.blockStatistic}>
                         <Statistic
                           title="CV đã nhận"
@@ -82,7 +82,7 @@ const ManageDashboard = () => {
                           valueStyle={{ color: "#3f8600" }}
                         />
                       </Card>
-                    </Col>
+                    </Col> */}
                   </Row>
                 </Card>
               </Col>

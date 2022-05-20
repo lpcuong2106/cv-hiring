@@ -23,6 +23,8 @@ export const FETCH_WORKJOB_QUERY = gql`
       expired_date_hiring
       description
       amount_hiring
+      requirement
+      benefit
       requirement_gender
       requirement_exp
       requirement_age

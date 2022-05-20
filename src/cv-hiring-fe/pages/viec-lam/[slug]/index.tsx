@@ -311,6 +311,14 @@ const WorkJobPage: NextPage = () => {
                         <h6>Mô tả công việc</h6>
                         <div>{workJob?.description}</div>
                       </div>
+                      <div className={style.detailJob}>
+                        <h6>Yêu cầu công việc</h6>
+                        <div>{workJob?.requirement}</div>
+                      </div>
+                      <div className={style.detailJob}>
+                        <h6>Quyền lợi của ứng viên</h6>
+                        <div>{workJob?.benefit}</div>
+                      </div>
                     </div>
                   </TabPane>
                   <TabPane tab="Công ty" key="2">
